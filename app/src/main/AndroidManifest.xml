@@ -9,8 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TheServicesApp">
-        <activity android:name=".CreateAdActivity"></activity>
-        <activity android:name=".ChooseTypeActivity">
+        <activity android:name=".ChooseTypeActivity"></activity>
+        <activity android:name=".CreateAdActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

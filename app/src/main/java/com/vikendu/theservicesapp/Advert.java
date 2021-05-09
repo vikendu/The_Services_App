@@ -32,7 +32,7 @@ public class Advert {
     }
 
     public String getAdPrice() {
-        return adPrice;
+        return "₹ "+adPrice;
     }
 
     public void setAdPrice(String adPrice) {
