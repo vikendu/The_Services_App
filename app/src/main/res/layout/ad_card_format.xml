@@ -28,7 +28,7 @@
 
         <!--Text View to display Course Name-->
         <TextView
-            android:id="@+id/idTVCourseName"
+            android:id="@+id/idAdTagLine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -43,10 +43,10 @@
         <!--Text VIew to display COurse Rating-->
         <!--Image used in present in drawable folder-->
         <TextView
-            android:id="@+id/idTVCourseRating"
+            android:id="@+id/idAdDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/idTVCourseName"
+            android:layout_below="@id/idAdTagLine"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:layout_toEndOf="@id/idIVCourseImage"
@@ -56,7 +56,7 @@
             android:id="@+id/idAdPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/idTVCourseRating"
+            android:layout_below="@id/idAdDesc"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@id/idIVCourseImage"
