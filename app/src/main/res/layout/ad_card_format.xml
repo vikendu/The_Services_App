@@ -18,7 +18,7 @@
 
         <!--ImageVIew to display our Course Image-->
         <ImageView
-            android:id="@+id/idIVCourseImage"
+            android:id="@+id/idAdCategoryImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="10dp"
@@ -32,13 +32,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_toEndOf="@id/idIVCourseImage"
+            android:layout_marginTop="13dp"
+            android:layout_toEndOf="@id/idAdCategoryImage"
             android:text="@string/ad_tagline"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/idAdCategoryImage" />
 
         <!--Text VIew to display COurse Rating-->
         <!--Image used in present in drawable folder-->
@@ -48,20 +49,49 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/idAdTagLine"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_toEndOf="@id/idIVCourseImage"
+            android:layout_marginTop="4dp"
+            android:layout_toEndOf="@id/idAdCategoryImage"
             android:drawablePadding="2dp"
-            android:text="@string/ad_description" />
+            android:text="@string/ad_description"
+            android:layout_toRightOf="@id/idAdCategoryImage"
+            android:layout_marginLeft="10dp" />
         <TextView
             android:id="@+id/idAdPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/idAdDesc"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_toEndOf="@id/idIVCourseImage"
+            android:layout_marginTop="4dp"
+            android:layout_toEndOf="@id/idAdCategoryImage"
             android:drawablePadding="2dp"
-            android:text="@string/ad_price" />
+            android:text="@string/ad_price"
+            android:layout_toRightOf="@id/idAdCategoryImage"
+            android:layout_marginLeft="10dp" />
+
+        <ImageView
+            android:id="@+id/idStarRatingImage"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            app:srcCompat="@drawable/outline_star_black_48"
+            android:layout_below="@id/idAdPrice"
+            android:layout_toRightOf="@id/idAdCategoryImage"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="4dp"
+            android:contentDescription="@string/star_image"
+            android:layout_toEndOf="@id/idAdCategoryImage"
+            android:layout_marginStart="10dp" />
+
+        <TextView
+            android:id="@+id/idProviderRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/idAdPrice"
+            android:layout_toRightOf="@id/idStarRatingImage"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/providers_rating"
+            android:layout_toEndOf="@id/idStarRatingImage"
+            android:layout_marginStart="5dp" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

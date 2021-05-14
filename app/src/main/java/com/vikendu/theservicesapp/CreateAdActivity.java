@@ -22,7 +22,7 @@ public class CreateAdActivity extends AppCompatActivity {
 
         advertArrayList = new ArrayList<Advert>();
 
-        advertArrayList.add(new Advert("Category", "TagLine Sample", "I will mend stuff", "900"));
+        advertArrayList.add(new Advert("Category", "Free Diagnosis!", "I will mend electrical stuff", "900", 3.5f));
         AdCardAdapter adCardAdapter = new AdCardAdapter(this, advertArrayList);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);

@@ -35,6 +35,7 @@ public class AdCardAdapter extends RecyclerView.Adapter<AdCardAdapter.Viewholder
         holder.adTagLine.setText(model.getTagLine());
         holder.adDesc.setText(model.getAdDescription());
         holder.adPrice.setText(model.getAdPrice());
+        holder.providersRating.setText(Float.toString(model.getProvidersRating()));
     }
 
     @Override
@@ -42,13 +43,14 @@ public class AdCardAdapter extends RecyclerView.Adapter<AdCardAdapter.Viewholder
         return advertArrayList.size();
     }
     public class Viewholder extends RecyclerView.ViewHolder {
-        private TextView adTagLine, adDesc, adPrice;
+        private TextView adTagLine, adDesc, adPrice, providersRating;
 
         public Viewholder(@NonNull View itemView) {
             super(itemView);
             adTagLine = itemView.findViewById(R.id.idAdTagLine);
             adDesc = itemView.findViewById((R.id.idAdDesc));
             adPrice = itemView.findViewById((R.id.idAdPrice));
+            providersRating = itemView.findViewById(R.id.idProviderRating);
         }
     }
 }
