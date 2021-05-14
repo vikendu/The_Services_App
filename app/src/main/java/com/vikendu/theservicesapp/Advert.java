@@ -6,6 +6,7 @@ public class Advert {
     private String tagLine;
     private String adDescription;
     private String adPrice;
+    private float providersRating;
 
     public String getCategory() {
         return category;
@@ -39,14 +40,19 @@ public class Advert {
         this.adPrice = adPrice;
     }
 
-    public Advert(String category,String tagLine, String adDescription, String adPrice){
+    public float getProvidersRating() {
+        return providersRating;
+    }
 
+    public void setProvidersRating(float providersRating) {
+        this.providersRating = providersRating;
+    }
+
+    public Advert(String category, String tagLine, String adDescription, String adPrice, float providersRating){
         this.category = category;
         this.tagLine = tagLine;
         this.adDescription = adDescription;
         this.adPrice = adPrice;
+        this.providersRating = providersRating;
     }
-
-
-
 }
