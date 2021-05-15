@@ -17,7 +17,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!--ImageVIew to display our Course Image-->
         <ImageView
             android:id="@+id/idAdCategoryImage"
             android:layout_width="100dp"
@@ -27,7 +26,6 @@
             android:padding="5dp"
             android:src="@drawable/sample_ad_icon_background" />
 
-        <!--Text View to display Course Name-->
         <TextView
             android:id="@+id/idAdTagLine"
             android:layout_width="match_parent"
@@ -42,8 +40,6 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/idAdCategoryImage" />
 
-        <!--Text VIew to display COurse Rating-->
-        <!--Image used in present in drawable folder-->
         <TextView
             android:id="@+id/idAdDesc"
             android:layout_width="match_parent"
@@ -56,6 +52,7 @@
             android:text="@string/ad_description"
             android:layout_toRightOf="@id/idAdCategoryImage"
             android:layout_marginLeft="10dp" />
+
         <TextView
             android:id="@+id/idAdPrice"
             android:layout_width="match_parent"
