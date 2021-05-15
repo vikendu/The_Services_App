@@ -4,19 +4,24 @@
     <string name="i_will_be_providing_services">I will be providing services</string>
     <string name="i_will_be_using_the_services">I will be using the services</string>
     <string name="copyright_text">©2021 Vikendu Singh, Jodhpur</string>
-    
+
     <string name="title_activity_ad_scrolling">ScrollingActivity</string>
     <string name="action_settings">Settings</string>
-    
+
     <string name="ad_tagline">Loading Tagline...</string>
     <string name="ad_description">Loading Desc...</string>
     <string name="ad_price">Loading Price...</string>
     <string name="star_image">Image of a star</string>
     <string name="providers_rating">Loading rating...</string>
-    
+
     <string name="ad_creation_tagline_input">Enter a Tagline</string>
     <string name="ad_creation_price_input">Enter your price</string>
     <string name="ad_creation_desc_input">Enter your Ad description</string>
     <string name="ad_creation_preview_button">Preview</string>
     <string name="ad_creation_submit_button">Submit</string>
+
+    <string name="ad_creation_floating">Ad creation button</string>
+    <string name="submitted_ads">All the submitted ads</string>
+    <string name="awaiting_approval">All the ads that have not been approved</string>
+    <string name="ad_creating_tool_btn">Ad creation tool from here</string>
 </resources>
