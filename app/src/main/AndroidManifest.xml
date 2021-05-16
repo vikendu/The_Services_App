@@ -9,11 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TheServicesApp">
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".CreateAdActivity"></activity>
         <activity android:name=".ProvidersHomeActivity" />
-        <activity android:name=".AdCreationTool" />
+        <activity android:name=".AdCreationActivity" />
         <activity android:name=".ChooseTypeActivity" />
-        <activity android:name=".CreateAdActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
