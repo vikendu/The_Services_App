@@ -27,9 +27,6 @@ import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    public static final String CHAT_PREFS = "ChatPrefs";
-    public static final String DISPLAY_NAME_KEY = "username";
-
     private AutoCompleteTextView mEmailView;
     private AutoCompleteTextView mUsernameView;
     private EditText mPasswordView;
