@@ -2,6 +2,7 @@ package com.vikendu.theservicesapp;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -69,10 +70,9 @@ public class LoginActivity extends AppCompatActivity {
     }
     // Executed when Register button pressed
     public void registerNewUser(View v) {
-        // TODO: put the explicit intent to go to the RegisterActivity.java here
-//        Intent intent = new Intent(this, com.vikendu.theservicesapp.RegisterActivity.class);
-//        finish();
-//        startActivity(intent);
+        Intent intent = new Intent(this, com.vikendu.theservicesapp.RegisterActivity.class);
+        finish();
+        startActivity(intent);
     }
 
     private void attemptLogin() {
