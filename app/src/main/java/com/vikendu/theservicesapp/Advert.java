@@ -2,19 +2,13 @@ package com.vikendu.theservicesapp;
 
 public class Advert {
 
-    private String category;
+    private String category0;
+    private String category1;
     private String tagLine;
     private String adDescription;
     private String adPrice;
-    private float providersRating;
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
+    private boolean approval;
+    private boolean isLive;
 
     public String getTagLine() {
         return tagLine;
@@ -33,26 +27,52 @@ public class Advert {
     }
 
     public String getAdPrice() {
-        return "₹ "+adPrice;
+        return adPrice;
     }
 
     public void setAdPrice(String adPrice) {
         this.adPrice = adPrice;
     }
 
-    public float getProvidersRating() {
-        return providersRating;
+    public String getCategory0() {
+        return category0;
     }
 
-    public void setProvidersRating(float providersRating) {
-        this.providersRating = providersRating;
+    public void setCategory0(String category0) {
+        this.category0 = category0;
     }
 
-    public Advert(String category, String tagLine, String adDescription, String adPrice, float providersRating){
-        this.category = category;
+    public String getCategory1() {
+        return category1;
+    }
+
+    public void setCategory1(String category1) {
+        this.category1 = category1;
+    }
+
+    public boolean isApproval() {
+        return approval;
+    }
+
+    public void setApproval(boolean approval) {
+        this.approval = approval;
+    }
+
+    public boolean isLive() {
+        return isLive;
+    }
+
+    public void setLive(boolean live) {
+        isLive = live;
+    }
+
+    public Advert(String category0, String category1, String tagLine, String adDescription, String adPrice, boolean approval, boolean isLive) {
+        this.category0 = category0;
+        this.category1 = category1;
         this.tagLine = tagLine;
         this.adDescription = adDescription;
         this.adPrice = adPrice;
-        this.providersRating = providersRating;
+        this.approval = approval;
+        this.isLive = isLive;
     }
 }
