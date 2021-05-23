@@ -26,10 +26,13 @@ public class AdCreationActivity extends AppCompatActivity {
     private TextView adPricePreview;
     private TextView adStarRatingPreview;
 
-    private DatabaseReference mDatabase;
+    private DatabaseReference mDatabaseProviderRef;
+    private DatabaseReference mDatabaseAdvertRef;
     private FirebaseUser mFirebaseuser;
 
-    private double rating;
+    private String rating;
+    private String adCount;
+    private String uid;
 
 
     @Override
@@ -38,7 +41,8 @@ public class AdCreationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ad_creation_tool);
 
         mFirebaseuser = FirebaseAuth.getInstance().getCurrentUser();
-        mDatabase = FirebaseDatabase.getInstance("https://the-services-app-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("providers");
+        mDatabaseProviderRef = FirebaseDatabase.getInstance("https://the-services-app-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("providers");
+        mDatabaseAdvertRef = FirebaseDatabase.getInstance("https://the-services-app-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("adverts");
 
         mTagLine = findViewById(R.id.idAdCreationTaglineInput);
         mAdDescription = findViewById(R.id.idAdCreationDescInput);
@@ -48,27 +52,38 @@ public class AdCreationActivity extends AppCompatActivity {
         adDescriptionPreview = findViewById(R.id.idAdDesc);
         adPricePreview = findViewById(R.id.idAdPrice);
         adStarRatingPreview = findViewById(R.id.idProviderRating);
+
+        if(mFirebaseuser != null){
+            uid = mFirebaseuser.getUid();
+        }
+        getStarRating(value -> rating = value);
+        getAdCount(value -> adCount = value);
     }
 
-    //TODO: since this BS returns wrong value on the first try -> if taking it off Main doesn't work put it in onCreate()
-    private double getStarRating(FirebaseUser user){
-        String uid;
-        if (user != null) {
-            uid = user.getUid();
-            //TODO: Do the following away from the Main thread
-            mDatabase.child(uid).child("rating").get().addOnCompleteListener(task -> {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                } else {
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                    rating = (double) task.getResult().getValue();
-                }
-            });
-        } else {
-            //TODO: Create an alert dialog telling the MF to log in
-            //(user != null) tells us the mf is logged in
-        }
-        return rating;
+    private void getStarRating(FirebaseCallback callback){
+        //Get what the rating of the guy is
+        //TODO: This needs to be a ValueListener; currently it id updating only with onCreate() once
+        mDatabaseProviderRef.child(uid).child("rating").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting data", task.getException());
+            } else {
+                Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                callback.onCallBack(String.valueOf(task.getResult().getValue()));
+            }
+        });
+    }
+
+    private void getAdCount(FirebaseCallback callback){
+        //Get how many ads the current guy has already uploaded
+        //TODO: This needs to be a ValueListener; currently it id updating only with onCreate() once
+        mDatabaseProviderRef.child(uid).child("adCount").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting data", task.getException());
+            } else {
+                Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                callback.onCallBack(String.valueOf(task.getResult().getValue()));
+            }
+        });
     }
 
     public void showAdPreview(View view) {
@@ -77,7 +92,7 @@ public class AdCreationActivity extends AppCompatActivity {
         adTagLinePreview.setText(getString(mTagLine));
         adDescriptionPreview.setText(getString(mAdDescription));
         adPricePreview.setText(getString(mPaisa));
-        adStarRatingPreview.setText(Double.toString(getStarRating(mFirebaseuser)));
+        adStarRatingPreview.setText(rating);
     }
 
     private void hideKeyBoard(Context context, TextView textView) {
@@ -91,5 +106,15 @@ public class AdCreationActivity extends AppCompatActivity {
     }
 
     public void submitForApproval(View view) {
+        hideKeyBoard(this, mPaisa);
+
+        int adCountInt = Integer.parseInt(adCount.trim());
+        Advert ad = new Advert("default", "default", getString(mTagLine),
+                getString(mAdDescription), getString(mPaisa), false, false);
+
+        if(adCountInt < 5){
+            mDatabaseAdvertRef.child(uid).child("ad"+adCountInt+1).setValue(ad);
+            mDatabaseProviderRef.child(uid).child("adCount").setValue(adCountInt+1);
+        }
     }
 }

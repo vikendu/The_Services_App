@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public class AdCardAdapter extends RecyclerView.Adapter<AdCardAdapter.Viewholder> {
 
+    // TODO: This whole file needs to be rewritten according to the new Advert.java
     private Context context;
     private ArrayList<Advert> advertArrayList;
 
@@ -35,7 +36,7 @@ public class AdCardAdapter extends RecyclerView.Adapter<AdCardAdapter.Viewholder
         holder.adTagLine.setText(model.getTagLine());
         holder.adDesc.setText(model.getAdDescription());
         holder.adPrice.setText(model.getAdPrice());
-        holder.providersRating.setText(Float.toString(model.getProvidersRating()));
+        //holder.providersRating.setText(Float.toString(model.getProvidersRating()));
     }
 
     @Override
