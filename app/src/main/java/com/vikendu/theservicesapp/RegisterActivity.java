@@ -19,7 +19,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -30,7 +29,6 @@ import java.util.regex.Pattern;
 public class RegisterActivity extends AppCompatActivity {
 
     private AutoCompleteTextView mEmailView;
-    private AutoCompleteTextView mUsernameView;
     private AutoCompleteTextView mFirstName;
     private AutoCompleteTextView mLastName;
     private EditText mPasswordView;
@@ -38,7 +36,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
-    private DatabaseReference mDatabaseRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +45,6 @@ public class RegisterActivity extends AppCompatActivity {
         mEmailView = findViewById(R.id.register_email);
         mPasswordView = findViewById(R.id.register_password);
         mConfirmPasswordView = findViewById(R.id.register_confirm_password);
-        mUsernameView = findViewById(R.id.register_username);
         mFirstName = findViewById(R.id.idFirstName);
         mLastName = findViewById(R.id.idLastName);
 
@@ -104,7 +100,6 @@ public class RegisterActivity extends AppCompatActivity {
             focusView.requestFocus();
         } else {
             createNewUser();
-
         }
     }
 
@@ -140,7 +135,7 @@ public class RegisterActivity extends AppCompatActivity {
         pdLoading.show();
 
         executor.execute(() -> {
-            String email = mEmailView.getText().toString();
+            String email = autoCompleteToString(mEmailView);
             String password = mPasswordView.getText().toString();
 
             mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this, task -> {
@@ -150,11 +145,10 @@ public class RegisterActivity extends AppCompatActivity {
                     Log.d("Register", "User Reg Failed");
                     showRegistrationFailed();
                 } else {
-                    ServiceProvider provider = new ServiceProvider(0, autoCompleteToString(mFirstName),
-                            autoCompleteToString(mLastName), 0.0f, autoCompleteToString(mUsernameView),
-                            autoCompleteToString(mEmailView));
-                    mDatabaseRef = database.getReference("providers");
-                    mDatabaseRef.child(autoCompleteToString(mUsernameView)).setValue(provider);
+                    FirebaseUser user = task.getResult().getUser();
+                    String uid = user.getUid();
+
+                    createDatabaseEntry(uid);
 
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(intent);
@@ -167,6 +161,15 @@ public class RegisterActivity extends AppCompatActivity {
 
     private String autoCompleteToString(AutoCompleteTextView acTextView){
         return acTextView.getText().toString();
+    }
+
+    private void createDatabaseEntry(String userId){
+        // Input a ServiceProvider Object as proof of registration in the database
+        ServiceProvider provider = new ServiceProvider(0, autoCompleteToString(mFirstName),
+                autoCompleteToString(mLastName), 1.0, autoCompleteToString(mEmailView));
+
+        DatabaseReference mDatabaseRef = database.getReference("providers");
+        mDatabaseRef.child(userId).setValue(provider);
     }
 
     private void showRegistrationFailed() {

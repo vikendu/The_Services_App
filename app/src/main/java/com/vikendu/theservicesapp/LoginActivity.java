@@ -48,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if(loginPref.getBoolean("logged",false)){
             // TODO: put the function goTo<NameOfActivity>Activity() here
+            goToAdCreationTool();
         }
 
         dialogClickListener = (dialog, which) -> {
@@ -56,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     loginPref.edit().putBoolean("logged",true).apply();
                     // TODO: put the function goTo<NameOfActivity>Activity() here
+                    goToAdCreationTool();
                     break;
 
                 case DialogInterface.BUTTON_NEGATIVE:
@@ -70,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     // Executed when Register button pressed
     public void registerNewUser(View v) {
-        Intent intent = new Intent(this, com.vikendu.theservicesapp.RegisterActivity.class);
+        Intent intent = new Intent(this, RegisterActivity.class);
         finish();
         startActivity(intent);
     }
@@ -100,12 +102,12 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
     // TODO: rebuild the following function to redirect the user to the correct activity
-//    private void goTo<NameOfActivity>Activity()
-//    {
-//        Intent intent = new Intent(LoginActivity.this, MainChatActivity.class);
-//        finish();
-//        startActivity(intent);
-//    }
+    private void goToAdCreationTool()
+    {
+        Intent intent = new Intent(LoginActivity.this, AdCreationActivity.class);
+        finish();
+        startActivity(intent);
+    }
     private void showLoginFailed(String message) {
         new AlertDialog.Builder(this)
                 .setTitle("Error Logging in...")
