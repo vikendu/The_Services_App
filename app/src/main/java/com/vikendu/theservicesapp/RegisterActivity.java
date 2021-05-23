@@ -20,6 +20,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -29,10 +31,14 @@ public class RegisterActivity extends AppCompatActivity {
 
     private AutoCompleteTextView mEmailView;
     private AutoCompleteTextView mUsernameView;
+    private AutoCompleteTextView mFirstName;
+    private AutoCompleteTextView mLastName;
     private EditText mPasswordView;
     private EditText mConfirmPasswordView;
 
     private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference mDatabaseRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +49,10 @@ public class RegisterActivity extends AppCompatActivity {
         mPasswordView = findViewById(R.id.register_password);
         mConfirmPasswordView = findViewById(R.id.register_confirm_password);
         mUsernameView = findViewById(R.id.register_username);
+        mFirstName = findViewById(R.id.idFirstName);
+        mLastName = findViewById(R.id.idLastName);
 
+        database = FirebaseDatabase.getInstance("https://the-services-app-default-rtdb.asia-southeast1.firebasedatabase.app/");
         //Keyboard sign in action
         mConfirmPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
             if (id == R.integer.register_form_finished || id == EditorInfo.IME_NULL) {
@@ -139,10 +148,14 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if(!task.isSuccessful()) {
                     Log.d("Register", "User Reg Failed");
-
                     showRegistrationFailed();
                 } else {
-                    saveUsername();
+                    ServiceProvider provider = new ServiceProvider(0, autoCompleteToString(mFirstName),
+                            autoCompleteToString(mLastName), 0.0f, autoCompleteToString(mUsernameView),
+                            autoCompleteToString(mEmailView));
+                    mDatabaseRef = database.getReference("providers");
+                    mDatabaseRef.child(autoCompleteToString(mUsernameView)).setValue(provider);
+
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
@@ -152,23 +165,8 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void saveUsername() {
-
-        FirebaseUser user = mAuth.getCurrentUser();
-        String display_name = mUsernameView.getText().toString();
-
-        if (user !=null) {
-            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                    .setDisplayName(display_name)
-                    .build();
-
-            user.updateProfile(profileUpdates)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            Log.d("FlashChat", "User name updated.");
-                        }
-                    });
-        }
+    private String autoCompleteToString(AutoCompleteTextView acTextView){
+        return acTextView.getText().toString();
     }
 
     private void showRegistrationFailed() {
