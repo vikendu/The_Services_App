@@ -51,7 +51,8 @@
         android:text="@string/ad_creation_preview_button"
         app:layout_constraintEnd_toStartOf="@+id/idAdCreationSubmitBtn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idAdCreationPriceInput" />
+        app:layout_constraintTop_toBottomOf="@+id/idAdCreationPriceInput"
+        android:onClick="showAdPreview"/>
 
     <Button
         android:id="@+id/idAdCreationSubmitBtn"
@@ -63,7 +64,8 @@
         android:text="@string/ad_creation_submit_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/idAdCreationPreviewBtn"
-        app:layout_constraintTop_toBottomOf="@+id/idAdCreationPriceInput" />
+        app:layout_constraintTop_toBottomOf="@+id/idAdCreationPriceInput"
+        android:onClick="submitForApproval"/>
 
     <include
         android:id="@+id/include"

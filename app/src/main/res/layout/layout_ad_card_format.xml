@@ -36,22 +36,19 @@
             android:text="@string/ad_tagline"
             android:textColor="@color/black"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/idAdCategoryImage" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/idAdDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/idAdTagLine"
+            android:textColor="@color/black"
             android:layout_marginStart="10dp"
             android:layout_marginTop="4dp"
             android:layout_toEndOf="@id/idAdCategoryImage"
             android:drawablePadding="2dp"
-            android:text="@string/ad_description"
-            android:layout_toRightOf="@id/idAdCategoryImage"
-            android:layout_marginLeft="10dp" />
+            android:text="@string/ad_description" />
 
         <TextView
             android:id="@+id/idAdPrice"
@@ -60,11 +57,10 @@
             android:layout_below="@id/idAdDesc"
             android:layout_marginStart="10dp"
             android:layout_marginTop="4dp"
+            android:textColor="@color/black"
             android:layout_toEndOf="@id/idAdCategoryImage"
             android:drawablePadding="2dp"
-            android:text="@string/ad_price"
-            android:layout_toRightOf="@id/idAdCategoryImage"
-            android:layout_marginLeft="10dp" />
+            android:text="@string/ad_price" />
 
         <ImageView
             android:id="@+id/idStarRatingImage"
@@ -72,8 +68,6 @@
             android:layout_height="18dp"
             app:srcCompat="@drawable/outline_star_black_48"
             android:layout_below="@id/idAdPrice"
-            android:layout_toRightOf="@id/idAdCategoryImage"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="4dp"
             android:contentDescription="@string/star_image"
             android:layout_toEndOf="@id/idAdCategoryImage"
@@ -84,10 +78,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/idAdPrice"
-            android:layout_toRightOf="@id/idStarRatingImage"
-            android:layout_marginLeft="5dp"
             android:layout_marginTop="4dp"
             android:text="@string/providers_rating"
+            android:textColor="@color/black"
             android:layout_toEndOf="@id/idStarRatingImage"
             android:layout_marginStart="5dp" />
 
