@@ -29,11 +29,11 @@ public class AdCreationActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseProviderRef;
     private DatabaseReference mDatabaseAdvertRef;
     private FirebaseUser mFirebaseuser;
+    //TODO: Add a variable of ServiceProvider class & store the value returned by the callback.
 
     private String rating;
     private String adCount;
     private String uid;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,19 +53,26 @@ public class AdCreationActivity extends AppCompatActivity {
         adPricePreview = findViewById(R.id.idAdPrice);
         adStarRatingPreview = findViewById(R.id.idProviderRating);
 
-        if(mFirebaseuser != null){
+        if(mFirebaseuser != null) {
             uid = mFirebaseuser.getUid();
+        } else {
+            //TODO: tell the user that something went wrong & Log them out
         }
+        //TODO: 2 Separate functions aren't required. The object returned should be used for both values.
         getStarRating(value -> rating = value);
         getAdCount(value -> adCount = value);
     }
 
-    private void getStarRating(FirebaseCallback callback){
+    private void checkForEmptyFields() {
+        // TODO: Check if any fields have been left empty or not.
+    }
+
+    private void getStarRating(ServiceProviderCallback callback) {
         //Get what the rating of the guy is
-        //TODO: This needs to be a ValueListener; currently it id updating only with onCreate() once
+        //TODO: This needs to be a ValueListener; currently it is updating only with onCreate() once
         mDatabaseProviderRef.child(uid).child("rating").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
-                Log.e("firebase", "Error getting data", task.getException());
+                Log.d("firebase", "Error getting data", task.getException());
             } else {
                 Log.d("firebase", String.valueOf(task.getResult().getValue()));
                 callback.onCallBack(String.valueOf(task.getResult().getValue()));
@@ -73,12 +80,12 @@ public class AdCreationActivity extends AppCompatActivity {
         });
     }
 
-    private void getAdCount(FirebaseCallback callback){
+    private void getAdCount(ServiceProviderCallback callback) {
         //Get how many ads the current guy has already uploaded
-        //TODO: This needs to be a ValueListener; currently it id updating only with onCreate() once
+        //TODO: This needs to be a ValueListener; currently it is updating only with onCreate() once
         mDatabaseProviderRef.child(uid).child("adCount").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
-                Log.e("firebase", "Error getting data", task.getException());
+                Log.d("firebase", "Error getting data", task.getException());
             } else {
                 Log.d("firebase", String.valueOf(task.getResult().getValue()));
                 callback.onCallBack(String.valueOf(task.getResult().getValue()));
@@ -87,6 +94,7 @@ public class AdCreationActivity extends AppCompatActivity {
     }
 
     public void showAdPreview(View view) {
+        checkForEmptyFields();
         hideKeyBoard(this, mPaisa);
 
         adTagLinePreview.setText(getString(mTagLine));
@@ -101,20 +109,24 @@ public class AdCreationActivity extends AppCompatActivity {
         inputMethodManager.hideSoftInputFromWindow(textView.getWindowToken(), 0);
     }
 
-    private String getString(AutoCompleteTextView acTextView){
+    private String getString(AutoCompleteTextView acTextView) {
         return acTextView.getText().toString();
     }
 
     public void submitForApproval(View view) {
+        checkForEmptyFields();
         hideKeyBoard(this, mPaisa);
 
-        int adCountInt = Integer.parseInt(adCount.trim());
+        int adCountInt = Integer.parseInt(adCount.trim()); // TODO: serviceProvider.getAdCount()
         Advert ad = new Advert("default", "default", getString(mTagLine),
                 getString(mAdDescription), getString(mPaisa), false, false);
 
-        if(adCountInt < 5){
+        if(adCountInt < 5) {
             mDatabaseAdvertRef.child(uid).child("ad"+adCountInt+1).setValue(ad);
             mDatabaseProviderRef.child(uid).child("adCount").setValue(adCountInt+1);
+        } else {
+            // TODO: Sell them a premium plan
         }
+        // TODO: Once this function is done -> Get the F out of this activity.
     }
 }
