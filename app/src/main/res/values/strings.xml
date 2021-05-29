@@ -21,6 +21,7 @@
     <string name="ad_creation_desc_input">Enter your Ad description</string>
     <string name="ad_creation_preview_button">Preview</string>
     <string name="ad_creation_submit_button">Submit</string>
+    <string name="ad_creation_negative">Okay</string>
 
     <!-- activity_providers_home.xml -->
     <string name="ad_creation_floating">Ad creation button</string>

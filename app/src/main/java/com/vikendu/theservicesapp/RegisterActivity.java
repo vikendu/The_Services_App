@@ -165,7 +165,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void createDatabaseEntry(String userId){
         // Input a ServiceProvider Object as proof of registration in the database
-        ServiceProvider provider = new ServiceProvider(0, autoCompleteToString(mFirstName),
+        ServiceProvider provider = new ServiceProvider(1, autoCompleteToString(mFirstName),
                 autoCompleteToString(mLastName), "0.0", autoCompleteToString(mEmailView));
 
         DatabaseReference mDatabaseRef = database.getReference("providers");

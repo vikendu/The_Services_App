@@ -1,5 +1,6 @@
 package com.vikendu.theservicesapp;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,8 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class AdCreationActivity extends AppCompatActivity {
 
@@ -28,11 +32,10 @@ public class AdCreationActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabaseProviderRef;
     private DatabaseReference mDatabaseAdvertRef;
-    private FirebaseUser mFirebaseuser;
-    //TODO: Add a variable of ServiceProvider class & store the value returned by the callback.
+    private ServiceProvider serviceProvider;
+    private AlertDialog.Builder alertDialogBuilder;
 
-    private String rating;
-    private String adCount;
+    private int adCount;
     private String uid;
 
     @Override
@@ -40,9 +43,9 @@ public class AdCreationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ad_creation_tool);
 
-        mFirebaseuser = FirebaseAuth.getInstance().getCurrentUser();
-        mDatabaseProviderRef = FirebaseDatabase.getInstance("https://the-services-app-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("providers");
+        FirebaseUser mFirebaseuser = FirebaseAuth.getInstance().getCurrentUser();
         mDatabaseAdvertRef = FirebaseDatabase.getInstance("https://the-services-app-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("adverts");
+        mDatabaseProviderRef = FirebaseDatabase.getInstance("https://the-services-app-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("providers");
 
         mTagLine = findViewById(R.id.idAdCreationTaglineInput);
         mAdDescription = findViewById(R.id.idAdCreationDescInput);
@@ -58,44 +61,38 @@ public class AdCreationActivity extends AppCompatActivity {
         } else {
             //TODO: tell the user that something went wrong & Log them out
         }
-        //TODO: 2 Separate functions aren't required. The object returned should be used for both values.
-        getStarRating(value -> rating = value);
-        getAdCount(value -> adCount = value);
+        getServiceProvider(value -> serviceProvider = value);
+
+        alertDialogBuilder = new AlertDialog.Builder(AdCreationActivity.this)
+                .setTitle("Problem")
+                .setMessage("Make sure you are connected to the internet and try again.")
+                .setNegativeButton(android.R.string.no, null);
     }
 
     private void checkForEmptyFields() {
         // TODO: Check if any fields have been left empty or not.
     }
 
-    private void getStarRating(ServiceProviderCallback callback) {
-        //Get what the rating of the guy is
-        //TODO: This needs to be a ValueListener; currently it is updating only with onCreate() once
-        mDatabaseProviderRef.child(uid).child("rating").get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Log.d("firebase", "Error getting data", task.getException());
-            } else {
-                Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                callback.onCallBack(String.valueOf(task.getResult().getValue()));
+    private void getServiceProvider(ServiceProviderCallback callback) {
+        ValueEventListener serviceProviderListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                callback.onCallBack(dataSnapshot.getValue(ServiceProvider.class));
             }
-        });
-    }
-
-    private void getAdCount(ServiceProviderCallback callback) {
-        //Get how many ads the current guy has already uploaded
-        //TODO: This needs to be a ValueListener; currently it is updating only with onCreate() once
-        mDatabaseProviderRef.child(uid).child("adCount").get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Log.d("firebase", "Error getting data", task.getException());
-            } else {
-                Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                callback.onCallBack(String.valueOf(task.getResult().getValue()));
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("On DataChange Listener", "loadPost:onCancelled", databaseError.toException());
             }
-        });
+        };
+        mDatabaseProviderRef.child(uid).addValueEventListener(serviceProviderListener);
     }
 
     public void showAdPreview(View view) {
         checkForEmptyFields();
         hideKeyBoard(this, mPaisa);
+
+        String rating = serviceProvider.getRating();
+        adCount = serviceProvider.getAdCount();
 
         adTagLinePreview.setText(getString(mTagLine));
         adDescriptionPreview.setText(getString(mAdDescription));
@@ -117,13 +114,17 @@ public class AdCreationActivity extends AppCompatActivity {
         checkForEmptyFields();
         hideKeyBoard(this, mPaisa);
 
-        int adCountInt = Integer.parseInt(adCount.trim()); // TODO: serviceProvider.getAdCount()
         Advert ad = new Advert("default", "default", getString(mTagLine),
                 getString(mAdDescription), getString(mPaisa), false, false);
 
-        if(adCountInt < 5) {
-            mDatabaseAdvertRef.child(uid).child("ad"+adCountInt+1).setValue(ad);
-            mDatabaseProviderRef.child(uid).child("adCount").setValue(adCountInt+1);
+        if(adCount < 6) {
+            mDatabaseAdvertRef.child(uid).child("ad"+adCount).setValue(ad)
+                    .addOnSuccessListener(e -> Log.d("insert", "advertRef inserted"))
+                    .addOnFailureListener(e -> alertDialogBuilder.show());
+
+            mDatabaseProviderRef.child(uid).child("adCount").setValue(adCount + 1)
+                    .addOnSuccessListener(e -> Log.d("insert", "providerRef inserted"))
+                    .addOnFailureListener(e -> alertDialogBuilder.show());
         } else {
             // TODO: Sell them a premium plan
         }
