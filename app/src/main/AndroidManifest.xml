@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TheServicesApp">
-        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".BuyersHomeActivity"></activity>
+        <activity android:name=".RegisterActivity" />
         <activity android:name=".CreateAdActivity" />
         <activity android:name=".ProvidersHomeActivity" />
         <activity android:name=".AdCreationActivity" />
@@ -17,8 +18,10 @@
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
+
 </manifest>
