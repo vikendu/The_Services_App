@@ -29,6 +29,7 @@ public class AdCreationActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseProviderRef;
     private DatabaseReference mDatabaseAdvertRef;
     private FirebaseUser mFirebaseuser;
+    private ServiceProvider serviceProvider;
     //TODO: Add a variable of ServiceProvider class & store the value returned by the callback.
 
     private String rating;
@@ -59,39 +60,42 @@ public class AdCreationActivity extends AppCompatActivity {
             //TODO: tell the user that something went wrong & Log them out
         }
         //TODO: 2 Separate functions aren't required. The object returned should be used for both values.
-        getStarRating(value -> rating = value);
-        getAdCount(value -> adCount = value);
+        getServiceProvider(value -> serviceProvider = value);
+
+        rating = serviceProvider.getRating();
+        adCount = serviceProvider.getAdCount();
+
     }
 
     private void checkForEmptyFields() {
         // TODO: Check if any fields have been left empty or not.
     }
 
-    private void getStarRating(ServiceProviderCallback callback) {
+    private void getServiceProvider(ServiceProviderCallback callback) {
         //Get what the rating of the guy is
         //TODO: This needs to be a ValueListener; currently it is updating only with onCreate() once
-        mDatabaseProviderRef.child(uid).child("rating").get().addOnCompleteListener(task -> {
+        mDatabaseProviderRef.child(uid).get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.d("firebase", "Error getting data", task.getException());
             } else {
                 Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                callback.onCallBack(String.valueOf(task.getResult().getValue()));
+                callback.onCallBack(task.getResult().getValue(ServiceProvider.class));
             }
         });
     }
 
-    private void getAdCount(ServiceProviderCallback callback) {
-        //Get how many ads the current guy has already uploaded
-        //TODO: This needs to be a ValueListener; currently it is updating only with onCreate() once
-        mDatabaseProviderRef.child(uid).child("adCount").get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Log.d("firebase", "Error getting data", task.getException());
-            } else {
-                Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                callback.onCallBack(String.valueOf(task.getResult().getValue()));
-            }
-        });
-    }
+//    private void getAdCount(ServiceProviderCallback callback) {
+//        //Get how many ads the current guy has already uploaded
+//        //TODO: This needs to be a ValueListener; currently it is updating only with onCreate() once
+//        mDatabaseProviderRef.child(uid).child("adCount").get().addOnCompleteListener(task -> {
+//            if (!task.isSuccessful()) {
+//                Log.d("firebase", "Error getting data", task.getException());
+//            } else {
+//                Log.d("firebase", String.valueOf(task.getResult().getValue()));
+//                callback.onCallBack(String.valueOf(task.getResult().getValue()));
+//            }
+//        });
+//    }
 
     public void showAdPreview(View view) {
         checkForEmptyFields();
