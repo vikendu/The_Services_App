@@ -21,6 +21,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.vikendu.theservicesapp.util.FirebaseUtil;
+import com.vikendu.theservicesapp.util.ResourceUtil;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -135,7 +137,7 @@ public class RegisterActivity extends AppCompatActivity {
         pdLoading.show();
 
         executor.execute(() -> {
-            String email = autoCompleteToString(mEmailView);
+            String email = ResourceUtil.getString(mEmailView);
             String password = mPasswordView.getText().toString();
 
             mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this, task -> {
@@ -145,10 +147,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Log.d("Register", "User Reg Failed");
                     showRegistrationFailed();
                 } else {
-                    FirebaseUser user = task.getResult().getUser();
-                    String uid = user.getUid();
-
-                    createDatabaseEntry(uid);
+                    createDatabaseEntry(FirebaseUtil.getUid());
 
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(intent);
@@ -159,17 +158,16 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private String autoCompleteToString(AutoCompleteTextView acTextView){
-        return acTextView.getText().toString();
-    }
-
     private void createDatabaseEntry(String userId){
         // Input a ServiceProvider Object as proof of registration in the database
-        ServiceProvider provider = new ServiceProvider(1, autoCompleteToString(mFirstName),
-                autoCompleteToString(mLastName), "0.0", autoCompleteToString(mEmailView));
+        ServiceProvider provider = new ServiceProvider(1,
+                ResourceUtil.getString(mFirstName),
+                ResourceUtil.getString(mLastName),
+                "0.0",
+                ResourceUtil.getString(mEmailView));
 
         DatabaseReference mDatabaseRef = database.getReference("providers");
-        mDatabaseRef.child(userId).setValue(provider);
+        FirebaseUtil.insertServiceProvider(userId, mDatabaseRef,provider);
     }
 
     private void showRegistrationFailed() {
