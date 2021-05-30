@@ -18,6 +18,11 @@ public class FirebaseUtil {
 
     static FirebaseUser mFirebaseuser = FirebaseAuth.getInstance().getCurrentUser();
 
+    /**
+     * This method fetches the current User's
+     * uid, which is unique across the project
+     * @return String
+     */
     public static String getUid(){
         if(mFirebaseuser != null) {
             return mFirebaseuser.getUid();

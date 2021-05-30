@@ -53,7 +53,7 @@ public class AdCreationActivity extends AppCompatActivity {
         uid = FirebaseUtil.getUid();
         FirebaseUtil.getServiceProvider(value -> serviceProvider = value);
 
-        // TODO: add an alert builder here for CRUD failures
+        // TODO: add an alert dialog builder here for CRUD failures
     }
 
     private void checkForEmptyFields() {
