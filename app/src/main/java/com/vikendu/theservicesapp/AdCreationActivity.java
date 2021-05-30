@@ -1,6 +1,5 @@
 package com.vikendu.theservicesapp;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,13 +10,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.vikendu.theservicesapp.util.FirebaseUtil;
+import com.vikendu.theservicesapp.util.ResourceUtil;
 
 public class AdCreationActivity extends AppCompatActivity {
 
@@ -33,7 +29,6 @@ public class AdCreationActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseProviderRef;
     private DatabaseReference mDatabaseAdvertRef;
     private ServiceProvider serviceProvider;
-    private AlertDialog.Builder alertDialogBuilder;
 
     private int adCount;
     private String uid;
@@ -43,7 +38,6 @@ public class AdCreationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ad_creation_tool);
 
-        FirebaseUser mFirebaseuser = FirebaseAuth.getInstance().getCurrentUser();
         mDatabaseAdvertRef = FirebaseDatabase.getInstance("https://the-services-app-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("adverts");
         mDatabaseProviderRef = FirebaseDatabase.getInstance("https://the-services-app-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("providers");
 
@@ -56,35 +50,14 @@ public class AdCreationActivity extends AppCompatActivity {
         adPricePreview = findViewById(R.id.idAdPrice);
         adStarRatingPreview = findViewById(R.id.idProviderRating);
 
-        if(mFirebaseuser != null) {
-            uid = mFirebaseuser.getUid();
-        } else {
-            //TODO: tell the user that something went wrong & Log them out
-        }
-        getServiceProvider(value -> serviceProvider = value);
+        uid = FirebaseUtil.getUid();
+        FirebaseUtil.getServiceProvider(value -> serviceProvider = value);
 
-        alertDialogBuilder = new AlertDialog.Builder(AdCreationActivity.this)
-                .setTitle("Problem")
-                .setMessage("Make sure you are connected to the internet and try again.")
-                .setNegativeButton(android.R.string.no, null);
+        // TODO: add an alert builder here for CRUD failures
     }
 
     private void checkForEmptyFields() {
         // TODO: Check if any fields have been left empty or not.
-    }
-
-    private void getServiceProvider(ServiceProviderCallback callback) {
-        ValueEventListener serviceProviderListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                callback.onCallBack(dataSnapshot.getValue(ServiceProvider.class));
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w("On DataChange Listener", "loadPost:onCancelled", databaseError.toException());
-            }
-        };
-        mDatabaseProviderRef.child(uid).addValueEventListener(serviceProviderListener);
     }
 
     public void showAdPreview(View view) {
@@ -94,9 +67,9 @@ public class AdCreationActivity extends AppCompatActivity {
         String rating = serviceProvider.getRating();
         adCount = serviceProvider.getAdCount();
 
-        adTagLinePreview.setText(getString(mTagLine));
-        adDescriptionPreview.setText(getString(mAdDescription));
-        adPricePreview.setText(getString(mPaisa));
+        adTagLinePreview.setText(ResourceUtil.getString(mTagLine));
+        adDescriptionPreview.setText(ResourceUtil.getString(mAdDescription));
+        adPricePreview.setText(ResourceUtil.getString(mPaisa));
         adStarRatingPreview.setText(rating);
     }
 
@@ -106,25 +79,24 @@ public class AdCreationActivity extends AppCompatActivity {
         inputMethodManager.hideSoftInputFromWindow(textView.getWindowToken(), 0);
     }
 
-    private String getString(AutoCompleteTextView acTextView) {
-        return acTextView.getText().toString();
-    }
-
     public void submitForApproval(View view) {
         checkForEmptyFields();
         hideKeyBoard(this, mPaisa);
 
-        Advert ad = new Advert("default", "default", getString(mTagLine),
-                getString(mAdDescription), getString(mPaisa), false, false);
+        Advert ad = new Advert("default",
+                "default",
+                ResourceUtil.getString(mTagLine),
+                ResourceUtil.getString(mAdDescription),
+                ResourceUtil.getString(mPaisa),
+                false,
+                false);
 
         if(adCount < 6) {
-            mDatabaseAdvertRef.child(uid).child("ad"+adCount).setValue(ad)
-                    .addOnSuccessListener(e -> Log.d("insert", "advertRef inserted"))
-                    .addOnFailureListener(e -> alertDialogBuilder.show());
+            FirebaseUtil.insertAdvertData(uid, mDatabaseAdvertRef, ad, "ad"+adCount);
 
             mDatabaseProviderRef.child(uid).child("adCount").setValue(adCount + 1)
                     .addOnSuccessListener(e -> Log.d("insert", "providerRef inserted"))
-                    .addOnFailureListener(e -> alertDialogBuilder.show());
+                    .addOnFailureListener(e -> Log.d("insert", "failed"));
         } else {
             // TODO: Sell them a premium plan
         }
