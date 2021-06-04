@@ -1,10 +1,8 @@
 package com.vikendu.theservicesapp;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
@@ -12,8 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.vikendu.theservicesapp.model.Advert;
+import com.vikendu.theservicesapp.model.ServiceProvider;
 import com.vikendu.theservicesapp.util.FirebaseUtil;
 import com.vikendu.theservicesapp.util.ResourceUtil;
+import com.vikendu.theservicesapp.util.ActivityUtil;
 
 public class AdCreationActivity extends AppCompatActivity {
 
@@ -62,7 +63,7 @@ public class AdCreationActivity extends AppCompatActivity {
 
     public void showAdPreview(View view) {
         checkForEmptyFields();
-        hideKeyBoard(this, mPaisa);
+        ActivityUtil.hideKeyBoard(this, mPaisa);
 
         String rating = serviceProvider.getRating();
         adCount = serviceProvider.getAdCount();
@@ -73,15 +74,9 @@ public class AdCreationActivity extends AppCompatActivity {
         adStarRatingPreview.setText(rating);
     }
 
-    private void hideKeyBoard(Context context, TextView textView) {
-        InputMethodManager inputMethodManager = (InputMethodManager) context
-                .getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(textView.getWindowToken(), 0);
-    }
-
     public void submitForApproval(View view) {
         checkForEmptyFields();
-        hideKeyBoard(this, mPaisa);
+        ActivityUtil.hideKeyBoard(this, mPaisa);
 
         Advert ad = new Advert("default",
                 "default",

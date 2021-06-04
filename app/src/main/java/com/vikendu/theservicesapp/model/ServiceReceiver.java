@@ -1,4 +1,4 @@
-package com.vikendu.theservicesapp;
+package com.vikendu.theservicesapp.model;
 
 public class ServiceReceiver {
 

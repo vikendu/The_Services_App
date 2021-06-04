@@ -1,10 +1,11 @@
 package com.vikendu.theservicesapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+
+import com.vikendu.theservicesapp.model.Advert;
 
 import java.util.ArrayList;
 
