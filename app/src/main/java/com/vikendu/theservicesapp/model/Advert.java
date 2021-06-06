@@ -75,4 +75,5 @@ public class Advert {
         this.approval = approval;
         this.isLive = isLive;
     }
+    public Advert() { }
 }
