@@ -39,24 +39,14 @@ public class CreateAdActivity extends AppCompatActivity {
         advertArrayListCallback = new ArrayList<>();
 
         // TODO: Get an Intent from where you are coming and Inflate the card view as per that
-        advertArrayList.add(new Advert("default", "default", "default", "default", "default", false, false));
-        getDataSnapshot(value -> advertArrayList = value);
+        getDataSnapshot();
 
         Log.d("Array ->>", Integer.toString(advertArrayList.size()));
 
 
     }
-//    private void inflateCardViews() {
-//        advertArrayList = getAllAdverts(advertMap);
-//
-//        AdCardAdapter adCardAdapter = new AdCardAdapter(this, advertArrayList);
-//
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-//        adCardRv.setLayoutManager(linearLayoutManager);
-//        adCardRv.setAdapter(adCardAdapter);
-//    }
 
-    private void getDataSnapshot(AdvertCallback callback) {
+    private void getDataSnapshot() {
         DatabaseReference mDatabaseAdvertRef = FirebaseDatabase.getInstance("https://the-services-app-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("adverts");
         ValueEventListener advertListener = new ValueEventListener() {
             Advert ad;
@@ -65,17 +55,11 @@ public class CreateAdActivity extends AppCompatActivity {
                 advertArrayList.clear();
                 for(DataSnapshot adSnapshot : dataSnapshot.getChildren()) {
                     ad = adSnapshot.getValue(Advert.class);
-                    advertArrayListCallback.add(ad);
-                    Log.d("Array ->", advertArrayListCallback.toString());
+                    advertArrayList.add(ad);
+                    Log.d("Array ->", advertArrayList.toString());
                 }
-                callback.onCallBack(advertArrayListCallback);
                 Log.d("Array ->>", Integer.toString(advertArrayList.size()));
-                AdCardAdapter adCardAdapter = new AdCardAdapter(CreateAdActivity.this, advertArrayList);
-                Log.d("Array ->>", Integer.toString(advertArrayList.size()));
-
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CreateAdActivity.this, LinearLayoutManager.VERTICAL, false);
-                adCardRv.setLayoutManager(linearLayoutManager);
-                adCardRv.setAdapter(adCardAdapter);
+                updateView(advertArrayList);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -83,16 +67,14 @@ public class CreateAdActivity extends AppCompatActivity {
             }
         };
         mDatabaseAdvertRef.child(Objects.requireNonNull(getUid())).addValueEventListener(advertListener);
-
     }
-//    public void getAllAdverts(Map<String, Advert> ads) {
-//        ArrayList<Advert> advertList = new ArrayList<>();
-//
-//        for(Map.Entry<String, Advert> entry : ads.entrySet()) {
-//            Map singleAd = (Map) entry.getValue();
-//            advertList.add((Advert) singleAd);
-//        }
-//
-//    }
+    private void updateView(ArrayList<Advert> advertArrayList) {
+        AdCardAdapter adCardAdapter = new AdCardAdapter(CreateAdActivity.this, advertArrayList);
+        Log.d("Array ->>", Integer.toString(advertArrayList.size()));
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CreateAdActivity.this, LinearLayoutManager.VERTICAL, false);
+        adCardRv.setLayoutManager(linearLayoutManager);
+        adCardRv.setAdapter(adCardAdapter);
+    }
 
 }
