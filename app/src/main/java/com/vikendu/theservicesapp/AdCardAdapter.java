@@ -17,7 +17,6 @@ import java.util.ArrayList;
 
 public class AdCardAdapter extends RecyclerView.Adapter<AdCardAdapter.Viewholder> {
 
-    // TODO: This whole file needs to be rewritten according to the new Advert.java
     private Context context;
     private ArrayList<Advert> advertArrayList;
 
@@ -32,6 +31,7 @@ public class AdCardAdapter extends RecyclerView.Adapter<AdCardAdapter.Viewholder
     @Override
     public Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_ad_card_format, parent, false);
+        AdCardAdapter.Viewholder viewHolder = new AdCardAdapter.Viewholder(view);
         return new Viewholder(view);
     }
 

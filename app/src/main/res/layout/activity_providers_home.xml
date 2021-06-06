@@ -21,6 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/my_approved_ads"
+        android:onClick="goToApprovedAdsActivity"
         android:contentDescription="@string/submitted_ads"/>
 
     <View
@@ -50,6 +51,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/idApprovedAdsBtn"
         app:srcCompat="@drawable/pending_approval"
+        android:onClick="goToPendingAdsActivity"
         android:contentDescription="@string/awaiting_approval" />
 
     <View
@@ -77,6 +79,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/idPendingApprovalBtn"
         app:srcCompat="@drawable/ad_creation_tool"
+        android:onClick="goToAdCreationTool"
         android:contentDescription="@string/ad_creating_tool_btn"/>
 
     <View
