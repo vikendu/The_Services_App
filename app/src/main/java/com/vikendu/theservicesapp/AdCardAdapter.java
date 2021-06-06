@@ -42,7 +42,8 @@ public class AdCardAdapter extends RecyclerView.Adapter<AdCardAdapter.Viewholder
         holder.adTagLine.setText(model.getTagLine());
         holder.adDesc.setText(model.getAdDescription());
         holder.adPrice.setText(model.getAdPrice());
-        holder.providersRating.setText(serviceProvider.getRating());
+        // TODO: Fix the rating system
+        holder.providersRating.setText("xoxo");
     }
 
     @Override
@@ -59,6 +60,7 @@ public class AdCardAdapter extends RecyclerView.Adapter<AdCardAdapter.Viewholder
             adPrice = itemView.findViewById((R.id.idAdPrice));
             providersRating = itemView.findViewById(R.id.idProviderRating);
 
+            //TODO: add UI updates to onDataChange itself
             FirebaseUtil.getServiceProvider(value -> serviceProvider = value);
         }
     }
