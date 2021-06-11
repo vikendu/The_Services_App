@@ -13,8 +13,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.vikendu.theservicesapp.model.Advert;
+import com.vikendu.theservicesapp.model.ServiceProvider;
 import com.vikendu.theservicesapp.util.AdvertCallback;
 import com.vikendu.theservicesapp.util.FirebaseUtil;
+import com.vikendu.theservicesapp.util.ServiceProviderCallback;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -27,6 +29,7 @@ public class CreateAdActivity extends AppCompatActivity {
     private RecyclerView adCardRv;
     private ArrayList<Advert> advertArrayList;
     private ArrayList<Advert> advertArrayListCallback;
+    private ServiceProvider mServiceProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +43,6 @@ public class CreateAdActivity extends AppCompatActivity {
 
         // TODO: Get an Intent from where you are coming and Inflate the card view as per that
         getDataSnapshot();
-
-        Log.d("Array ->>", Integer.toString(advertArrayList.size()));
-
-
     }
 
     private void getDataSnapshot() {
@@ -56,10 +55,8 @@ public class CreateAdActivity extends AppCompatActivity {
                 for(DataSnapshot adSnapshot : dataSnapshot.getChildren()) {
                     ad = adSnapshot.getValue(Advert.class);
                     advertArrayList.add(ad);
-                    Log.d("Array ->", advertArrayList.toString());
                 }
-                Log.d("Array ->>", Integer.toString(advertArrayList.size()));
-                updateView(advertArrayList);
+                getServiceProvider();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -68,13 +65,28 @@ public class CreateAdActivity extends AppCompatActivity {
         };
         mDatabaseAdvertRef.child(Objects.requireNonNull(getUid())).addValueEventListener(advertListener);
     }
+    public void getServiceProvider() {
+        DatabaseReference mDatabaseProviderRef = FirebaseDatabase.getInstance("https://the-services-app-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("providers");
+
+        ValueEventListener serviceProviderListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mServiceProvider = dataSnapshot.getValue(ServiceProvider.class);
+                updateView(advertArrayList);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("On DataChange Listener", "onCancelled", databaseError.toException());
+            }
+        };
+        mDatabaseProviderRef.child(Objects.requireNonNull(getUid())).addValueEventListener(serviceProviderListener);
+    }
     private void updateView(ArrayList<Advert> advertArrayList) {
-        AdCardAdapter adCardAdapter = new AdCardAdapter(CreateAdActivity.this, advertArrayList);
+        AdCardAdapter adCardAdapter = new AdCardAdapter(CreateAdActivity.this, advertArrayList, mServiceProvider);
         Log.d("Array ->>", Integer.toString(advertArrayList.size()));
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CreateAdActivity.this, LinearLayoutManager.VERTICAL, false);
         adCardRv.setLayoutManager(linearLayoutManager);
         adCardRv.setAdapter(adCardAdapter);
     }
-
 }
