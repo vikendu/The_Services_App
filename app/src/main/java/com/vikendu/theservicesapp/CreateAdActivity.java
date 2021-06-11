@@ -14,12 +14,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.vikendu.theservicesapp.model.Advert;
 import com.vikendu.theservicesapp.model.ServiceProvider;
-import com.vikendu.theservicesapp.util.AdvertCallback;
-import com.vikendu.theservicesapp.util.FirebaseUtil;
-import com.vikendu.theservicesapp.util.ServiceProviderCallback;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Objects;
 
 import static com.vikendu.theservicesapp.util.FirebaseUtil.getUid;
@@ -28,7 +24,6 @@ public class CreateAdActivity extends AppCompatActivity {
 
     private RecyclerView adCardRv;
     private ArrayList<Advert> advertArrayList;
-    private ArrayList<Advert> advertArrayListCallback;
     private ServiceProvider mServiceProvider;
 
     @Override
@@ -37,10 +32,7 @@ public class CreateAdActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_ad);
 
         adCardRv = findViewById(R.id.idRVAdCreation);
-
         advertArrayList = new ArrayList<>();
-        advertArrayListCallback = new ArrayList<>();
-
         // TODO: Get an Intent from where you are coming and Inflate the card view as per that
         getDataSnapshot();
     }
@@ -65,6 +57,7 @@ public class CreateAdActivity extends AppCompatActivity {
         };
         mDatabaseAdvertRef.child(Objects.requireNonNull(getUid())).addValueEventListener(advertListener);
     }
+
     public void getServiceProvider() {
         DatabaseReference mDatabaseProviderRef = FirebaseDatabase.getInstance("https://the-services-app-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("providers");
 
@@ -81,6 +74,7 @@ public class CreateAdActivity extends AppCompatActivity {
         };
         mDatabaseProviderRef.child(Objects.requireNonNull(getUid())).addValueEventListener(serviceProviderListener);
     }
+
     private void updateView(ArrayList<Advert> advertArrayList) {
         AdCardAdapter adCardAdapter = new AdCardAdapter(CreateAdActivity.this, advertArrayList, mServiceProvider);
         Log.d("Array ->>", Integer.toString(advertArrayList.size()));

@@ -11,15 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vikendu.theservicesapp.model.Advert;
 import com.vikendu.theservicesapp.model.ServiceProvider;
-import com.vikendu.theservicesapp.util.FirebaseUtil;
 
 import java.util.ArrayList;
 
 public class AdCardAdapter extends RecyclerView.Adapter<AdCardAdapter.Viewholder> {
 
-    private Context context;
-    private ArrayList<Advert> advertArrayList;
-    private ServiceProvider serviceProvider;
+    private final Context context;
+    private final ArrayList<Advert> advertArrayList;
+    private final ServiceProvider serviceProvider;
 
     public AdCardAdapter(Context context, ArrayList<Advert> advertArrayList, ServiceProvider serviceProvider) {
         this.context = context;
@@ -31,7 +30,6 @@ public class AdCardAdapter extends RecyclerView.Adapter<AdCardAdapter.Viewholder
     @Override
     public Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_ad_card_format, parent, false);
-        AdCardAdapter.Viewholder viewHolder = new AdCardAdapter.Viewholder(view);
         return new Viewholder(view);
     }
 
@@ -50,8 +48,11 @@ public class AdCardAdapter extends RecyclerView.Adapter<AdCardAdapter.Viewholder
     public int getItemCount() {
         return advertArrayList.size();
     }
-    public class Viewholder extends RecyclerView.ViewHolder {
-        private TextView adTagLine, adDesc, adPrice, providersRating;
+    public static class Viewholder extends RecyclerView.ViewHolder {
+        private final TextView adTagLine;
+        private final TextView adDesc;
+        private final TextView adPrice;
+        private final TextView providersRating;
 
         public Viewholder(@NonNull View itemView) {
             super(itemView);

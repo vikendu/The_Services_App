@@ -39,22 +39,6 @@ public class FirebaseUtil {
         }
     }
 
-    public static void getServiceProvider(ServiceProviderCallback callback) {
-        DatabaseReference mDatabaseProviderRef = FirebaseDatabase.getInstance("https://the-services-app-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("providers");
-
-        ValueEventListener serviceProviderListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                callback.onCallBack(dataSnapshot.getValue(ServiceProvider.class));
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w("On DataChange Listener", "onCancelled", databaseError.toException());
-            }
-        };
-        mDatabaseProviderRef.child(Objects.requireNonNull(getUid())).addValueEventListener(serviceProviderListener);
-    }
-
     public static void insertServiceProvider(DatabaseReference databaseReference, ServiceProvider serviceProvider) {
         databaseReference.setValue(serviceProvider)
                 .addOnSuccessListener(e -> Log.d("insertSP", "Successful"))
