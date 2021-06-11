@@ -19,12 +19,12 @@ public class AdCardAdapter extends RecyclerView.Adapter<AdCardAdapter.Viewholder
 
     private Context context;
     private ArrayList<Advert> advertArrayList;
-
     private ServiceProvider serviceProvider;
 
-    public AdCardAdapter(Context context, ArrayList<Advert> advertArrayList){
+    public AdCardAdapter(Context context, ArrayList<Advert> advertArrayList, ServiceProvider serviceProvider) {
         this.context = context;
         this.advertArrayList = advertArrayList;
+        this.serviceProvider = serviceProvider;
     }
 
     @NonNull
@@ -43,7 +43,7 @@ public class AdCardAdapter extends RecyclerView.Adapter<AdCardAdapter.Viewholder
         holder.adDesc.setText(model.getAdDescription());
         holder.adPrice.setText(model.getAdPrice());
         // TODO: Fix the rating system
-        holder.providersRating.setText("xoxo");
+        holder.providersRating.setText(serviceProvider.getRating());
     }
 
     @Override
@@ -59,9 +59,6 @@ public class AdCardAdapter extends RecyclerView.Adapter<AdCardAdapter.Viewholder
             adDesc = itemView.findViewById((R.id.idAdDesc));
             adPrice = itemView.findViewById((R.id.idAdPrice));
             providersRating = itemView.findViewById(R.id.idProviderRating);
-
-            //TODO: add UI updates to onDataChange itself
-            FirebaseUtil.getServiceProvider(value -> serviceProvider = value);
         }
     }
 }
