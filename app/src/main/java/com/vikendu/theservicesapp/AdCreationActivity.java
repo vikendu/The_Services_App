@@ -52,7 +52,7 @@ public class AdCreationActivity extends AppCompatActivity {
         adStarRatingPreview = findViewById(R.id.idProviderRating);
 
         uid = FirebaseUtil.getUid();
-        FirebaseUtil.getServiceProvider(value -> serviceProvider = value);
+        FirebaseUtil.getServiceProviderOnCallback(value -> serviceProvider = value);
 
         // TODO: add an alert dialog builder here for CRUD failures
     }
