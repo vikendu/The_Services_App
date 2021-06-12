@@ -26,6 +26,8 @@ public class CreateAdActivity extends AppCompatActivity {
     private ArrayList<Advert> advertArrayList;
     private ServiceProvider mServiceProvider;
 
+    private boolean getApprovedAds;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +35,10 @@ public class CreateAdActivity extends AppCompatActivity {
 
         adCardRv = findViewById(R.id.idRVAdCreation);
         advertArrayList = new ArrayList<>();
-        // TODO: Get an Intent from where you are coming and Inflate the card view as per that
+
+        Bundle bundle = getIntent().getExtras();
+        getApprovedAds = bundle.getBoolean("approved");
+
         getDataSnapshot();
     }
 
@@ -46,7 +51,12 @@ public class CreateAdActivity extends AppCompatActivity {
                 advertArrayList.clear();
                 for(DataSnapshot adSnapshot : dataSnapshot.getChildren()) {
                     ad = adSnapshot.getValue(Advert.class);
-                    advertArrayList.add(ad);
+                    if(getApprovedAds && ad.isApproved()) {
+                        advertArrayList.add(ad);
+                    }
+                    else if(!getApprovedAds && !ad.isApproved()) {
+                        advertArrayList.add(ad);
+                    }
                 }
                 getServiceProvider();
             }
@@ -58,7 +68,7 @@ public class CreateAdActivity extends AppCompatActivity {
         mDatabaseAdvertRef.child(Objects.requireNonNull(getUid())).addValueEventListener(advertListener);
     }
 
-    public void getServiceProvider() {
+    private void getServiceProvider() {
         DatabaseReference mDatabaseProviderRef = FirebaseDatabase.getInstance("https://the-services-app-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("providers");
 
         ValueEventListener serviceProviderListener = new ValueEventListener() {
