@@ -7,7 +7,7 @@ public class Advert {
     private String tagLine;
     private String adDescription;
     private String adPrice;
-    private boolean approval;
+    private boolean approved;
     private boolean isLive;
 
     public String getTagLine() {
@@ -50,12 +50,12 @@ public class Advert {
         this.category1 = category1;
     }
 
-    public boolean isApproval() {
-        return approval;
+    public boolean isApproved() {
+        return approved;
     }
 
-    public void setApproval(boolean approval) {
-        this.approval = approval;
+    public void setApproved(boolean approved) {
+        this.approved = approved;
     }
 
     public boolean isLive() {
@@ -72,7 +72,7 @@ public class Advert {
         this.tagLine = tagLine;
         this.adDescription = adDescription;
         this.adPrice = adPrice;
-        this.approval = approval;
+        this.approved = approval;
         this.isLive = isLive;
     }
     public Advert() { }

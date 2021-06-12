@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
     // TODO: rebuild the following function to redirect the user to the correct activity
     private void goToAdCreationTool()
     {
-        Intent intent = new Intent(LoginActivity.this, CreateAdActivity.class);
+        Intent intent = new Intent(LoginActivity.this, ProvidersHomeActivity.class);
         finish();
         startActivity(intent);
     }
