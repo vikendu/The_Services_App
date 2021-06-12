@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.vikendu.theservicesapp.model"},{"l":"com.vikendu.theservicesapp.util"}]
