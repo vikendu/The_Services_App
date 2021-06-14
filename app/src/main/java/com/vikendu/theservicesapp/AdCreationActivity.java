@@ -9,12 +9,13 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.vikendu.theservicesapp.model.Advert;
 import com.vikendu.theservicesapp.model.ServiceProvider;
+import com.vikendu.theservicesapp.util.ActivityUtil;
 import com.vikendu.theservicesapp.util.FirebaseUtil;
 import com.vikendu.theservicesapp.util.ResourceUtil;
-import com.vikendu.theservicesapp.util.ActivityUtil;
+
+import static com.vikendu.theservicesapp.util.ResourceUtil.getFirebaseDatabase;
 
 public class AdCreationActivity extends AppCompatActivity {
 
@@ -39,8 +40,8 @@ public class AdCreationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ad_creation_tool);
 
-        mDatabaseAdvertRef = FirebaseDatabase.getInstance("https://the-services-app-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("adverts");
-        mDatabaseProviderRef = FirebaseDatabase.getInstance("https://the-services-app-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("providers");
+        mDatabaseAdvertRef = getFirebaseDatabase().getReference("adverts");
+        mDatabaseProviderRef = getFirebaseDatabase().getReference("providers");
 
         mTagLine = findViewById(R.id.idAdCreationTaglineInput);
         mAdDescription = findViewById(R.id.idAdCreationDescInput);

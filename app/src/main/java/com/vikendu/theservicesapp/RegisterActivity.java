@@ -28,6 +28,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.regex.Pattern;
 
+import static com.vikendu.theservicesapp.util.ResourceUtil.getFirebaseDatabase;
+
 public class RegisterActivity extends AppCompatActivity {
 
     private AutoCompleteTextView mEmailView;
@@ -50,7 +52,8 @@ public class RegisterActivity extends AppCompatActivity {
         mFirstName = findViewById(R.id.idFirstName);
         mLastName = findViewById(R.id.idLastName);
 
-        database = FirebaseDatabase.getInstance("https://the-services-app-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        database = getFirebaseDatabase();
+
         //Keyboard sign in action
         mConfirmPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
             if (id == R.integer.register_form_finished || id == EditorInfo.IME_NULL) {
