@@ -19,12 +19,15 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import static com.vikendu.theservicesapp.util.FirebaseUtil.getUid;
+import static com.vikendu.theservicesapp.util.ResourceUtil.getFirebaseDatabase;
 
 public class CreateAdActivity extends AppCompatActivity {
 
     private RecyclerView adCardRv;
     private ArrayList<Advert> advertArrayList;
     private ServiceProvider mServiceProvider;
+
+    private FirebaseDatabase mDatabase;
 
     private boolean getApprovedAds;
 
@@ -37,13 +40,14 @@ public class CreateAdActivity extends AppCompatActivity {
         advertArrayList = new ArrayList<>();
 
         Bundle bundle = getIntent().getExtras();
-        getApprovedAds = bundle.getBoolean("approved");
+        getApprovedAds = bundle.getBoolean("isApproved");
 
+        mDatabase = getFirebaseDatabase();
         getDataSnapshot();
     }
 
     private void getDataSnapshot() {
-        DatabaseReference mDatabaseAdvertRef = FirebaseDatabase.getInstance("https://the-services-app-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("adverts");
+        DatabaseReference mDatabaseAdvertRef = mDatabase.getReference("adverts");
         ValueEventListener advertListener = new ValueEventListener() {
             Advert ad;
             @Override
@@ -69,7 +73,7 @@ public class CreateAdActivity extends AppCompatActivity {
     }
 
     private void getServiceProvider() {
-        DatabaseReference mDatabaseProviderRef = FirebaseDatabase.getInstance("https://the-services-app-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("providers");
+        DatabaseReference mDatabaseProviderRef = mDatabase.getReference("providers");
 
         ValueEventListener serviceProviderListener = new ValueEventListener() {
             @Override
