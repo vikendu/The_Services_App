@@ -7,13 +7,15 @@ public class ServiceProvider {
     private String lastName;
     private String rating;
     private String email;
+    private Advert advert;
 
-    public ServiceProvider(int adCount, String firstName, String lastName, String rating, String email) {
+    public ServiceProvider(int adCount, String firstName, String lastName, String rating, String email, Advert advert) {
         this.adCount = adCount;
         this.firstName = firstName;
         this.lastName = lastName;
         this.rating = rating;
         this.email = email;
+        this.advert = advert;
     }
 
     public ServiceProvider() {
@@ -57,5 +59,13 @@ public class ServiceProvider {
 
     public void setRating(String rating) {
         this.rating = rating;
+    }
+
+    public Advert getAdvert() {
+        return advert;
+    }
+
+    public void setAdvert() {
+        this.advert = advert;
     }
 }

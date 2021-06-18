@@ -9,6 +9,7 @@ public class Advert {
     private String adPrice;
     private boolean approved;
     private boolean isLive;
+    // TODO: Add location here
 
     public String getTagLine() {
         return tagLine;

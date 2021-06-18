@@ -1,4 +1,4 @@
-package com.vikendu.theservicesapp;
+package com.vikendu.theservicesapp.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.vikendu.theservicesapp.R;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -104,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
     // TODO: rebuild the following function to redirect the user to the correct activity
     private void goToAdCreationTool()
     {
-        Intent intent = new Intent(LoginActivity.this, ProvidersHomeActivity.class);
+        Intent intent = new Intent(LoginActivity.this, AdCreationActivity.class);
         finish();
         startActivity(intent);
     }
