@@ -1,4 +1,4 @@
-package com.vikendu.theservicesapp;
+package com.vikendu.theservicesapp.activity;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.vikendu.theservicesapp.R;
 import com.vikendu.theservicesapp.model.ServiceProvider;
 import com.vikendu.theservicesapp.util.FirebaseUtil;
 import com.vikendu.theservicesapp.util.ResourceUtil;
@@ -167,7 +168,8 @@ public class RegisterActivity extends AppCompatActivity {
                 ResourceUtil.getString(mFirstName),
                 ResourceUtil.getString(mLastName),
                 "0.0",
-                ResourceUtil.getString(mEmailView));
+                ResourceUtil.getString(mEmailView),
+                null);
 
         DatabaseReference mDatabaseRef = database.getReference("providers");
         FirebaseUtil.insertServiceProvider(userId, mDatabaseRef,provider);

@@ -1,4 +1,4 @@
-package com.vikendu.theservicesapp;
+package com.vikendu.theservicesapp.activity;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DatabaseReference;
+import com.vikendu.theservicesapp.R;
 import com.vikendu.theservicesapp.model.Advert;
 import com.vikendu.theservicesapp.model.ServiceProvider;
 import com.vikendu.theservicesapp.util.ActivityUtil;
@@ -66,6 +67,7 @@ public class AdCreationActivity extends AppCompatActivity {
         checkForEmptyFields();
         ActivityUtil.hideKeyBoard(this, mPaisa);
 
+        //TODO: get stuff needs to be in onCreate() Lmao
         String rating = serviceProvider.getRating();
         adCount = serviceProvider.getAdCount();
 
@@ -88,7 +90,8 @@ public class AdCreationActivity extends AppCompatActivity {
                 false);
 
         if(adCount < 6) {
-            FirebaseUtil.insertAdvertData(uid, mDatabaseAdvertRef, ad, "ad"+adCount);
+            // FirebaseUtil.insertAdvertData(uid, mDatabaseAdvertRef, ad, "ad"+adCount);
+            mDatabaseProviderRef.child(uid).child("advert").push().setValue(ad);
 
             mDatabaseProviderRef.child(uid).child("adCount").setValue(adCount + 1)
                     .addOnSuccessListener(e -> Log.d("insert", "providerRef inserted"))
