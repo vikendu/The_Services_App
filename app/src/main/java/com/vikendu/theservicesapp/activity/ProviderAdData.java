@@ -23,7 +23,7 @@ import java.util.Objects;
 import static com.vikendu.theservicesapp.util.FirebaseUtil.getUid;
 import static com.vikendu.theservicesapp.util.ResourceUtil.getFirebaseDatabase;
 
-public class CreateAdActivity extends AppCompatActivity {
+public class ProviderAdData extends AppCompatActivity {
 
     private RecyclerView adCardRv;
     private ArrayList<Advert> advertArrayList;
@@ -45,17 +45,18 @@ public class CreateAdActivity extends AppCompatActivity {
         getApprovedAds = bundle.getBoolean("isApproved");
 
         mDatabase = getFirebaseDatabase();
-        getDataSnapshot();
+        getProviderAdData();
     }
 
-    private void getDataSnapshot() {
-        DatabaseReference mDatabaseAdvertRef = mDatabase.getReference("adverts");
-        ValueEventListener advertListener = new ValueEventListener() {
-            Advert ad;
+    private void getProviderAdData() {
+        DatabaseReference mDatabaseProviderRef = mDatabase.getReference("providers");
+
+        ValueEventListener serviceProviderListener = new ValueEventListener() {
+        Advert ad;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 advertArrayList.clear();
-                for(DataSnapshot adSnapshot : dataSnapshot.getChildren()) {
+                for(DataSnapshot adSnapshot : dataSnapshot.child("advert").getChildren()) {
                     ad = adSnapshot.getValue(Advert.class);
                     if(getApprovedAds && ad.isApproved()) {
                         advertArrayList.add(ad);
@@ -64,22 +65,6 @@ public class CreateAdActivity extends AppCompatActivity {
                         advertArrayList.add(ad);
                     }
                 }
-                getServiceProvider();
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w("On DataChange Listener", "onCancelled", databaseError.toException());
-            }
-        };
-        mDatabaseAdvertRef.child(Objects.requireNonNull(getUid())).addValueEventListener(advertListener);
-    }
-
-    private void getServiceProvider() {
-        DatabaseReference mDatabaseProviderRef = mDatabase.getReference("providers");
-
-        ValueEventListener serviceProviderListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
                 mServiceProvider = dataSnapshot.getValue(ServiceProvider.class);
                 updateView(advertArrayList);
             }
@@ -92,10 +77,10 @@ public class CreateAdActivity extends AppCompatActivity {
     }
 
     private void updateView(ArrayList<Advert> advertArrayList) {
-        AdCardAdapter adCardAdapter = new AdCardAdapter(CreateAdActivity.this, advertArrayList, mServiceProvider);
+        AdCardAdapter adCardAdapter = new AdCardAdapter(ProviderAdData.this, advertArrayList, mServiceProvider);
         Log.d("Array ->>", Integer.toString(advertArrayList.size()));
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CreateAdActivity.this, LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ProviderAdData.this, LinearLayoutManager.VERTICAL, false);
         adCardRv.setLayoutManager(linearLayoutManager);
         adCardRv.setAdapter(adCardAdapter);
     }
