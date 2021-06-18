@@ -11,7 +11,7 @@
         android:theme="@style/Theme.TheServicesApp">
         <activity android:name=".activity.BuyersHomeActivity"></activity>
         <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.CreateAdActivity" />
+        <activity android:name=".activity.ProviderAdData" />
         <activity android:name=".activity.ProvidersHomeActivity" />
         <activity android:name=".activity.AdCreationActivity" />
         <activity android:name=".activity.ChooseTypeActivity" />

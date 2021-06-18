@@ -16,6 +16,8 @@ import com.vikendu.theservicesapp.util.ActivityUtil;
 import com.vikendu.theservicesapp.util.FirebaseUtil;
 import com.vikendu.theservicesapp.util.ResourceUtil;
 
+import java.util.ArrayList;
+
 import static com.vikendu.theservicesapp.util.ResourceUtil.getFirebaseDatabase;
 
 public class AdCreationActivity extends AppCompatActivity {
@@ -63,11 +65,9 @@ public class AdCreationActivity extends AppCompatActivity {
         // TODO: Check if any fields have been left empty or not.
     }
 
-    public void showAdPreview(View view) {
-        checkForEmptyFields();
+    private void createPreview() {
         ActivityUtil.hideKeyBoard(this, mPaisa);
 
-        //TODO: get stuff needs to be in onCreate() Lmao
         String rating = serviceProvider.getRating();
         adCount = serviceProvider.getAdCount();
 
@@ -77,8 +77,14 @@ public class AdCreationActivity extends AppCompatActivity {
         adStarRatingPreview.setText(rating);
     }
 
+    public void showAdPreview(View view) {
+        checkForEmptyFields();
+        createPreview();
+    }
+
     public void submitForApproval(View view) {
         checkForEmptyFields();
+        createPreview();
         ActivityUtil.hideKeyBoard(this, mPaisa);
 
         Advert ad = new Advert("default",
@@ -89,9 +95,10 @@ public class AdCreationActivity extends AppCompatActivity {
                 false,
                 false);
 
+        String adIndex = Integer.toString(adCount + 1);
+
         if(adCount < 6) {
-            // FirebaseUtil.insertAdvertData(uid, mDatabaseAdvertRef, ad, "ad"+adCount);
-            mDatabaseProviderRef.child(uid).child("advert").push().setValue(ad);
+            mDatabaseProviderRef.child(uid).child("advert").child(adIndex).setValue(ad);
 
             mDatabaseProviderRef.child(uid).child("adCount").setValue(adCount + 1)
                     .addOnSuccessListener(e -> Log.d("insert", "providerRef inserted"))

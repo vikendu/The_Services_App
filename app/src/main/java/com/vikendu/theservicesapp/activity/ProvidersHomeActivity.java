@@ -24,7 +24,7 @@ public class ProvidersHomeActivity extends AppCompatActivity {
 
     public void goToPendingAdsActivity(View view) {
         // TODO: go to the same activity as that of the FEED just fill it up with req data
-        Intent intent = new Intent(this, CreateAdActivity.class);
+        Intent intent = new Intent(this, ProviderAdData.class);
         intent.putExtra("isApproved", false);
         finish();
         startActivity(intent);
@@ -32,7 +32,7 @@ public class ProvidersHomeActivity extends AppCompatActivity {
 
     public void goToApprovedAdsActivity(View view) {
         // TODO: go to the same activity as that of the FEED just fill it up with req data
-        Intent intent = new Intent(this, CreateAdActivity.class);
+        Intent intent = new Intent(this, ProviderAdData.class);
         intent.putExtra("isApproved", true);
         finish();
         startActivity(intent);

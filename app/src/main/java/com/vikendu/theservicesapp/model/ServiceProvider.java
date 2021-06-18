@@ -1,5 +1,7 @@
 package com.vikendu.theservicesapp.model;
 
+import java.util.ArrayList;
+
 public class ServiceProvider {
 
     private int adCount;
@@ -7,15 +9,15 @@ public class ServiceProvider {
     private String lastName;
     private String rating;
     private String email;
-    private Advert advert;
+    private ArrayList<Advert> arrayList;
 
-    public ServiceProvider(int adCount, String firstName, String lastName, String rating, String email, Advert advert) {
+    public ServiceProvider(int adCount, String firstName, String lastName, String rating, String email, ArrayList<Advert> arrayList) {
         this.adCount = adCount;
         this.firstName = firstName;
         this.lastName = lastName;
         this.rating = rating;
         this.email = email;
-        this.advert = advert;
+        this.arrayList = arrayList;
     }
 
     public ServiceProvider() {
@@ -61,11 +63,11 @@ public class ServiceProvider {
         this.rating = rating;
     }
 
-    public Advert getAdvert() {
-        return advert;
+    public ArrayList<Advert> getArrayList() {
+        return arrayList;
     }
 
     public void setAdvert() {
-        this.advert = advert;
+        this.arrayList = arrayList;
     }
 }
