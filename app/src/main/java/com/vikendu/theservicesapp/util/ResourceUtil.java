@@ -1,6 +1,9 @@
 package com.vikendu.theservicesapp.util;
 
+import android.view.View;
 import android.widget.AutoCompleteTextView;
+
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class ResourceUtil {

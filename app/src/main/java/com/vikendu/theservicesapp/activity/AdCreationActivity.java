@@ -8,7 +8,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.vikendu.theservicesapp.R;
 import com.vikendu.theservicesapp.model.Advert;
 import com.vikendu.theservicesapp.model.ServiceProvider;
@@ -16,8 +19,10 @@ import com.vikendu.theservicesapp.util.ActivityUtil;
 import com.vikendu.theservicesapp.util.FirebaseUtil;
 import com.vikendu.theservicesapp.util.ResourceUtil;
 
-import java.util.ArrayList;
+import java.util.Objects;
 
+import static com.vikendu.theservicesapp.util.ActivityUtil.createNoActionSnackbar;
+import static com.vikendu.theservicesapp.util.ActivityUtil.hideKeyBoard;
 import static com.vikendu.theservicesapp.util.ResourceUtil.getFirebaseDatabase;
 
 public class AdCreationActivity extends AppCompatActivity {
@@ -32,10 +37,10 @@ public class AdCreationActivity extends AppCompatActivity {
     private TextView adStarRatingPreview;
 
     private DatabaseReference mDatabaseProviderRef;
-    private DatabaseReference mDatabaseAdvertRef;
     private ServiceProvider serviceProvider;
 
     private int adCount;
+    private String rating;
     private String uid;
 
     @Override
@@ -43,7 +48,6 @@ public class AdCreationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ad_creation_tool);
 
-        mDatabaseAdvertRef = getFirebaseDatabase().getReference("adverts");
         mDatabaseProviderRef = getFirebaseDatabase().getReference("providers");
 
         mTagLine = findViewById(R.id.idAdCreationTaglineInput);
@@ -56,55 +60,83 @@ public class AdCreationActivity extends AppCompatActivity {
         adStarRatingPreview = findViewById(R.id.idProviderRating);
 
         uid = FirebaseUtil.getUid();
-        FirebaseUtil.getServiceProviderOnCallback(value -> serviceProvider = value);
-
-        // TODO: add an alert dialog builder here for CRUD failures
+        getServiceProvider();
     }
 
-    private void checkForEmptyFields() {
-        // TODO: Check if any fields have been left empty or not.
+    private void getServiceProvider() {
+            ValueEventListener serviceProviderListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    serviceProvider = dataSnapshot.getValue(ServiceProvider.class);
+                    createPreview();
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            };
+            mDatabaseProviderRef.child(Objects.requireNonNull(uid)).addValueEventListener(serviceProviderListener);
+    }
+
+    private boolean areAnyFieldsEmpty() {
+        return ResourceUtil.getString(mTagLine).equals("") || ResourceUtil.getString(mAdDescription).equals("") || ResourceUtil.getString(mPaisa).equals("");
     }
 
     private void createPreview() {
         ActivityUtil.hideKeyBoard(this, mPaisa);
 
-        String rating = serviceProvider.getRating();
+        rating = serviceProvider.getRating();
         adCount = serviceProvider.getAdCount();
 
-        adTagLinePreview.setText(ResourceUtil.getString(mTagLine));
-        adDescriptionPreview.setText(ResourceUtil.getString(mAdDescription));
-        adPricePreview.setText(ResourceUtil.getString(mPaisa));
-        adStarRatingPreview.setText(rating);
+        if ( !ResourceUtil.getString(mTagLine).equals("") ) {
+            adTagLinePreview.setText(ResourceUtil.getString(mTagLine));
+        }
+        if ( !ResourceUtil.getString(mAdDescription).equals("") ) {
+            adDescriptionPreview.setText(ResourceUtil.getString(mAdDescription));
+        }
+        if ( !ResourceUtil.getString(mPaisa).equals("") ) {
+            adPricePreview.setText("₹"+ResourceUtil.getString(mPaisa));
+        }
+        if ( !rating.equals("") ) {
+            adStarRatingPreview.setText(rating);
+        }
     }
 
     public void showAdPreview(View view) {
-        checkForEmptyFields();
-        createPreview();
+        if ( !areAnyFieldsEmpty() ) {
+            hideKeyBoard(this, mPaisa);
+            createPreview();
+        } else {
+            createNoActionSnackbar(view, "Please fill out all the fields").show();
+        }
     }
 
     public void submitForApproval(View view) {
-        checkForEmptyFields();
-        createPreview();
-        ActivityUtil.hideKeyBoard(this, mPaisa);
+        if ( !areAnyFieldsEmpty() ) {
+            createPreview();
+            ActivityUtil.hideKeyBoard(this, mPaisa);
 
-        Advert ad = new Advert("default",
-                "default",
-                ResourceUtil.getString(mTagLine),
-                ResourceUtil.getString(mAdDescription),
-                ResourceUtil.getString(mPaisa),
-                false,
-                false);
+            Advert ad = new Advert("default",
+                    "default",
+                    ResourceUtil.getString(mTagLine),
+                    ResourceUtil.getString(mAdDescription),
+                    ResourceUtil.getString(mPaisa),
+                    false,
+                    false);
 
-        String adIndex = Integer.toString(adCount + 1);
+            String adIndex = Integer.toString(adCount + 1);
 
-        if(adCount < 6) {
-            mDatabaseProviderRef.child(uid).child("advert").child(adIndex).setValue(ad);
+            // TODO: Change constant 6 with value from subscription plan
+            if(adCount < 6) {
+                mDatabaseProviderRef.child(uid).child("advert").child(adIndex).setValue(ad);
 
-            mDatabaseProviderRef.child(uid).child("adCount").setValue(adCount + 1)
-                    .addOnSuccessListener(e -> Log.d("insert", "providerRef inserted"))
-                    .addOnFailureListener(e -> Log.d("insert", "failed"));
+                mDatabaseProviderRef.child(uid).child("adCount").setValue(adCount + 1)
+                        .addOnSuccessListener(e -> Log.d("insert", "providerRef inserted"))
+                        .addOnFailureListener(e -> Log.d("insert", "failed"));
+            } else {
+                // TODO: Sell them a premium plan
+            }
         } else {
-            // TODO: Sell them a premium plan
+            createNoActionSnackbar(view, "Please fill out all the fields").show();
         }
         // TODO: Once this function is done -> Get the F out of this activity.
     }
