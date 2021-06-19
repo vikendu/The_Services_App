@@ -1,8 +1,11 @@
 package com.vikendu.theservicesapp.util;
 
 import android.content.Context;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 public class ActivityUtil {
 
@@ -16,5 +19,16 @@ public class ActivityUtil {
         InputMethodManager inputMethodManager = (InputMethodManager) context
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(textView.getWindowToken(), 0);
+    }
+
+    /**
+     * This function creates a snackbar with no Action Buttons
+     * @param view view from the activity it is called
+     * @param message the String to be displayed
+     * @return Snackbar object/run .show()
+     */
+    public static Snackbar createNoActionSnackbar(View view, String message) {
+        Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
+        return snackbar;
     }
 }
