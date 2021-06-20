@@ -23,7 +23,7 @@ import java.util.Objects;
 import static com.vikendu.theservicesapp.util.FirebaseUtil.getUid;
 import static com.vikendu.theservicesapp.util.ResourceUtil.getFirebaseDatabase;
 
-public class ProviderAdData extends AppCompatActivity {
+public class ProviderHomeHelper extends AppCompatActivity {
 
     private RecyclerView adCardRv;
     private ArrayList<Advert> advertArrayList;
@@ -77,11 +77,13 @@ public class ProviderAdData extends AppCompatActivity {
     }
 
     private void updateView(ArrayList<Advert> advertArrayList) {
-        AdCardAdapter adCardAdapter = new AdCardAdapter(ProviderAdData.this, advertArrayList, mServiceProvider);
+        AdCardAdapter adCardAdapter = new AdCardAdapter(ProviderHomeHelper.this, advertArrayList, mServiceProvider);
         Log.d("Array ->>", Integer.toString(advertArrayList.size()));
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ProviderAdData.this, LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ProviderHomeHelper.this, LinearLayoutManager.VERTICAL, false);
         adCardRv.setLayoutManager(linearLayoutManager);
         adCardRv.setAdapter(adCardAdapter);
     }
+
+
 }

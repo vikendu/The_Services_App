@@ -12,7 +12,7 @@
         <activity android:name=".activity.FeedActivity"></activity>
         <activity android:name=".activity.BuyersHomeActivity" />
         <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.ProviderAdData" />
+        <activity android:name=".activity.ProviderHomeHelper" />
         <activity android:name=".activity.ProvidersHomeActivity" />
         <activity android:name=".activity.AdCreationActivity" />
         <activity android:name=".activity.ChooseTypeActivity" />
