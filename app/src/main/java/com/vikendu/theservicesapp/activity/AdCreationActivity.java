@@ -112,8 +112,8 @@ public class AdCreationActivity extends AppCompatActivity {
 
     public void submitForApproval(View view) {
         if ( !areAnyFieldsEmpty() ) {
+            hideKeyBoard(this, mPaisa);
             createPreview();
-            ActivityUtil.hideKeyBoard(this, mPaisa);
 
             Advert ad = new Advert("default",
                     "default",
@@ -123,11 +123,11 @@ public class AdCreationActivity extends AppCompatActivity {
                     false,
                     false);
 
-            String adIndex = Integer.toString(adCount + 1);
+            String adIndex = Integer.toString(adCount);
 
             // TODO: Change constant 6 with value from subscription plan
             if(adCount < 6) {
-                mDatabaseProviderRef.child(uid).child("advert").child(adIndex).setValue(ad);
+                mDatabaseProviderRef.child(uid).child("advertArrayList").child(adIndex).setValue(ad);
 
                 mDatabaseProviderRef.child(uid).child("adCount").setValue(adCount + 1)
                         .addOnSuccessListener(e -> Log.d("insert", "providerRef inserted"))
@@ -136,6 +136,7 @@ public class AdCreationActivity extends AppCompatActivity {
                 // TODO: Sell them a premium plan
             }
         } else {
+            hideKeyBoard(this, mPaisa);
             createNoActionSnackbar(view, "Please fill out all the fields").show();
         }
         // TODO: Once this function is done -> Get the F out of this activity.

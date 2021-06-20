@@ -50,4 +50,5 @@
     <!-- layout_location.xml -->
     <string name="feed_location">Loading Location...</string>
     <string name="refresh">Refresh&#10; Location</string>
+    <string name="feed_description">Go to feed</string>
 </resources>

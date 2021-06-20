@@ -9,15 +9,15 @@ public class ServiceProvider {
     private String lastName;
     private String rating;
     private String email;
-    private ArrayList<Advert> arrayList;
+    private ArrayList<Advert> advertArrayList;
 
-    public ServiceProvider(int adCount, String firstName, String lastName, String rating, String email, ArrayList<Advert> arrayList) {
+    public ServiceProvider(int adCount, String firstName, String lastName, String rating, String email, ArrayList<Advert> advertArrayList) {
         this.adCount = adCount;
         this.firstName = firstName;
         this.lastName = lastName;
         this.rating = rating;
         this.email = email;
-        this.arrayList = arrayList;
+        this.advertArrayList = advertArrayList;
     }
 
     public ServiceProvider() {
@@ -63,11 +63,11 @@ public class ServiceProvider {
         this.rating = rating;
     }
 
-    public ArrayList<Advert> getArrayList() {
-        return arrayList;
+    public ArrayList<Advert> getAdvertArrayList() {
+        return advertArrayList;
     }
 
     public void setAdvert() {
-        this.arrayList = arrayList;
+        this.advertArrayList = advertArrayList;
     }
 }
