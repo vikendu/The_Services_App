@@ -25,9 +25,11 @@ public class FeedActivity extends AppCompatActivity {
 
     private RecyclerView adCardRv;
     private ArrayList<Advert> advertArrayList;
-    private ServiceProvider mServiceProvider;
+    private Advert mAdvert;
 
     private FirebaseDatabase mDatabase;
+
+    ServiceProvider serviceProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,38 +41,33 @@ public class FeedActivity extends AppCompatActivity {
 
         mDatabase = getFirebaseDatabase();
         getProviderAdData();
+
+        serviceProvider = new ServiceProvider(0, "Vikendu", "Singh", "NaN", "vikendu@gmail.com", advertArrayList);
     }
 
     private void getProviderAdData() {
-        DatabaseReference mDatabaseProviderRef = mDatabase.getReference("providers");
+        DatabaseReference mDatabaseAdvertRef = mDatabase.getReference("adverts");
 
-        ValueEventListener serviceProviderListener = new ValueEventListener() {
-            ArrayList<Advert> ad = new ArrayList<>();
+        ValueEventListener advertListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 advertArrayList.clear();
                 for(DataSnapshot providerSnapshot : dataSnapshot.getChildren()) {
-                    mServiceProvider = providerSnapshot.getValue(ServiceProvider.class);
-                    advertArrayList = mServiceProvider.getAdvertArrayList();
-                    Log.d("ArraySize->>advert ->>", ""+advertArrayList.size());
-                    for(Advert advertLineItem : advertArrayList) {
-                        if(advertLineItem.isApproved()) {
-                            ad.add(advertLineItem);
-                        }
-                    }
+                    mAdvert = providerSnapshot.getValue(Advert.class);
+                    advertArrayList.add(mAdvert);
                 }
-                updateFeed(ad);
+                updateFeed(advertArrayList);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.w("On DataChange Listener", "onCancelled", databaseError.toException());
             }
         };
-        mDatabaseProviderRef.addValueEventListener(serviceProviderListener);
+        mDatabaseAdvertRef.child("approved").addValueEventListener(advertListener);
     }
 
     private void updateFeed(ArrayList advertList) {
-        AdCardAdapter adCardAdapter = new AdCardAdapter(this, advertList, mServiceProvider);
+        AdCardAdapter adCardAdapter = new AdCardAdapter(this, advertList, serviceProvider);
         Log.d("Array ->>", ""+advertList.size());
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
