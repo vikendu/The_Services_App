@@ -7,9 +7,12 @@ public class Advert {
     private String tagLine;
     private String adDescription;
     private String adPrice;
+    private String adId;
+    private String uid;
     private boolean approved;
     private boolean isLive;
     // TODO: Add location here
+    // TODO: Add cachedRating variable here
 
     public String getTagLine() {
         return tagLine;
@@ -67,14 +70,33 @@ public class Advert {
         isLive = live;
     }
 
-    public Advert(String category0, String category1, String tagLine, String adDescription, String adPrice, boolean approval, boolean isLive) {
+    public String getAdId() {
+        return adId;
+    }
+
+    public void setAdId(String adId) {
+        this.adId = adId;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public Advert(String category0, String category1, String tagLine, String adDescription, String adPrice, String adId, String uid, boolean approved, boolean isLive) {
         this.category0 = category0;
         this.category1 = category1;
         this.tagLine = tagLine;
         this.adDescription = adDescription;
         this.adPrice = adPrice;
-        this.approved = approval;
+        this.adId = adId;
+        this.uid = uid;
+        this.approved = approved;
         this.isLive = isLive;
     }
+
     public Advert() { }
 }

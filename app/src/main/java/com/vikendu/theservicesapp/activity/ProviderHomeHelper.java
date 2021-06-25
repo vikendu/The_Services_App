@@ -56,7 +56,7 @@ public class ProviderHomeHelper extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 advertArrayList.clear();
-                for(DataSnapshot adSnapshot : dataSnapshot.child("advert").getChildren()) {
+                for(DataSnapshot adSnapshot : dataSnapshot.child("advertArrayList").getChildren()) {
                     ad = adSnapshot.getValue(Advert.class);
                     if(getApprovedAds && ad.isApproved()) {
                         advertArrayList.add(ad);

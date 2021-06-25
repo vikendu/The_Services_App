@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
@@ -18,6 +19,8 @@ import com.vikendu.theservicesapp.model.ServiceProvider;
 import com.vikendu.theservicesapp.util.ActivityUtil;
 import com.vikendu.theservicesapp.util.FirebaseUtil;
 import com.vikendu.theservicesapp.util.ResourceUtil;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -37,9 +40,11 @@ public class AdCreationActivity extends AppCompatActivity {
     private TextView adStarRatingPreview;
 
     private DatabaseReference mDatabaseProviderRef;
+    private DatabaseReference mDatabaseAdvertRef;
     private ServiceProvider serviceProvider;
 
     private int adCount;
+    private String advertId;
     private String rating;
     private String uid;
 
@@ -49,6 +54,7 @@ public class AdCreationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ad_creation_tool);
 
         mDatabaseProviderRef = getFirebaseDatabase().getReference("providers");
+        mDatabaseAdvertRef = getFirebaseDatabase().getReference("adverts");
 
         mTagLine = findViewById(R.id.idAdCreationTaglineInput);
         mAdDescription = findViewById(R.id.idAdCreationDescInput);
@@ -63,12 +69,29 @@ public class AdCreationActivity extends AppCompatActivity {
         getServiceProvider();
     }
 
+    private void getAdId() {
+        ValueEventListener adIdListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                advertId = snapshot.child("adId").getValue(String.class);
+            }
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        };
+        mDatabaseAdvertRef.addValueEventListener(adIdListener);
+    }
+
     private void getServiceProvider() {
             ValueEventListener serviceProviderListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     serviceProvider = dataSnapshot.getValue(ServiceProvider.class);
-                    createPreview();
+                    if(serviceProvider != null) {
+                        createPreview();
+                        getAdId();
+                    }
                 }
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
@@ -120,15 +143,20 @@ public class AdCreationActivity extends AppCompatActivity {
                     ResourceUtil.getString(mTagLine),
                     ResourceUtil.getString(mAdDescription),
                     ResourceUtil.getString(mPaisa),
+                    advertId,
+                    uid,
                     false,
                     false);
 
             String adIndex = Integer.toString(adCount);
+            int adId = Integer.parseInt(advertId);
 
             // TODO: Change constant 6 with value from subscription plan
             if(adCount < 6) {
                 mDatabaseProviderRef.child(uid).child("advertArrayList").child(adIndex).setValue(ad);
+                mDatabaseAdvertRef.child("notApproved").child(Integer.toString(adId)).setValue(ad);
 
+                mDatabaseAdvertRef.child("adId").setValue(Integer.toString(adId + 1));
                 mDatabaseProviderRef.child(uid).child("adCount").setValue(adCount + 1)
                         .addOnSuccessListener(e -> Log.d("insert", "providerRef inserted"))
                         .addOnFailureListener(e -> Log.d("insert", "failed"));
