@@ -45,4 +45,8 @@ public class ProvidersHomeActivity extends AppCompatActivity {
         finish();
         startActivity(intent);
     }
+
+    public void goToChatActivity(View view) {
+
+    }
 }
