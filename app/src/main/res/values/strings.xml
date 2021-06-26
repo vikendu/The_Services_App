@@ -51,4 +51,8 @@
     <string name="feed_location">Loading Location...</string>
     <string name="refresh">Refresh&#10; Location</string>
     <string name="feed_description">Go to feed</string>
+
+    <!-- activity_buyers_home.xml -->
+    <string name="feed_button">Feed</string>
+    <string name="chat_button">Chat</string>
 </resources>
