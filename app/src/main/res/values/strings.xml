@@ -55,4 +55,11 @@
     <!-- activity_buyers_home.xml -->
     <string name="feed_button">Feed</string>
     <string name="chat_button">Chat</string>
+
+    <!-- layout_chat_msg_row.xml -->
+    <string name="prompt_msg"></string>
+    <string name="sample_message">Hello!</string>
+
+    <!-- activity_chat.xml -->
+    <string name="action_send">Send</string>
 </resources>

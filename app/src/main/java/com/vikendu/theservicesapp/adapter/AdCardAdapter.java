@@ -1,4 +1,4 @@
-package com.vikendu.theservicesapp;
+package com.vikendu.theservicesapp.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.vikendu.theservicesapp.R;
 import com.vikendu.theservicesapp.model.Advert;
 import com.vikendu.theservicesapp.model.ServiceProvider;
 

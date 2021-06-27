@@ -12,7 +12,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.vikendu.theservicesapp.AdCardAdapter;
+import com.vikendu.theservicesapp.adapter.AdCardAdapter;
 import com.vikendu.theservicesapp.R;
 import com.vikendu.theservicesapp.model.Advert;
 import com.vikendu.theservicesapp.model.ServiceProvider;
