@@ -18,6 +18,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.vikendu.theservicesapp.R;
@@ -151,6 +153,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Log.d("Register", "User Reg Failed");
                     showRegistrationFailed();
                 } else {
+                    saveUsername();
                     createDatabaseEntry(FirebaseUtil.getUid());
 
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
@@ -162,7 +165,20 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void createDatabaseEntry(String userId){
+    private void saveUsername() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        String displayName = mEmailView.getText().toString();
+
+        if (user != null) {
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(displayName)
+                    .build();
+            user.updateProfile(profileUpdates)
+                    .addOnCompleteListener(task -> { if (task.isSuccessful()) { Log.d("FlashChat", "User name updated."); } });
+        }
+    }
+
+    private void createDatabaseEntry(String userId) {
         // Input a ServiceProvider Object as proof of registration in the database
         ServiceProvider provider = new ServiceProvider(1,
                 ResourceUtil.getString(mFirstName),
