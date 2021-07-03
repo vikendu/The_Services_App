@@ -126,8 +126,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         if(confirm_pass.equals(password) && confirm_pass.length() >= 6) {
             return true;
-        }
-        else {
+        } else {
             toast.show();
             return false;
         }
@@ -180,11 +179,12 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void createDatabaseEntry(String userId) {
         // Input a ServiceProvider Object as proof of registration in the database
-        ServiceProvider provider = new ServiceProvider(1,
+        ServiceProvider provider = new ServiceProvider(0,
                 ResourceUtil.getString(mFirstName),
                 ResourceUtil.getString(mLastName),
                 "0.0",
                 ResourceUtil.getString(mEmailView),
+                null,
                 null);
 
         DatabaseReference mDatabaseRef = database.getReference("providers");

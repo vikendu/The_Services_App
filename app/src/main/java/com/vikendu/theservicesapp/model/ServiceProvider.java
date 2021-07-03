@@ -10,14 +10,16 @@ public class ServiceProvider {
     private String rating;
     private String email;
     private ArrayList<Advert> advertArrayList;
+    private ArrayList<String> contactList;
 
-    public ServiceProvider(int adCount, String firstName, String lastName, String rating, String email, ArrayList<Advert> advertArrayList) {
+    public ServiceProvider(int adCount, String firstName, String lastName, String rating, String email, ArrayList<Advert> advertArrayList, ArrayList<String> contactList) {
         this.adCount = adCount;
         this.firstName = firstName;
         this.lastName = lastName;
         this.rating = rating;
         this.email = email;
         this.advertArrayList = advertArrayList;
+        this.contactList = contactList;
     }
 
     public ServiceProvider() {
@@ -69,5 +71,17 @@ public class ServiceProvider {
 
     public void setAdvert() {
         this.advertArrayList = advertArrayList;
+    }
+
+    public void setAdvertArrayList(ArrayList<Advert> advertArrayList) {
+        this.advertArrayList = advertArrayList;
+    }
+
+    public ArrayList<String> getContactList() {
+        return contactList;
+    }
+
+    public void setContactList(ArrayList<String> contactList) {
+        this.contactList = contactList;
     }
 }

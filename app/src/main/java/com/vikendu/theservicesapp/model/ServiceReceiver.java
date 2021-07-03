@@ -1,9 +1,18 @@
 package com.vikendu.theservicesapp.model;
 
+import java.util.ArrayList;
+
 public class ServiceReceiver {
 
     private String firstName;
     private String lastName;
+    private ArrayList<String> contactList;
+
+    public ServiceReceiver(String firstName, String lastName, ArrayList<String> contactList) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.contactList = contactList;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -21,8 +30,11 @@ public class ServiceReceiver {
         this.lastName = lastName;
     }
 
-    public ServiceReceiver(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public ArrayList<String> getContactList() {
+        return contactList;
+    }
+
+    public void setContactList(ArrayList<String> contactList) {
+        this.contactList = contactList;
     }
 }
