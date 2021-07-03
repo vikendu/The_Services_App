@@ -42,7 +42,7 @@ public class FeedActivity extends AppCompatActivity {
         mDatabase = getFirebaseDatabase();
         getProviderAdData();
 
-        serviceProvider = new ServiceProvider(0, "Vikendu", "Singh", "NaN", "vikendu@gmail.com", advertArrayList);
+        serviceProvider = new ServiceProvider(0, "Vikendu", "Singh", "NaN", "vikendu@gmail.com", advertArrayList, null);
     }
 
     private void getProviderAdData() {
