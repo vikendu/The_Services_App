@@ -25,14 +25,18 @@ public class ChatActivity extends AppCompatActivity {
     private ImageButton mSendButton;
     private DatabaseReference databaseChatReference;
     private ChatAdapter chatAdapter;
+    private String chatId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        Bundle bundle = getIntent().getExtras();
+        chatId = bundle.getString("chatId");
+
         usernameSetup();
-        databaseChatReference = getFirebaseDatabase().getReference("chats");
+        databaseChatReference = getFirebaseDatabase().getReference("chats").child(chatId);
 
         mInputText = findViewById(R.id.messageInput);
         mSendButton = findViewById(R.id.sendButton);

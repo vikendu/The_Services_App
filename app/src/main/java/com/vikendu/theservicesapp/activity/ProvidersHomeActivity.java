@@ -47,10 +47,8 @@ public class ProvidersHomeActivity extends AppCompatActivity {
     }
 
     public void goToChatActivity(View view) {
-        Intent intent = new Intent(this, ChatActivity.class);
-        //TODO: Calculate & send data about which node to set a Listener on
-        //TODO: The child name to be calculated as [first 4 digits + last 4 digits of UID provider] + [same for customer UID]
-//        intent.putExtra("isApproved", true);
+        Intent intent = new Intent(this, ChatContactActivity.class);
+        intent.putExtra("listenOn", "providers");
         finish();
         startActivity(intent);
     }
