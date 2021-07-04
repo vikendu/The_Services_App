@@ -62,4 +62,11 @@
 
     <!-- activity_chat.xml -->
     <string name="action_send">Send</string>
+
+    <!-- layout_contact_id.xml -->
+    <string name="contact_name">Loading Name...</string>
+    <string name="contact_id">Loading id...</string>
+
+    <!-- layout_chat_header.xml -->
+    <string name="chat_header_text">Recent Contacts</string>
 </resources>
