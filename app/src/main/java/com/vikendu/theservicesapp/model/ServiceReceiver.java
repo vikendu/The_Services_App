@@ -14,6 +14,8 @@ public class ServiceReceiver {
         this.contactList = contactList;
     }
 
+    public ServiceReceiver() { }
+
     public String getFirstName() {
         return firstName;
     }

@@ -3,6 +3,7 @@ package com.vikendu.theservicesapp.activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.vikendu.theservicesapp.R;
 import com.vikendu.theservicesapp.model.ServiceProvider;
+import com.vikendu.theservicesapp.model.ServiceReceiver;
 import com.vikendu.theservicesapp.util.FirebaseUtil;
 import com.vikendu.theservicesapp.util.ResourceUtil;
 
@@ -44,6 +46,11 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
 
+    private String userId;
+    private boolean dialogListenerCallback;
+
+    DialogInterface.OnClickListener dialogClickListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +64,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         database = getFirebaseDatabase();
 
+        dialogListenerCallback = false;
+
         //Keyboard sign in action
         mConfirmPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
             if (id == R.integer.register_form_finished || id == EditorInfo.IME_NULL) {
@@ -66,6 +75,31 @@ public class RegisterActivity extends AppCompatActivity {
             return false;
         });
         mAuth = FirebaseAuth.getInstance();
+
+        //TODO: Fix this intent put in a separate method.
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+
+        dialogClickListener = (dialog, which) -> {
+            switch(which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    DatabaseReference providerReference = database.getReference("providers");
+                    FirebaseUtil.insertServiceProvider(userId, providerReference, createNewProvider());
+
+                    startActivity(intent);
+                    finish();
+                    break;
+                case DialogInterface.BUTTON_NEGATIVE:
+                    DatabaseReference receiverReference = database.getReference("receivers");
+                    FirebaseUtil.insertServiceReceiver(userId, receiverReference, createNewReceiver());
+
+                    startActivity(intent);
+                    finish();
+                    break;
+                default:
+                    dialogListenerCallback = false;
+                    break;
+            }
+        };
     }
 
     // Executed when Sign Up button is pressed.
@@ -153,11 +187,8 @@ public class RegisterActivity extends AppCompatActivity {
                     showRegistrationFailed();
                 } else {
                     saveUsername();
-                    createDatabaseEntry(FirebaseUtil.getUid());
-
-                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
+                    userId = FirebaseUtil.getUid();
+                    createDatabaseEntry();
                 }
             });
             handler.post(pdLoading::dismiss);
@@ -177,8 +208,15 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private void createDatabaseEntry(String userId) {
-        // Input a ServiceProvider Object as proof of registration in the database
+    private void createDatabaseEntry() {
+        AlertDialog.Builder userDialog = new AlertDialog.Builder(RegisterActivity.this);
+        userDialog.setMessage("Which type of user will you be?")
+                .setPositiveButton("Service Provider", dialogClickListener)
+                .setNegativeButton("Service Receiver", dialogClickListener);
+        userDialog.show();
+    }
+
+    private ServiceProvider createNewProvider() {
         ServiceProvider provider = new ServiceProvider(0,
                 ResourceUtil.getString(mFirstName),
                 ResourceUtil.getString(mLastName),
@@ -187,8 +225,15 @@ public class RegisterActivity extends AppCompatActivity {
                 null,
                 null);
 
-        DatabaseReference mDatabaseRef = database.getReference("providers");
-        FirebaseUtil.insertServiceProvider(userId, mDatabaseRef,provider);
+        return provider;
+    }
+
+    private ServiceReceiver createNewReceiver() {
+        ServiceReceiver receiver = new ServiceReceiver(
+                ResourceUtil.getString(mFirstName),
+                ResourceUtil.getString(mLastName),
+                null);
+        return receiver;
     }
 
     private void showRegistrationFailed() {

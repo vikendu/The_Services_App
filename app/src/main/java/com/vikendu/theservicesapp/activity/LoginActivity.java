@@ -49,16 +49,15 @@ public class LoginActivity extends AppCompatActivity {
 
         if(loginPref.getBoolean("logged",false)){
             // TODO: put the function goTo<NameOfActivity>Activity() here
-            goToAdCreationTool();
+            userCheckActivity();
         }
 
         dialogClickListener = (dialog, which) -> {
             switch (which){
                 case DialogInterface.BUTTON_POSITIVE:
-
                     loginPref.edit().putBoolean("logged",true).apply();
                     // TODO: put the function goTo<NameOfActivity>Activity() here
-                    goToAdCreationTool();
+                    userCheckActivity();
                     break;
 
                 case DialogInterface.BUTTON_NEGATIVE:
@@ -83,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
         String password = mPasswordView.getText().toString();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-        builder.setMessage("Due to limitations on Android 8.0+ there will be a persistant notification to make sure the App stays in Memory.\nTo continue using the application click Accept.").setPositiveButton("Accept", dialogClickListener)
+        builder.setMessage("Welcome!").setPositiveButton("Accept", dialogClickListener)
                 .setNegativeButton("Decline", dialogClickListener);
 
         if(email.equals("") || password.equals("")) { //TODO: If has empty body RECTIFY
@@ -102,10 +101,10 @@ public class LoginActivity extends AppCompatActivity {
             });
         }
     }
+
     // TODO: rebuild the following function to redirect the user to the correct activity
-    private void goToAdCreationTool()
-    {
-        Intent intent = new Intent(LoginActivity.this, ProvidersHomeActivity.class);
+    private void userCheckActivity() {
+        Intent intent = new Intent(LoginActivity.this, UserCheckActivity.class);
         finish();
         startActivity(intent);
     }
