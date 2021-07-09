@@ -7,6 +7,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.vikendu.theservicesapp.model.Advert;
 import com.vikendu.theservicesapp.model.ServiceProvider;
+import com.vikendu.theservicesapp.model.ServiceReceiver;
 
 public class FirebaseUtil {
 
@@ -49,6 +50,18 @@ public class FirebaseUtil {
         databaseReference.child(userId).setValue(serviceProvider)
                 .addOnSuccessListener(e -> Log.d("insertSP", "Successful"))
                 .addOnFailureListener(e -> Log.d("InsertSP", "Failure"));
+    }
+
+    /**
+     *
+     * @param userId
+     * @param databaseReference
+     * @param serviceReceiver
+     */
+    public static void insertServiceReceiver(String userId, DatabaseReference databaseReference, ServiceReceiver serviceReceiver) {
+        databaseReference.child(userId).setValue(serviceReceiver)
+                .addOnSuccessListener(e -> Log.d("insertReceiver", "Successful"))
+                .addOnFailureListener(e -> Log.d("InsertReceiver", "Failure"));
     }
 
     /**
