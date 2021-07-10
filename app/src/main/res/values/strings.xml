@@ -48,7 +48,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
 
     <!-- layout_location.xml -->
-    <string name="feed_location">Loading Location...</string>
+    <string name="feed_location">Loading Location…</string>
     <string name="refresh">Refresh&#10; Location</string>
     <string name="feed_description">Go to feed</string>
 
@@ -57,16 +57,24 @@
     <string name="chat_button">Chat</string>
 
     <!-- layout_chat_msg_row.xml -->
-    <string name="prompt_msg"></string>
     <string name="sample_message">Hello!</string>
 
     <!-- activity_chat.xml -->
     <string name="action_send">Send</string>
 
     <!-- layout_contact_id.xml -->
-    <string name="contact_name">Loading Name...</string>
-    <string name="contact_id">Loading id...</string>
+    <string name="contact_name">Loading Name…</string>
+    <string name="contact_id">Loading id…</string>
 
     <!-- layout_chat_header.xml -->
     <string name="chat_header_text">Recent Contacts</string>
+
+    <!-- activity_provider_details.xml -->
+    <string name="details_name">Name :</string>
+    <string name="details_phone_number">Phone Number :</string>
+    <string name="details_email">Email :</string>
+    <string name="details_about_me">About Me :</string>
+    <string name="details_default">Null</string>
+    <string name="details_chat_button">Start Chat</string>
+    <string name="details_go_back_to_feed">Go Back</string>
 </resources>
