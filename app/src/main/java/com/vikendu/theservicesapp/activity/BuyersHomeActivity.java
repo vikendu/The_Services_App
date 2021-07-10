@@ -2,6 +2,7 @@ package com.vikendu.theservicesapp.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -16,6 +17,15 @@ public class BuyersHomeActivity extends AppCompatActivity {
     }
 
     public void goToChatActivity(View view) {
+        Intent intent = new Intent(this, ChatContactActivity.class);
+        intent.putExtra("listenOn", "receivers");
+        finish();
+        startActivity(intent);
+    }
 
+    public void goToFeed(View view) {
+        Intent intent = new Intent(this, FeedActivity.class);
+        finish();
+        startActivity(intent);
     }
 }
