@@ -28,7 +28,7 @@
         android:layout_marginStart="3dp"
         android:text="@string/details_phone_number"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
+        app:layout_constraintBaseline_toBaselineOf="@+id/idProviderPhone"
         app:layout_constraintStart_toStartOf="@+id/guideline2" />
 
     <TextView
@@ -38,11 +38,11 @@
         android:layout_marginStart="3dp"
         android:text="@string/details_email"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView6"
+        app:layout_constraintBaseline_toBaselineOf="@+id/idProviderEmail"
         app:layout_constraintStart_toStartOf="@+id/guideline2" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/idProviderName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
@@ -51,23 +51,23 @@
         app:layout_constraintTop_toBottomOf="@+id/include" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/idProviderEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="69dp"
         android:text="@string/details_default"
         app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/idProviderName" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/idProviderAboutMe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="28dp"
         android:text="@string/details_default"
         app:layout_constraintStart_toEndOf="@+id/textView7"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/idProviderEmail" />
 
     <TextView
         android:id="@+id/textView7"
@@ -76,16 +76,16 @@
         android:layout_marginStart="3dp"
         android:text="@string/details_about_me"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView8"
+        app:layout_constraintBaseline_toBaselineOf="@+id/idProviderAboutMe"
         app:layout_constraintStart_toStartOf="@+id/guideline2" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/idProviderPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="25dp"
         android:text="@string/details_default"
-        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintBottom_toTopOf="@+id/idProviderEmail"
         app:layout_constraintStart_toEndOf="@+id/textView3" />
 
     <TextView
@@ -95,7 +95,7 @@
         android:layout_marginStart="3dp"
         android:text="@string/details_name"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
+        app:layout_constraintBaseline_toBaselineOf="@+id/idProviderName"
         app:layout_constraintStart_toStartOf="@+id/guideline2" />
 
     <Button
@@ -104,6 +104,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:text="@string/details_chat_button"
+        android:onClick="startChat"
         app:layout_constraintBaseline_toBaselineOf="@+id/button3"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -112,8 +113,8 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginStart="19dp"
-        android:layout_marginTop="47dp"
+        android:layout_marginTop="46dp"
         android:text="@string/details_go_back_to_feed"
         app:layout_constraintStart_toEndOf="@+id/button2"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/idProviderAboutMe" />
 </androidx.constraintlayout.widget.ConstraintLayout>

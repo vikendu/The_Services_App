@@ -1,6 +1,9 @@
 package com.vikendu.theservicesapp.model;
 
-public class Advert {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Advert implements Serializable {
 
     private String category0;
     private String category1;
@@ -12,7 +15,7 @@ public class Advert {
     private boolean approved;
     private boolean isLive;
     // TODO: Add location here
-    // TODO: Add cachedRating variable here
+    // TODO: Add String cachedRating variable here
 
     public String getTagLine() {
         return tagLine;

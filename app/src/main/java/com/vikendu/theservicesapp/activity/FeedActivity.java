@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,6 +18,7 @@ import com.vikendu.theservicesapp.adapter.AdCardAdapter;
 import com.vikendu.theservicesapp.R;
 import com.vikendu.theservicesapp.model.Advert;
 import com.vikendu.theservicesapp.model.ServiceProvider;
+import com.vikendu.theservicesapp.util.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 
@@ -43,6 +46,25 @@ public class FeedActivity extends AppCompatActivity {
         getProviderAdData();
 
         serviceProvider = new ServiceProvider(0, "Vikendu", "Singh", "NaN", "vikendu@gmail.com", advertArrayList, null);
+
+        adCardRv.addOnItemTouchListener(
+                new RecyclerItemClickListener(this, adCardRv, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Advert advert = advertArrayList.get(position);
+
+                        Intent intent = new Intent(view.getContext(), ProviderDetailsActivity.class);
+                        intent.putExtra("advert", advert);
+                        finish();
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+
+                    }
+                })
+        );
     }
 
     private void getProviderAdData() {
