@@ -31,17 +31,14 @@ public class UserCheckActivity extends AppCompatActivity {
         databaseReference = getFirebaseDatabase().getReference();
         uid = getUid();
         isProvider();
-
-
     }
 
     private void isProvider() {
-        databaseReference.child("provider").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("providers").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 ServiceProvider user = snapshot.getValue(ServiceProvider.class);
                 if(user != null) {
-                    //go to Provider Home
                     Intent intent = new Intent(UserCheckActivity.this, ProvidersHomeActivity.class);
                     finish();
                     startActivity(intent);
@@ -67,7 +64,7 @@ public class UserCheckActivity extends AppCompatActivity {
                     finish();
                     startActivity(intent);
                 } else {
-                    //TODO pop up some error
+                    //TODO pop up some error; "You not registered bro."
                 }
             }
 
@@ -76,6 +73,5 @@ public class UserCheckActivity extends AppCompatActivity {
 
             }
         });
-
     }
 }
