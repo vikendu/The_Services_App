@@ -69,10 +69,6 @@ public class ServiceProvider {
         return advertArrayList;
     }
 
-    public void setAdvert() {
-        this.advertArrayList = advertArrayList;
-    }
-
     public void setAdvertArrayList(ArrayList<Advert> advertArrayList) {
         this.advertArrayList = advertArrayList;
     }

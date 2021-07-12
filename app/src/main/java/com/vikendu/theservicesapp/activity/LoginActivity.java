@@ -19,8 +19,6 @@ import com.vikendu.theservicesapp.R;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private final String TAG = "Firebase";
-
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private FirebaseAuth mAuth;
@@ -33,8 +31,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.login_email);
-        mPasswordView = (EditText) findViewById(R.id.login_password);
+        mEmailView = findViewById(R.id.login_email);
+        mPasswordView = findViewById(R.id.login_password);
 
         mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
             if (id == R.integer.login || id == EditorInfo.IME_NULL) {
@@ -85,7 +83,8 @@ public class LoginActivity extends AppCompatActivity {
         builder.setMessage("Welcome!").setPositiveButton("Accept", dialogClickListener)
                 .setNegativeButton("Decline", dialogClickListener);
 
-        if(email.equals("") || password.equals("")) { //TODO: If has empty body RECTIFY
+        if(email.equals("") || password.equals("")) {
+            //TODO: If has empty body RECTIFY
         } else {
             Toast.makeText(this, "Login in progress", Toast.LENGTH_SHORT).show();
 

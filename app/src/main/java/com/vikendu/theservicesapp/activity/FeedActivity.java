@@ -32,7 +32,7 @@ public class FeedActivity extends AppCompatActivity {
 
     private FirebaseDatabase mDatabase;
 
-    ServiceProvider serviceProvider;
+    private ServiceProvider serviceProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +82,6 @@ public class FeedActivity extends AppCompatActivity {
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.w("On DataChange Listener", "onCancelled", databaseError.toException());
             }
         };
         mDatabaseAdvertRef.child("approved").addValueEventListener(advertListener);
@@ -90,7 +89,6 @@ public class FeedActivity extends AppCompatActivity {
 
     private void updateFeed(ArrayList advertList) {
         AdCardAdapter adCardAdapter = new AdCardAdapter(this, advertList, serviceProvider);
-        Log.d("Array ->>", ""+advertList.size());
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         adCardRv.setLayoutManager(linearLayoutManager);

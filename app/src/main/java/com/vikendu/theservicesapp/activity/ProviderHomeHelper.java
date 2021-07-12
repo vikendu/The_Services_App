@@ -59,11 +59,13 @@ public class ProviderHomeHelper extends AppCompatActivity {
                 for(DataSnapshot adSnapshot : dataSnapshot.child("advertArrayList").getChildren()) {
                     //TODO: Check for Null pointer exception here, provider may not have any ads
                     ad = adSnapshot.getValue(Advert.class);
-                    if(getApprovedAds && ad.isApproved()) {
-                        advertArrayList.add(ad);
-                    }
-                    else if(!getApprovedAds && !ad.isApproved()) {
-                        advertArrayList.add(ad);
+                    if(ad != null) {
+                        if(getApprovedAds && ad.isApproved()) {
+                            advertArrayList.add(ad);
+                        }
+                        else if(!getApprovedAds && !ad.isApproved()) {
+                            advertArrayList.add(ad);
+                        }
                     }
                 }
                 mServiceProvider = dataSnapshot.getValue(ServiceProvider.class);
@@ -79,7 +81,6 @@ public class ProviderHomeHelper extends AppCompatActivity {
 
     private void updateView(ArrayList<Advert> advertArrayList) {
         AdCardAdapter adCardAdapter = new AdCardAdapter(ProviderHomeHelper.this, advertArrayList, mServiceProvider);
-        Log.d("Array ->>", Integer.toString(advertArrayList.size()));
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ProviderHomeHelper.this, LinearLayoutManager.VERTICAL, false);
         adCardRv.setLayoutManager(linearLayoutManager);

@@ -36,12 +36,12 @@ public class ChatContactActivity extends AppCompatActivity {
     private HashMap<String, String> nameMap;
     private ArrayList<String> keySet;
     private String resolvedName;
+
     private RecyclerView contactView;
 
     private FirebaseDatabase database;
     private DatabaseReference currentUserReference;
     private DatabaseReference chatReference;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,10 +129,8 @@ public class ChatContactActivity extends AppCompatActivity {
         ArrayList<String> names = new ArrayList<>(map.values());
 
         ChatContactsAdapter contactAdapter = new ChatContactsAdapter(this, keySet, names);
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         contactView.setLayoutManager(linearLayoutManager);
         contactView.setAdapter(contactAdapter);
     }
-    //TODO: Add an intent to go to ChatActivity.java; putExtra() the node details
 }

@@ -19,7 +19,6 @@
         <activity android:name=".activity.ProviderHomeHelper" />
         <activity android:name=".activity.ProvidersHomeActivity" />
         <activity android:name=".activity.AdCreationActivity" />
-        <activity android:name=".activity.ChooseTypeActivity" />
         <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
