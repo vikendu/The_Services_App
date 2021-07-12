@@ -43,7 +43,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:text="@string/refresh"
             android:textAlignment="center"
-            android:textSize="10dp"
+            android:textSize="12sp"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

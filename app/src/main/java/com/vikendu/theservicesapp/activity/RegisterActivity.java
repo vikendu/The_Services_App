@@ -47,7 +47,6 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseDatabase database;
 
     private String userId;
-    private boolean dialogListenerCallback;
 
     DialogInterface.OnClickListener dialogClickListener;
 
@@ -63,8 +62,6 @@ public class RegisterActivity extends AppCompatActivity {
         mLastName = findViewById(R.id.idLastName);
 
         database = getFirebaseDatabase();
-
-        dialogListenerCallback = false;
 
         //Keyboard sign in action
         mConfirmPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
@@ -96,7 +93,6 @@ public class RegisterActivity extends AppCompatActivity {
                     finish();
                     break;
                 default:
-                    dialogListenerCallback = false;
                     break;
             }
         };
@@ -180,8 +176,6 @@ public class RegisterActivity extends AppCompatActivity {
             String password = mPasswordView.getText().toString();
 
             mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this, task -> {
-                Log.d("Register", "Registering" + task.isSuccessful());
-
                 if(!task.isSuccessful()) {
                     Log.d("Register", "User Reg Failed");
                     showRegistrationFailed();
@@ -204,7 +198,7 @@ public class RegisterActivity extends AppCompatActivity {
                     .setDisplayName(displayName)
                     .build();
             user.updateProfile(profileUpdates)
-                    .addOnCompleteListener(task -> { if (task.isSuccessful()) { Log.d("FlashChat", "User name updated."); } });
+                    .addOnCompleteListener(task -> { if (task.isSuccessful()) {  } });
         }
     }
 

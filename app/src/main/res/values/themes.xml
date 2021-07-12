@@ -20,6 +20,5 @@
     </style>
 
     <style name="Theme.TheServicesApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="Theme.TheServicesApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

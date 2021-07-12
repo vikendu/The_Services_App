@@ -82,7 +82,7 @@ public class ChatActivity extends AppCompatActivity {
     private void sendMessage() {
         String message_text = mInputText.getText().toString();
 
-        if (!message_text.equals("")) {
+        if(!message_text.equals("")) {
             Message message = new Message(message_text, mDisplayName);
             databaseChatReference.child("message").push().setValue(message);
             mInputText.setText("");

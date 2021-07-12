@@ -2,18 +2,13 @@
     <!-- Reusable -->
     <string name="copyright_text">©2021 Vikendu Singh, Jodhpur</string>
 
-    <!-- activity_choose_type.xml -->
-    <string name="app_name">The Services App</string>
-    <string name="who_will_you_be">Who will you be?</string>
-    <string name="i_will_be_providing_services">I will be providing services</string>
-    <string name="i_will_be_using_the_services">I will be using the services</string>
-
     <!-- ad_card_format.xml -->
     <string name="ad_tagline">Loading Tagline…</string>
     <string name="ad_description">Loading Desc…</string>
     <string name="ad_price">Loading Price…</string>
     <string name="star_image">Image of a star</string>
     <string name="providers_rating">Loading rating…</string>
+    <string name="app_name">The Services App</string>
 
     <!-- activity_ad_creation_tool.xml -->
     <string name="ad_creation_tagline_input">Enter a Tagline</string>

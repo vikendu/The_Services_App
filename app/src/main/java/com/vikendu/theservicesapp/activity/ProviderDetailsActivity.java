@@ -105,7 +105,6 @@ public class ProviderDetailsActivity extends AppCompatActivity {
                     providerEmail.setText(provider.getEmail());
                     //providerAboutMe.setText();
                     starRating.setText(provider.getRating());
-
                     providerContactName = provider.getFirstName();
 
                     if(provider.getContactList() != null) {
@@ -113,7 +112,7 @@ public class ProviderDetailsActivity extends AppCompatActivity {
                     }
                     getReceiverDetail();
                 } else {
-                    Log.d("ProviderDetailsHome", "EPIC FAIL");
+                    //TODO: No such user exists.
                 }
             }
 
