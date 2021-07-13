@@ -68,7 +68,6 @@ public class ChatContactActivity extends AppCompatActivity {
 
                         Intent intent = new Intent(view.getContext(), ChatActivity.class);
                         intent.putExtra("chatId", key);
-                        finish();
                         startActivity(intent);
                     }
                     @Override public void onLongItemClick(View view, int position) {
