@@ -29,10 +29,11 @@ public class FeedActivity extends AppCompatActivity {
     private RecyclerView adCardRv;
     private ArrayList<Advert> advertArrayList;
     private Advert mAdvert;
+    private ServiceProvider serviceProvider;
 
     private FirebaseDatabase mDatabase;
-
-    private ServiceProvider serviceProvider;
+    private DatabaseReference mDatabaseAdvertRef;
+    private ValueEventListener advertListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,6 @@ public class FeedActivity extends AppCompatActivity {
 
                         Intent intent = new Intent(view.getContext(), ProviderDetailsActivity.class);
                         intent.putExtra("advert", advert);
-                        finish();
                         startActivity(intent);
                     }
 
@@ -68,9 +68,9 @@ public class FeedActivity extends AppCompatActivity {
     }
 
     private void getProviderAdData() {
-        DatabaseReference mDatabaseAdvertRef = mDatabase.getReference("adverts");
+        mDatabaseAdvertRef = mDatabase.getReference("adverts");
 
-        ValueEventListener advertListener = new ValueEventListener() {
+        advertListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 advertArrayList.clear();
@@ -93,5 +93,11 @@ public class FeedActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         adCardRv.setLayoutManager(linearLayoutManager);
         adCardRv.setAdapter(adCardAdapter);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mDatabaseAdvertRef.removeEventListener(advertListener);
     }
 }

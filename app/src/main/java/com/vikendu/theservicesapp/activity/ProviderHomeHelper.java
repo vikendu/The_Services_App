@@ -27,11 +27,13 @@ public class ProviderHomeHelper extends AppCompatActivity {
 
     private RecyclerView adCardRv;
     private ArrayList<Advert> advertArrayList;
+    private boolean getApprovedAds;
+
     private ServiceProvider mServiceProvider;
 
     private FirebaseDatabase mDatabase;
-
-    private boolean getApprovedAds;
+    private DatabaseReference mDatabaseProviderRef;
+    private ValueEventListener serviceProviderListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +51,9 @@ public class ProviderHomeHelper extends AppCompatActivity {
     }
 
     private void getProviderAdData() {
-        DatabaseReference mDatabaseProviderRef = mDatabase.getReference("providers");
+        mDatabaseProviderRef = mDatabase.getReference("providers");
 
-        ValueEventListener serviceProviderListener = new ValueEventListener() {
+        serviceProviderListener = new ValueEventListener() {
         Advert ad;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -85,5 +87,11 @@ public class ProviderHomeHelper extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ProviderHomeHelper.this, LinearLayoutManager.VERTICAL, false);
         adCardRv.setLayoutManager(linearLayoutManager);
         adCardRv.setAdapter(adCardAdapter);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mDatabaseProviderRef.removeEventListener(serviceProviderListener);
     }
 }
