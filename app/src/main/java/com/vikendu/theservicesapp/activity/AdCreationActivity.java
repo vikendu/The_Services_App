@@ -43,6 +43,9 @@ public class AdCreationActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseAdvertRef;
     private ServiceProvider serviceProvider;
 
+    private ValueEventListener adIdListener;
+    private ValueEventListener serviceProviderListener;
+
     private int adCount;
     private String advertId;
     private String rating;
@@ -70,7 +73,7 @@ public class AdCreationActivity extends AppCompatActivity {
     }
 
     private void getAdId() {
-        ValueEventListener adIdListener = new ValueEventListener() {
+        adIdListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 advertId = snapshot.child("adId").getValue(String.class);
@@ -84,7 +87,7 @@ public class AdCreationActivity extends AppCompatActivity {
     }
 
     private void getServiceProvider() {
-            ValueEventListener serviceProviderListener = new ValueEventListener() {
+            serviceProviderListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     serviceProvider = dataSnapshot.getValue(ServiceProvider.class);
@@ -168,5 +171,12 @@ public class AdCreationActivity extends AppCompatActivity {
             createNoActionSnackbar(view, "Please fill out all the fields").show();
         }
         // TODO: Once this function is done -> Get the F out of this activity.
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mDatabaseAdvertRef.removeEventListener(adIdListener);
+        mDatabaseProviderRef.removeEventListener(serviceProviderListener);
     }
 }

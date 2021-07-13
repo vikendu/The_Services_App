@@ -42,6 +42,8 @@ public class ChatContactActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference currentUserReference;
     private DatabaseReference chatReference;
+    private ValueEventListener nameResolverListener;
+    private ValueEventListener contactListListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +86,7 @@ public class ChatContactActivity extends AppCompatActivity {
             currentUserReference = database.getReference("receivers");
         }
 
-        ValueEventListener listener = new ValueEventListener() {
+        contactListListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 nameMap.clear();
@@ -98,13 +100,13 @@ public class ChatContactActivity extends AppCompatActivity {
                 Log.w("On DataChange Listener", "onCancelled", error.toException());
             }
         };
-        currentUserReference.child(uid).child("contactList").addValueEventListener(listener);
+        currentUserReference.child(uid).child("contactList").addValueEventListener(contactListListener);
     }
 
     private void resolveName(String chatId, String typeOfUser) {
         chatReference = database.getReference("chats");
 
-        ValueEventListener listener = new ValueEventListener() {
+        nameResolverListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 ChatContact contact = snapshot.getValue(ChatContact.class);
@@ -120,7 +122,7 @@ public class ChatContactActivity extends AppCompatActivity {
             public void onCancelled(@NonNull @NotNull DatabaseError error) {
             }
         };
-        chatReference.child(chatId).addValueEventListener(listener);
+        chatReference.child(chatId).addValueEventListener(nameResolverListener);
     }
 
     private void updateContactList(HashMap<String, String> map) {
@@ -131,5 +133,12 @@ public class ChatContactActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         contactView.setLayoutManager(linearLayoutManager);
         contactView.setAdapter(contactAdapter);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        chatReference.removeEventListener(nameResolverListener);
+        currentUserReference.removeEventListener(contactListListener);
     }
 }
