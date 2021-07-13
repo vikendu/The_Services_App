@@ -18,7 +18,6 @@ public class ProvidersHomeActivity extends AppCompatActivity {
 
     public void goToAdCreationTool(View view) {
         Intent intent = new Intent(this, AdCreationActivity.class);
-        finish();
         startActivity(intent);
     }
 
@@ -26,7 +25,6 @@ public class ProvidersHomeActivity extends AppCompatActivity {
         // TODO: go to the same activity as that of the FEED just fill it up with req data
         Intent intent = new Intent(this, ProviderHomeHelper.class);
         intent.putExtra("isApproved", false);
-        finish();
         startActivity(intent);
     }
 
@@ -34,7 +32,6 @@ public class ProvidersHomeActivity extends AppCompatActivity {
         // TODO: go to the same activity as that of the FEED just fill it up with req data
         Intent intent = new Intent(this, ProviderHomeHelper.class);
         intent.putExtra("isApproved", true);
-        finish();
         startActivity(intent);
     }
 
@@ -42,14 +39,12 @@ public class ProvidersHomeActivity extends AppCompatActivity {
         Intent intent = new Intent(this, FeedActivity.class);
 //        intent.putExtra("latitude", "something");
 //        intent.putExtra("longitude", "something");
-        finish();
         startActivity(intent);
     }
 
     public void goToChatActivity(View view) {
         Intent intent = new Intent(this, ChatContactActivity.class);
         intent.putExtra("listenOn", "providers");
-        finish();
         startActivity(intent);
     }
 }

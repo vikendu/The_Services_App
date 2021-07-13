@@ -19,13 +19,11 @@ public class BuyersHomeActivity extends AppCompatActivity {
     public void goToChatActivity(View view) {
         Intent intent = new Intent(this, ChatContactActivity.class);
         intent.putExtra("listenOn", "receivers");
-        finish();
         startActivity(intent);
     }
 
     public void goToFeed(View view) {
         Intent intent = new Intent(this, FeedActivity.class);
-        finish();
         startActivity(intent);
     }
 }
