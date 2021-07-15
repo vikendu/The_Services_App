@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.firebase.database.DataSnapshot;
@@ -21,13 +22,17 @@ import static com.vikendu.theservicesapp.util.ResourceUtil.getFirebaseDatabase;
 
 public class UserCheckActivity extends AppCompatActivity {
 
-    String uid;
-    DatabaseReference databaseReference;
+    private String uid;
+    private DatabaseReference databaseReference;
+    private SharedPreferences userType;
+    private Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_check);
 
+        userType = getSharedPreferences("login", MODE_PRIVATE);
         databaseReference = getFirebaseDatabase().getReference();
         uid = getUid();
         isProvider();
@@ -39,9 +44,10 @@ public class UserCheckActivity extends AppCompatActivity {
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 ServiceProvider user = snapshot.getValue(ServiceProvider.class);
                 if(user != null) {
-                    Intent intent = new Intent(UserCheckActivity.this, ProvidersHomeActivity.class);
-                    finish();
-                    startActivity(intent);
+                    userType.edit().putBoolean("isReceiver", true).apply();
+
+                    intent = new Intent(UserCheckActivity.this, ProvidersHomeActivity.class);
+                    startActivityWithIntent(intent);
                 } else {
                     isReceiver();
                 }
@@ -60,9 +66,10 @@ public class UserCheckActivity extends AppCompatActivity {
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 ServiceReceiver user = snapshot.getValue(ServiceReceiver.class);
                 if(user != null) {
-                    Intent intent = new Intent(UserCheckActivity.this, BuyersHomeActivity.class);
-                    finish();
-                    startActivity(intent);
+                    userType.edit().putBoolean("isReceiver", false).apply();
+
+                    intent = new Intent(UserCheckActivity.this, BuyersHomeActivity.class);
+                    startActivityWithIntent(intent);
                 } else {
                     //TODO pop up some error; "You not registered bro."
                 }
@@ -73,5 +80,10 @@ public class UserCheckActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void startActivityWithIntent(Intent intent) {
+        finish();
+        startActivity(intent);
     }
 }
