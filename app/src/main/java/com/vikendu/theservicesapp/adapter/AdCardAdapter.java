@@ -40,7 +40,7 @@ public class AdCardAdapter extends RecyclerView.Adapter<AdCardAdapter.Viewholder
 
         holder.adTagLine.setText(model.getTagLine());
         holder.adDesc.setText(model.getAdDescription());
-        holder.adPrice.setText(model.getAdPrice());
+        holder.adPrice.setText("₹"+model.getAdPrice());
         // TODO: Fix the rating system
         holder.providersRating.setText(serviceProvider.getRating());
     }
