@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.vikendu.theservicesapp.R;
+import com.vikendu.theservicesapp.admin.AdminFeedActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -28,10 +29,14 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     private void redirection() {
         if(loginState.getBoolean("logged",false)) {
-            if(loginState.getBoolean("isReceiver", false)) {
-                intent = new Intent(this, ProvidersHomeActivity.class);
-            } else {
+            if (loginState.getBoolean("isReceiver", false)) {
                 intent = new Intent(this, BuyersHomeActivity.class);
+            } else if (loginState.getBoolean("isProvider", false)) {
+                intent = new Intent(this, ProvidersHomeActivity.class);
+            } else if (loginState.getBoolean("isAdmin", false)) {
+                intent = new Intent(this, AdminFeedActivity.class);
+            } else {
+                //TODO: Some error
             }
         } else {
             intent = new Intent(this, LoginActivity.class);
