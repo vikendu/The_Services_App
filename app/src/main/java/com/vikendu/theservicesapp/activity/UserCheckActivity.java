@@ -12,6 +12,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.vikendu.theservicesapp.R;
+import com.vikendu.theservicesapp.admin.Admin;
+import com.vikendu.theservicesapp.admin.AdminFeedActivity;
 import com.vikendu.theservicesapp.model.ServiceProvider;
 import com.vikendu.theservicesapp.model.ServiceReceiver;
 
@@ -44,7 +46,7 @@ public class UserCheckActivity extends AppCompatActivity {
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 ServiceProvider user = snapshot.getValue(ServiceProvider.class);
                 if(user != null) {
-                    userType.edit().putBoolean("isReceiver", true).apply();
+                    userType.edit().putBoolean("isProvider", true).apply();
 
                     intent = new Intent(UserCheckActivity.this, ProvidersHomeActivity.class);
                     startActivityWithIntent(intent);
@@ -66,9 +68,31 @@ public class UserCheckActivity extends AppCompatActivity {
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 ServiceReceiver user = snapshot.getValue(ServiceReceiver.class);
                 if(user != null) {
-                    userType.edit().putBoolean("isReceiver", false).apply();
+                    userType.edit().putBoolean("isReceiver", true).apply();
 
                     intent = new Intent(UserCheckActivity.this, BuyersHomeActivity.class);
+                    startActivityWithIntent(intent);
+                } else {
+                    isAdmin();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void isAdmin() {
+        databaseReference.child("admins").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                Admin user = snapshot.getValue(Admin.class);
+                if(user != null) {
+                    userType.edit().putBoolean("isAdmin", true).apply();
+
+                    intent = new Intent(UserCheckActivity.this, AdminFeedActivity.class);
                     startActivityWithIntent(intent);
                 } else {
                     //TODO pop up some error; "You not registered bro."
