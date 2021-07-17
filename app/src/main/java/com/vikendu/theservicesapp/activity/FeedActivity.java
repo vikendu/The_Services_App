@@ -1,24 +1,25 @@
 package com.vikendu.theservicesapp.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.vikendu.theservicesapp.adapter.AdCardAdapter;
 import com.vikendu.theservicesapp.R;
+import com.vikendu.theservicesapp.adapter.AdCardAdapter;
 import com.vikendu.theservicesapp.model.Advert;
 import com.vikendu.theservicesapp.model.ServiceProvider;
 import com.vikendu.theservicesapp.util.RecyclerItemClickListener;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -72,7 +73,7 @@ public class FeedActivity extends AppCompatActivity {
 
         advertListener = new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NotNull DataSnapshot dataSnapshot) {
                 advertArrayList.clear();
                 for(DataSnapshot providerSnapshot : dataSnapshot.getChildren()) {
                     mAdvert = providerSnapshot.getValue(Advert.class);
@@ -81,13 +82,13 @@ public class FeedActivity extends AppCompatActivity {
                 updateFeed(advertArrayList);
             }
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NotNull DatabaseError databaseError) {
             }
         };
         mDatabaseAdvertRef.child("approved").addValueEventListener(advertListener);
     }
 
-    private void updateFeed(ArrayList advertList) {
+    private void updateFeed(ArrayList<Advert> advertList) {
         AdCardAdapter adCardAdapter = new AdCardAdapter(this, advertList, serviceProvider);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
