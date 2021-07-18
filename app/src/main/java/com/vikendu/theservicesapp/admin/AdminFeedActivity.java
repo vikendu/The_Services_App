@@ -16,17 +16,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.vikendu.theservicesapp.R;
-import com.vikendu.theservicesapp.activity.LoginActivity;
-import com.vikendu.theservicesapp.adapter.AdCardAdapter;
-import com.vikendu.theservicesapp.model.Advert;
-import com.vikendu.theservicesapp.model.ServiceProvider;
-import com.vikendu.theservicesapp.util.RecyclerItemClickListener;
+import com.vikendu.theservicesapp.adapters.AdCardAdapter;
+import com.vikendu.theservicesapp.models.Advert;
+import com.vikendu.theservicesapp.models.ServiceProvider;
+import com.vikendu.theservicesapp.utils.RecyclerItemClickListener;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-import static com.vikendu.theservicesapp.util.ResourceUtil.getFirebaseDatabase;
+import static com.vikendu.theservicesapp.utils.ResourceUtil.getFirebaseDatabase;
 
 public class AdminFeedActivity extends AppCompatActivity {
 
@@ -34,8 +33,6 @@ public class AdminFeedActivity extends AppCompatActivity {
     private ArrayList<Advert> unapprovedList;
     private Advert ad;
     private Advert checkAd;
-    private ServiceProvider serviceProvider;
-
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
     private DatabaseReference advertReference;
@@ -52,7 +49,6 @@ public class AdminFeedActivity extends AppCompatActivity {
 
         database = getFirebaseDatabase();
         databaseReference = database.getReference();
-        serviceProvider = new ServiceProvider(0, "Vikendu", "Singh", "NaN", "vikendu@gmail.com", unapprovedList, null);
         getPendingAds();
 
         feedRecyclerView.addOnItemTouchListener(
@@ -120,7 +116,7 @@ public class AdminFeedActivity extends AppCompatActivity {
     }
 
     private void updateFeed(ArrayList<Advert> advertList) {
-        AdCardAdapter adCardAdapter = new AdCardAdapter(this, advertList, serviceProvider);
+        AdCardAdapter adCardAdapter = new AdCardAdapter(this, advertList);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         feedRecyclerView.setLayoutManager(linearLayoutManager);
