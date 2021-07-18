@@ -1,4 +1,4 @@
-package com.vikendu.theservicesapp.activity;
+package com.vikendu.theservicesapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,7 +15,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     private SharedPreferences loginState;
     private Intent intent;
 
-    private final int SPLASH_DISPLAY_LENGTH = 1200;
+    private final int SPLASH_DISPLAY_LENGTH = 900;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     private void redirection() {
         if(loginState.getBoolean("logged",false)) {
             if (loginState.getBoolean("isReceiver", false)) {
-                intent = new Intent(this, BuyersHomeActivity.class);
+                intent = new Intent(this, com.vikendu.theservicesapp.kotlin.activities.BuyersHomeActivity.class);
             } else if (loginState.getBoolean("isProvider", false)) {
                 intent = new Intent(this, ProvidersHomeActivity.class);
             } else if (loginState.getBoolean("isAdmin", false)) {

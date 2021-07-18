@@ -1,4 +1,4 @@
-package com.vikendu.theservicesapp.util;
+package com.vikendu.theservicesapp.utils;
 
 public interface ServiceReceiverCallback {
 }

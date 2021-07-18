@@ -1,4 +1,4 @@
-package com.vikendu.theservicesapp.activity;
+package com.vikendu.theservicesapp.activities;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -14,19 +14,19 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.vikendu.theservicesapp.R;
-import com.vikendu.theservicesapp.model.Advert;
-import com.vikendu.theservicesapp.model.ServiceProvider;
-import com.vikendu.theservicesapp.util.ActivityUtil;
-import com.vikendu.theservicesapp.util.FirebaseUtil;
-import com.vikendu.theservicesapp.util.ResourceUtil;
+import com.vikendu.theservicesapp.models.Advert;
+import com.vikendu.theservicesapp.models.ServiceProvider;
+import com.vikendu.theservicesapp.utils.ActivityUtil;
+import com.vikendu.theservicesapp.utils.FirebaseUtil;
+import com.vikendu.theservicesapp.utils.ResourceUtil;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-import static com.vikendu.theservicesapp.util.ActivityUtil.createNoActionSnackbar;
-import static com.vikendu.theservicesapp.util.ActivityUtil.hideKeyBoard;
-import static com.vikendu.theservicesapp.util.ResourceUtil.getFirebaseDatabase;
+import static com.vikendu.theservicesapp.utils.ActivityUtil.createNoActionSnackbar;
+import static com.vikendu.theservicesapp.utils.ActivityUtil.hideKeyBoard;
+import static com.vikendu.theservicesapp.utils.ResourceUtil.getFirebaseDatabase;
 
 public class AdCreationActivity extends AppCompatActivity {
 
@@ -148,6 +148,7 @@ public class AdCreationActivity extends AppCompatActivity {
                     ResourceUtil.getString(mPaisa),
                     advertId,
                     uid,
+                    rating,
                     false,
                     false);
 

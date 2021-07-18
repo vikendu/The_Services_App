@@ -1,4 +1,4 @@
-package com.vikendu.theservicesapp.activity;
+package com.vikendu.theservicesapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,16 +12,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.vikendu.theservicesapp.adapter.AdCardAdapter;
+import com.vikendu.theservicesapp.adapters.AdCardAdapter;
 import com.vikendu.theservicesapp.R;
-import com.vikendu.theservicesapp.model.Advert;
-import com.vikendu.theservicesapp.model.ServiceProvider;
+import com.vikendu.theservicesapp.models.Advert;
+import com.vikendu.theservicesapp.models.ServiceProvider;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static com.vikendu.theservicesapp.util.FirebaseUtil.getUid;
-import static com.vikendu.theservicesapp.util.ResourceUtil.getFirebaseDatabase;
+import static com.vikendu.theservicesapp.utils.FirebaseUtil.getUid;
+import static com.vikendu.theservicesapp.utils.ResourceUtil.getFirebaseDatabase;
 
 public class ProviderHomeHelper extends AppCompatActivity {
 
@@ -82,7 +82,7 @@ public class ProviderHomeHelper extends AppCompatActivity {
     }
 
     private void updateView(ArrayList<Advert> advertArrayList) {
-        AdCardAdapter adCardAdapter = new AdCardAdapter(ProviderHomeHelper.this, advertArrayList, mServiceProvider);
+        AdCardAdapter adCardAdapter = new AdCardAdapter(ProviderHomeHelper.this, advertArrayList);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ProviderHomeHelper.this, LinearLayoutManager.VERTICAL, false);
         adCardRv.setLayoutManager(linearLayoutManager);

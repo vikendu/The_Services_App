@@ -1,4 +1,4 @@
-package com.vikendu.theservicesapp.activity;
+package com.vikendu.theservicesapp.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,17 +16,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.vikendu.theservicesapp.R;
-import com.vikendu.theservicesapp.adapter.ChatContactsAdapter;
-import com.vikendu.theservicesapp.model.ChatContact;
-import com.vikendu.theservicesapp.util.FirebaseUtil;
-import com.vikendu.theservicesapp.util.RecyclerItemClickListener;
+import com.vikendu.theservicesapp.adapters.ChatContactsAdapter;
+import com.vikendu.theservicesapp.models.ChatContact;
+import com.vikendu.theservicesapp.utils.FirebaseUtil;
+import com.vikendu.theservicesapp.utils.RecyclerItemClickListener;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static com.vikendu.theservicesapp.util.ResourceUtil.getFirebaseDatabase;
+import static com.vikendu.theservicesapp.utils.ResourceUtil.getFirebaseDatabase;
 
 public class ChatContactActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.vikendu.theservicesapp.adapter;
+package com.vikendu.theservicesapp.adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,7 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.vikendu.theservicesapp.R;
-import com.vikendu.theservicesapp.model.Message;
+import com.vikendu.theservicesapp.models.Message;
 
 import org.jetbrains.annotations.NotNull;
 

@@ -1,13 +1,13 @@
-package com.vikendu.theservicesapp.util;
+package com.vikendu.theservicesapp.utils;
 
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.vikendu.theservicesapp.model.Advert;
-import com.vikendu.theservicesapp.model.ServiceProvider;
-import com.vikendu.theservicesapp.model.ServiceReceiver;
+import com.vikendu.theservicesapp.models.Advert;
+import com.vikendu.theservicesapp.models.ServiceProvider;
+import com.vikendu.theservicesapp.models.ServiceReceiver;
 
 public class FirebaseUtil {
 

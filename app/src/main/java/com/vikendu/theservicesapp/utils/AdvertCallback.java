@@ -1,9 +1,8 @@
-package com.vikendu.theservicesapp.util;
+package com.vikendu.theservicesapp.utils;
 
-import com.vikendu.theservicesapp.model.Advert;
+import com.vikendu.theservicesapp.models.Advert;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public interface AdvertCallback {
     void onCallBack(ArrayList<Advert> adList);

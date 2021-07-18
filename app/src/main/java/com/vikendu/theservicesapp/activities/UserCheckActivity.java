@@ -1,4 +1,4 @@
-package com.vikendu.theservicesapp.activity;
+package com.vikendu.theservicesapp.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,13 +14,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.vikendu.theservicesapp.R;
 import com.vikendu.theservicesapp.admin.Admin;
 import com.vikendu.theservicesapp.admin.AdminFeedActivity;
-import com.vikendu.theservicesapp.model.ServiceProvider;
-import com.vikendu.theservicesapp.model.ServiceReceiver;
+import com.vikendu.theservicesapp.models.ServiceProvider;
+import com.vikendu.theservicesapp.models.ServiceReceiver;
 
 import org.jetbrains.annotations.NotNull;
 
-import static com.vikendu.theservicesapp.util.FirebaseUtil.getUid;
-import static com.vikendu.theservicesapp.util.ResourceUtil.getFirebaseDatabase;
+import static com.vikendu.theservicesapp.utils.FirebaseUtil.getUid;
+import static com.vikendu.theservicesapp.utils.ResourceUtil.getFirebaseDatabase;
 
 public class UserCheckActivity extends AppCompatActivity {
 
@@ -70,7 +70,7 @@ public class UserCheckActivity extends AppCompatActivity {
                 if(user != null) {
                     userType.edit().putBoolean("isReceiver", true).apply();
 
-                    intent = new Intent(UserCheckActivity.this, BuyersHomeActivity.class);
+                    intent = new Intent(UserCheckActivity.this, com.vikendu.theservicesapp.kotlin.activities.BuyersHomeActivity.class);
                     startActivityWithIntent(intent);
                 } else {
                     isAdmin();

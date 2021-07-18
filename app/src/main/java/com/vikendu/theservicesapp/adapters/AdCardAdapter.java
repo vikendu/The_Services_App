@@ -1,4 +1,4 @@
-package com.vikendu.theservicesapp.adapter;
+package com.vikendu.theservicesapp.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,8 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vikendu.theservicesapp.R;
-import com.vikendu.theservicesapp.model.Advert;
-import com.vikendu.theservicesapp.model.ServiceProvider;
+import com.vikendu.theservicesapp.models.Advert;
+import com.vikendu.theservicesapp.models.ServiceProvider;
 
 import java.util.ArrayList;
 
@@ -19,12 +19,10 @@ public class AdCardAdapter extends RecyclerView.Adapter<AdCardAdapter.Viewholder
 
     private final Context context;
     private final ArrayList<Advert> advertArrayList;
-    private final ServiceProvider serviceProvider;
 
-    public AdCardAdapter(Context context, ArrayList<Advert> advertArrayList, ServiceProvider serviceProvider) {
+    public AdCardAdapter(Context context, ArrayList<Advert> advertArrayList) {
         this.context = context;
         this.advertArrayList = advertArrayList;
-        this.serviceProvider = serviceProvider;
     }
 
     @NonNull
@@ -41,8 +39,7 @@ public class AdCardAdapter extends RecyclerView.Adapter<AdCardAdapter.Viewholder
         holder.adTagLine.setText(model.getTagLine());
         holder.adDesc.setText(model.getAdDescription());
         holder.adPrice.setText("₹"+model.getAdPrice());
-        // TODO: Fix the rating system
-        holder.providersRating.setText(serviceProvider.getRating());
+        holder.providersRating.setText(model.getRatingCache());
     }
 
     @Override

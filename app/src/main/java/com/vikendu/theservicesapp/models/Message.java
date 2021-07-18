@@ -1,4 +1,4 @@
-package com.vikendu.theservicesapp.model;
+package com.vikendu.theservicesapp.models;
 
 public class Message {
 

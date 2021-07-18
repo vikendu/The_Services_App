@@ -1,4 +1,4 @@
-package com.vikendu.theservicesapp.activity;
+package com.vikendu.theservicesapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,16 +14,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.vikendu.theservicesapp.R;
-import com.vikendu.theservicesapp.adapter.AdCardAdapter;
-import com.vikendu.theservicesapp.model.Advert;
-import com.vikendu.theservicesapp.model.ServiceProvider;
-import com.vikendu.theservicesapp.util.RecyclerItemClickListener;
+import com.vikendu.theservicesapp.adapters.AdCardAdapter;
+import com.vikendu.theservicesapp.models.Advert;
+import com.vikendu.theservicesapp.models.ServiceProvider;
+import com.vikendu.theservicesapp.utils.RecyclerItemClickListener;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-import static com.vikendu.theservicesapp.util.ResourceUtil.getFirebaseDatabase;
+import static com.vikendu.theservicesapp.utils.ResourceUtil.getFirebaseDatabase;
 
 public class FeedActivity extends AppCompatActivity {
 
@@ -89,7 +89,7 @@ public class FeedActivity extends AppCompatActivity {
     }
 
     private void updateFeed(ArrayList<Advert> advertList) {
-        AdCardAdapter adCardAdapter = new AdCardAdapter(this, advertList, serviceProvider);
+        AdCardAdapter adCardAdapter = new AdCardAdapter(this, advertList);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         adCardRv.setLayoutManager(linearLayoutManager);

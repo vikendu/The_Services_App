@@ -1,4 +1,4 @@
-package com.vikendu.theservicesapp.activity;
+package com.vikendu.theservicesapp.activities;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -24,16 +24,16 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.vikendu.theservicesapp.R;
-import com.vikendu.theservicesapp.model.ServiceProvider;
-import com.vikendu.theservicesapp.model.ServiceReceiver;
-import com.vikendu.theservicesapp.util.FirebaseUtil;
-import com.vikendu.theservicesapp.util.ResourceUtil;
+import com.vikendu.theservicesapp.models.ServiceProvider;
+import com.vikendu.theservicesapp.models.ServiceReceiver;
+import com.vikendu.theservicesapp.utils.FirebaseUtil;
+import com.vikendu.theservicesapp.utils.ResourceUtil;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.regex.Pattern;
 
-import static com.vikendu.theservicesapp.util.ResourceUtil.getFirebaseDatabase;
+import static com.vikendu.theservicesapp.utils.ResourceUtil.getFirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
 

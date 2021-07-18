@@ -1,4 +1,4 @@
-package com.vikendu.theservicesapp.activity;
+package com.vikendu.theservicesapp.activities;
 
 import android.os.Bundle;
 import android.widget.AbsListView;
@@ -12,10 +12,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.vikendu.theservicesapp.R;
-import com.vikendu.theservicesapp.adapter.ChatAdapter;
-import com.vikendu.theservicesapp.model.Message;
+import com.vikendu.theservicesapp.adapters.ChatAdapter;
+import com.vikendu.theservicesapp.models.Message;
 
-import static com.vikendu.theservicesapp.util.ResourceUtil.getFirebaseDatabase;
+import static com.vikendu.theservicesapp.utils.ResourceUtil.getFirebaseDatabase;
 
 public class ChatActivity extends AppCompatActivity {
 

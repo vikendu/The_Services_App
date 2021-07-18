@@ -9,25 +9,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TheServicesApp.NoActionBar">
+        <activity android:name=".kotlin.activities.BuyersHomeActivity"></activity>
         <activity android:name=".admin.AdminFeedActivity" />
-        <activity android:name=".activity.SplashScreenActivity">
+        <activity android:name=".activities.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ProviderDetailsActivity" />
-        <activity android:name=".activity.UserCheckActivity" />
-        <activity android:name=".activity.ChatContactActivity" />
-        <activity android:name=".activity.ChatActivity" />
-        <activity android:name=".activity.FeedActivity" />
-        <activity android:name=".activity.BuyersHomeActivity" />
-        <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.ProviderHomeHelper" />
-        <activity android:name=".activity.ProvidersHomeActivity" />
-        <activity android:name=".activity.AdCreationActivity" />
-        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activities.ProviderDetailsActivity" />
+        <activity android:name=".activities.UserCheckActivity" />
+        <activity android:name=".activities.ChatContactActivity" />
+        <activity android:name=".activities.ChatActivity" />
+        <activity android:name=".activities.FeedActivity" />
+        <activity android:name=".activities.BuyersHomeActivity" />
+        <activity android:name=".activities.RegisterActivity" />
+        <activity android:name=".activities.ProviderHomeHelper" />
+        <activity android:name=".activities.ProvidersHomeActivity" />
+        <activity android:name=".activities.AdCreationActivity" />
+        <activity android:name=".activities.LoginActivity" />
     </application>
 
 </manifest>
