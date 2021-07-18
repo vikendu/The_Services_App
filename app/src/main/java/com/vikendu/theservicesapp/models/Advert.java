@@ -1,4 +1,4 @@
-package com.vikendu.theservicesapp.model;
+package com.vikendu.theservicesapp.models;
 
 import java.io.Serializable;
 
@@ -12,6 +12,7 @@ public class Advert implements Serializable {
     private String adPrice;
     private String adId;
     private String uid;
+    private String ratingCache;
     private boolean approved;
     private boolean isLive;
     // TODO: Add location here
@@ -89,7 +90,15 @@ public class Advert implements Serializable {
         this.uid = uid;
     }
 
-    public Advert(String category0, String category1, String tagLine, String adDescription, String adPrice, String adId, String uid, boolean approved, boolean isLive) {
+    public String getRatingCache() {
+        return ratingCache;
+    }
+
+    public void setRatingCache(String ratingCache) {
+        this.ratingCache = ratingCache;
+    }
+
+    public Advert(String category0, String category1, String tagLine, String adDescription, String adPrice, String adId, String uid, String ratingCache, boolean approved, boolean isLive) {
         this.category0 = category0;
         this.category1 = category1;
         this.tagLine = tagLine;
@@ -97,6 +106,7 @@ public class Advert implements Serializable {
         this.adPrice = adPrice;
         this.adId = adId;
         this.uid = uid;
+        this.ratingCache = ratingCache;
         this.approved = approved;
         this.isLive = isLive;
     }
