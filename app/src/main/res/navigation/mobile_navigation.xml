@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_unapproved"
+        android:name="com.vikendu.theservicesapp.kotlin.activities.ui.providers.unapproved.UnapprovedFragment"
+        android:label="Unapproved"
+        tools:layout="@layout/fragment_unapproved" />
+
+    <fragment
+        android:id="@+id/navigation_approved"
+        android:name="com.vikendu.theservicesapp.kotlin.activities.ui.providers.approved.ApprovedFragment"
+        android:label="Approved"
+        tools:layout="@layout/fragment_approved" />
+
+    <fragment
+        android:id="@+id/navigation_createad"
+        android:name="com.vikendu.theservicesapp.kotlin.activities.ui.providers.adcreation.AdCreationFragment"
+        android:label="CreateAd"
+        tools:layout="@layout/fragment_create_ad" />
+
+    <fragment
+        android:id="@+id/chat_contacts"
+        android:name="com.vikendu.theservicesapp.kotlin.activities.ui.providers.providerschat.ProvidersChatContactFragment"
+        android:label="ChatContact"
+        tools:layout="@layout/fragment_providers_chat_contact" />
+
+    <fragment
+        android:id="@+id/local_feed_nav"
+        android:name="com.vikendu.theservicesapp.kotlin.activities.ui.providers.localfeed.LocalFeedFragment"
+        android:label="LocalFeed"
+        tools:layout="@layout/fragment_local_feed" />
+</navigation>
