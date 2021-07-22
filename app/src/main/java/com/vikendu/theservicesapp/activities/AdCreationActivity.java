@@ -157,7 +157,7 @@ public class AdCreationActivity extends AppCompatActivity {
 
             // TODO: Change constant 6 with value from subscription plan
             if(adCount < 6) {
-                mDatabaseProviderRef.child(uid).child("advertArrayList").child(adIndex).setValue(ad);
+                mDatabaseProviderRef.child(uid).child("ads").child(Integer.toString(adId)).setValue(ad);
                 mDatabaseAdvertRef.child("notApproved").child(Integer.toString(adId)).setValue(ad);
 
                 mDatabaseAdvertRef.child("adId").setValue(Integer.toString(adId + 1));
