@@ -16,7 +16,6 @@ public class Advert implements Serializable {
     private boolean approved;
     private boolean isLive;
     // TODO: Add location here
-    // TODO: Add String cachedRating variable here
 
     public String getTagLine() {
         return tagLine;

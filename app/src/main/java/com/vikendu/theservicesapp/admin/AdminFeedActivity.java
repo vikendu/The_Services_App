@@ -72,6 +72,7 @@ public class AdminFeedActivity extends AppCompatActivity {
         dialogClickListener = (dialog, which) -> {
             switch (which){
                 case DialogInterface.BUTTON_POSITIVE:
+                        checkAd.setApproved(true);
                         databaseReference
                                 .child("adverts")
                                 .child("approved")
@@ -83,6 +84,13 @@ public class AdminFeedActivity extends AppCompatActivity {
                                 .child("notApproved")
                                 .child(checkAd.getAdId())
                                 .setValue(null);
+
+                        databaseReference
+                                .child("providers")
+                                .child(checkAd.getUid())
+                                .child("ads")
+                                .child(checkAd.getAdId())
+                                .setValue(checkAd);
                     break;
 
                 case DialogInterface.BUTTON_NEGATIVE:
