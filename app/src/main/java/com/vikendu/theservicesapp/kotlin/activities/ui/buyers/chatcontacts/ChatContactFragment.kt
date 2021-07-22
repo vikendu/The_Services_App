@@ -1,4 +1,4 @@
-package com.vikendu.theservicesapp.kotlin.fragments
+package com.vikendu.theservicesapp.kotlin.activities.ui.buyers.chatcontacts
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,14 +11,13 @@ import com.vikendu.theservicesapp.R
 import com.vikendu.theservicesapp.activities.ChatActivity
 import com.vikendu.theservicesapp.adapters.ChatContactsAdapter
 import com.vikendu.theservicesapp.utils.RecyclerItemClickListener
-import com.vikendu.theservicesapp.viewmodels.ReceiverChatViewModel
-import kotlinx.android.synthetic.main.fragment_chat_contact.*
+import kotlinx.android.synthetic.main.fragment_buyers_chat_contact.*
 import java.util.ArrayList
 
-class ChatContactFragment : Fragment(R.layout.fragment_chat_contact) {
+class ChatContactFragment : Fragment(R.layout.fragment_buyers_chat_contact) {
     private var keySet: ArrayList<String> = ArrayList()
     private var names: ArrayList<String> = ArrayList()
-    private val chatViewModel = ReceiverChatViewModel()
+    private val chatViewModel = ChatContactViewModel()
     private var contactMap: HashMap<String, String> = HashMap()
 
     override fun onCreateView(

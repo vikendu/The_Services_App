@@ -1,11 +1,11 @@
-package com.vikendu.theservicesapp.viewmodels;
+package com.vikendu.theservicesapp.kotlin.activities.ui.buyers.feed;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.vikendu.theservicesapp.kotlin.repos.FeedRepo;
 import com.vikendu.theservicesapp.models.Advert;
-import com.vikendu.theservicesapp.repos.FeedRepo;
 
 import java.util.List;
 

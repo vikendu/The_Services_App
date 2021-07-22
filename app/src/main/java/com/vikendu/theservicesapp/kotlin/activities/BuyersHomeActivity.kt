@@ -5,10 +5,10 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.vikendu.theservicesapp.R
-import com.vikendu.theservicesapp.kotlin.fragments.ChatContactFragment
-import com.vikendu.theservicesapp.kotlin.fragments.FeedFragment
+import com.vikendu.theservicesapp.kotlin.activities.ui.buyers.chatcontacts.ChatContactFragment
+import com.vikendu.theservicesapp.kotlin.activities.ui.buyers.feed.FeedFragment
 //import com.vikendu.theservicesapp.fragments.FeedFragment
-import com.vikendu.theservicesapp.kotlin.fragments.SettingsFragment
+import com.vikendu.theservicesapp.kotlin.activities.ui.buyers.settings.SettingsFragment
 
 class BuyersHomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

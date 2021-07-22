@@ -1,4 +1,4 @@
-package com.vikendu.theservicesapp.repos;
+package com.vikendu.theservicesapp.kotlin.repos;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
@@ -17,7 +17,7 @@ import java.util.HashMap;
 
 import static com.vikendu.theservicesapp.utils.ResourceUtil.getFirebaseDatabase;
 
-public class ReceiverChatRepo {
+public class ChatContactRepo {
 
     private String chatId;
     private HashMap<String, String> nameMap;
@@ -28,7 +28,7 @@ public class ReceiverChatRepo {
 
     public final MutableLiveData<HashMap<String, String>> mutableLiveData;
 
-    public ReceiverChatRepo() {
+    public ChatContactRepo() {
         mutableLiveData = new MutableLiveData<>();
     }
 

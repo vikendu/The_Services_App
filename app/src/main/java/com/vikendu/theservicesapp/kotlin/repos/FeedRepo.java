@@ -1,4 +1,4 @@
-package com.vikendu.theservicesapp.repos;
+package com.vikendu.theservicesapp.kotlin.repos;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
