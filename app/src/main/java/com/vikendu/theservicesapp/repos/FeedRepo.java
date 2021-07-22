@@ -20,7 +20,7 @@ import static com.vikendu.theservicesapp.utils.ResourceUtil.getFirebaseDatabase;
  * This repository returns all the
  * approved ads only.
  */
-public class FeedRepository {
+public class FeedRepo {
 
     private DatabaseReference databaseReference;
     private ValueEventListener advertListener;
@@ -33,7 +33,7 @@ public class FeedRepository {
         advertArrayList = new ArrayList<>();
         databaseReference = getFirebaseDatabase().getReference("adverts");
 
-        databaseReference.child("approved").addValueEventListener(new ValueEventListener() {
+        advertListener = databaseReference.child("approved").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 advertArrayList.clear();
@@ -48,5 +48,9 @@ public class FeedRepository {
             }
         });
         return mutableLiveData;
+    }
+
+    public void removeListener() {
+        databaseReference.removeEventListener(advertListener);
     }
 }

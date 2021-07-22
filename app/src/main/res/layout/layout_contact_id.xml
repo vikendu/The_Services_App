@@ -21,8 +21,9 @@
             android:id="@+id/idContactName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="13dp"
+            android:layout_toEndOf="@id/imageView11"
             android:text="@string/contact_name"
             android:textColor="@color/black"
             android:textSize="18sp"
@@ -33,10 +34,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/idContactName"
-            android:textColor="@color/black"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="4dp"
+            android:layout_marginBottom="12dp"
+            android:layout_toEndOf="@id/imageView11"
             android:drawablePadding="2dp"
-            android:text="@string/contact_id" />
+            android:text="@string/contact_id"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="55dp"
+            android:layout_marginTop="5dp"
+            android:layout_height="60dp"
+            app:srcCompat="@drawable/outline_account_circle_24" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

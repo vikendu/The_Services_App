@@ -5,22 +5,27 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.vikendu.theservicesapp.models.Advert;
-import com.vikendu.theservicesapp.repos.FeedRepository;
+import com.vikendu.theservicesapp.repos.FeedRepo;
 
 import java.util.List;
 
 public class FeedViewModel extends ViewModel {
-    private FeedRepository feedRepository;
+    private FeedRepo feedRepo;
     private MutableLiveData<List<Advert>> mutableLiveData;
 
     public FeedViewModel() {
-        feedRepository = new FeedRepository();
+        feedRepo = new FeedRepo();
     }
 
     public LiveData<List<Advert>> getFeedAds() {
         if(mutableLiveData == null) {
-            mutableLiveData = feedRepository.requestFeedAdverts();
+            mutableLiveData = feedRepo.requestFeedAdverts();
         }
         return mutableLiveData;
     }
+
+    public void removeListener() {
+        feedRepo.removeListener();
+    }
+
 }

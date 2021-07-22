@@ -168,4 +168,10 @@ public class ProviderDetailsActivity extends AppCompatActivity {
         return providerUid.substring(0, 4) + providerUid.substring(providerUid.length() - 4, providerUid.length() - 1)
                 + receiverUid.substring(0, 4) + receiverUid.substring(receiverUid.length() - 4, receiverUid.length() - 1);
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
+    }
 }

@@ -7,6 +7,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.vikendu.theservicesapp.R
 import com.vikendu.theservicesapp.kotlin.fragments.ChatContactFragment
 import com.vikendu.theservicesapp.kotlin.fragments.FeedFragment
+//import com.vikendu.theservicesapp.fragments.FeedFragment
 import com.vikendu.theservicesapp.kotlin.fragments.SettingsFragment
 
 class BuyersHomeActivity : AppCompatActivity() {
