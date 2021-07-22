@@ -1,13 +1,9 @@
 package com.vikendu.theservicesapp.viewmodels;
 
-import android.content.Context;
-import android.content.Intent;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.vikendu.theservicesapp.activities.ProviderDetailsActivity;
 import com.vikendu.theservicesapp.models.Advert;
 import com.vikendu.theservicesapp.repos.FeedRepo;
 
@@ -32,9 +28,4 @@ public class FeedViewModel extends ViewModel {
         feedRepo.removeListener();
     }
 
-    public void showProviderDetails(Context context, Advert ad) {
-        Intent intent = new Intent(context, ProviderDetailsActivity.class);
-        intent.putExtra("advert", ad);
-        context.startActivity(intent);
-    }
 }

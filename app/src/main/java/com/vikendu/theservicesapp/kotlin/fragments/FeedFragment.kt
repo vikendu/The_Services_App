@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vikendu.theservicesapp.R
 import com.vikendu.theservicesapp.activities.ProviderDetailsActivity
@@ -39,7 +38,6 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
             idRVAdCreation,
             object : RecyclerItemClickListener.OnItemClickListener {
                 override fun onItemClick(view: View?, position: Int) {
-                    Log.d("Language", "this is kotlin")
                     val intent = Intent(view?.context, ProviderDetailsActivity::class.java)
                     intent.putExtra("advert", advertArray[position])
                     startActivity(intent)
