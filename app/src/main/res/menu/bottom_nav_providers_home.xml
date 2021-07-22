@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/idApprovedFragment"
+        android:icon="@drawable/outline_done_24"
+        android:title="Approved" />
+    <item
+        android:id="@+id/idUnapprovedFragment"
+        android:icon="@drawable/outline_pending_actions_24"
+        android:title="Unapproved" />
+    <item
+        android:id="@+id/idAdCreationTool"
+        android:icon="@drawable/outline_add_24"
+        android:title="Create New" />
+    <item
+        android:id="@+id/idMessagesFragment"
+        android:icon="@drawable/outline_question_answer_24"
+        android:title="Messages" />
+    <item
+        android:id="@+id/idLocalFeedFragment"
+        android:icon="@drawable/outline_feed_24"
+        android:title="Local Feed" />
+</menu>

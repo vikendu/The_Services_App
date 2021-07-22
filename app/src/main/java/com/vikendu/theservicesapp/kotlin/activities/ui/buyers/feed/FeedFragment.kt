@@ -1,8 +1,7 @@
-package com.vikendu.theservicesapp.kotlin.fragments
+package com.vikendu.theservicesapp.kotlin.activities.ui.buyers.feed
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +12,11 @@ import com.vikendu.theservicesapp.activities.ProviderDetailsActivity
 import com.vikendu.theservicesapp.adapters.AdCardAdapter
 import com.vikendu.theservicesapp.models.Advert
 import com.vikendu.theservicesapp.utils.RecyclerItemClickListener
-import com.vikendu.theservicesapp.viewmodels.FeedViewModel
 import kotlinx.android.synthetic.main.fragment_feed.*
 
 class FeedFragment : Fragment(R.layout.fragment_feed) {
-    private val feedViewModel = FeedViewModel()
+    private val feedViewModel =
+        FeedViewModel()
     private var advertArray: ArrayList<Advert> = ArrayList()
 
     override fun onCreateView(
