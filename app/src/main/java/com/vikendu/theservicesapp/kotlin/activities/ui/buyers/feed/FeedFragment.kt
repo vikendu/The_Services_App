@@ -10,11 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.vikendu.theservicesapp.R
 import com.vikendu.theservicesapp.activities.ProviderDetailsActivity
 import com.vikendu.theservicesapp.adapters.AdCardAdapter
+import com.vikendu.theservicesapp.databinding.FragmentFeedBinding
 import com.vikendu.theservicesapp.models.Advert
 import com.vikendu.theservicesapp.utils.RecyclerItemClickListener
-import kotlinx.android.synthetic.main.fragment_feed.*
 
 class FeedFragment : Fragment(R.layout.fragment_feed) {
+    private var _binding: FragmentFeedBinding? = null
+    private val binding get() = _binding!!
+
     private val feedViewModel =
         FeedViewModel()
     private var advertArray: ArrayList<Advert> = ArrayList()
@@ -23,18 +26,21 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        _binding = FragmentFeedBinding.inflate(inflater, container, false)
+        val rootView = binding.root
+
         feedViewModel.feedAds.observe(viewLifecycleOwner, {
             advertArray = it as ArrayList<Advert>
             updateFeed(it)
         })
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        idRVAdCreation.addOnItemTouchListener(RecyclerItemClickListener(
+        binding.idRVAdCreation.addOnItemTouchListener(RecyclerItemClickListener(
             context,
-            idRVAdCreation,
+            binding.idRVAdCreation,
             object : RecyclerItemClickListener.OnItemClickListener {
                 override fun onItemClick(view: View?, position: Int) {
                     val intent = Intent(view?.context, ProviderDetailsActivity::class.java)
@@ -53,8 +59,13 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
     private fun updateFeed(advertList: ArrayList<Advert>) {
         val adCardAdapter = AdCardAdapter(context, advertList)
         val linearLayoutManager = LinearLayoutManager(context)
-        idRVAdCreation?.layoutManager = linearLayoutManager
-        idRVAdCreation?.adapter = adCardAdapter
+        binding.idRVAdCreation.layoutManager = linearLayoutManager
+        binding.idRVAdCreation.adapter = adCardAdapter
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 
     override fun onDestroy() {
