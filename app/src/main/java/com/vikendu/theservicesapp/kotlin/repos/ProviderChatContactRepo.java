@@ -1,4 +1,4 @@
 package com.vikendu.theservicesapp.kotlin.repos;
 
-public class ProviderChatRepo {
+public class ProviderChatContactRepo {
 }

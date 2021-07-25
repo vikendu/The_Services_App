@@ -17,27 +17,25 @@ import java.util.HashMap;
 
 import static com.vikendu.theservicesapp.utils.ResourceUtil.getFirebaseDatabase;
 
-public class ChatContactRepo {
-
+public class ReceiverChatContactRepo {
     private String chatId;
-    private HashMap<String, String> nameMap;
     private String resolvedName;
-
-    private FirebaseDatabase database;
     private DatabaseReference databaseReference;
 
+    private final HashMap<String, String> nameMap;
+    private final String uId;
+    private final FirebaseDatabase database;
     public final MutableLiveData<HashMap<String, String>> mutableLiveData;
 
-    public ChatContactRepo() {
+    public ReceiverChatContactRepo() {
         mutableLiveData = new MutableLiveData<>();
-    }
-
-    public MutableLiveData<HashMap<String, String>> requestChatData() {
         nameMap = new HashMap<>();
         database = getFirebaseDatabase();
         databaseReference = database.getReference();
-        String uId = FirebaseUtil.getUid();
+        uId = FirebaseUtil.getUid();
+    }
 
+    public MutableLiveData<HashMap<String, String>> requestChatData() {
         ValueEventListener contactListListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
@@ -56,7 +54,8 @@ public class ChatContactRepo {
         assert uId != null;
         databaseReference
                 .child("receivers")
-                .child(uId).child("contactList")
+                .child(uId)
+                .child("contactList")
                 .addValueEventListener(contactListListener);
 
         return mutableLiveData;
