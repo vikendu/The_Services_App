@@ -23,14 +23,8 @@
         </activity>
         <activity android:name=".activities.ProviderDetailsActivity" />
         <activity android:name=".activities.UserCheckActivity" />
-        <activity android:name=".activities.ChatContactActivity" />
         <activity android:name=".activities.ChatActivity" />
-        <activity android:name=".activities.FeedActivity" />
-        <activity android:name=".activities.BuyersHomeActivity" />
         <activity android:name=".activities.RegisterActivity" />
-        <activity android:name=".activities.ProviderHomeHelper" />
-        <activity android:name=".activities.ProvidersHomeActivity" />
-        <activity android:name=".activities.AdCreationActivity" />
         <activity android:name=".activities.LoginActivity" />
     </application>
 
