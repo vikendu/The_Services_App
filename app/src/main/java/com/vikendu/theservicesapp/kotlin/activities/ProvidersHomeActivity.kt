@@ -1,16 +1,15 @@
 package com.vikendu.theservicesapp.kotlin.activities
 
 import android.os.Bundle
-import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.vikendu.theservicesapp.R
 import com.vikendu.theservicesapp.kotlin.activities.ui.providers.adcreation.AdCreationFragment
-import com.vikendu.theservicesapp.kotlin.activities.ui.providers.approved.ApprovedFragment
+import com.vikendu.theservicesapp.kotlin.activities.ui.providers.data.ApprovedFragment
 import com.vikendu.theservicesapp.kotlin.activities.ui.providers.localfeed.LocalFeedFragment
 import com.vikendu.theservicesapp.kotlin.activities.ui.providers.providerschat.ProvidersChatContactFragment
-import com.vikendu.theservicesapp.kotlin.activities.ui.providers.unapproved.UnapprovedFragment
+import com.vikendu.theservicesapp.kotlin.activities.ui.providers.data.UnapprovedFragment
 
 class ProvidersHomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

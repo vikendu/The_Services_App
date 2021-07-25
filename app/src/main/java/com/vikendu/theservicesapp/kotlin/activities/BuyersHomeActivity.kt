@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.vikendu.theservicesapp.R
-import com.vikendu.theservicesapp.kotlin.activities.ui.buyers.chatcontacts.ChatContactFragment
+import com.vikendu.theservicesapp.kotlin.activities.ui.buyers.chatcontacts.ReceiversChatContactFragment
 import com.vikendu.theservicesapp.kotlin.activities.ui.buyers.feed.FeedFragment
 //import com.vikendu.theservicesapp.fragments.FeedFragment
 import com.vikendu.theservicesapp.kotlin.activities.ui.buyers.settings.SettingsFragment
@@ -18,7 +18,7 @@ class BuyersHomeActivity : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
         val feedFragment = FeedFragment()
-        val chatContactFragment = ChatContactFragment()
+        val chatContactFragment = ReceiversChatContactFragment()
         val settingsFragment = SettingsFragment()
 
         setCurrentFragment(feedFragment)

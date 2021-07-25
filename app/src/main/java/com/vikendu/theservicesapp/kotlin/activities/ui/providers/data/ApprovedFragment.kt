@@ -1,34 +1,40 @@
-package com.vikendu.theservicesapp.kotlin.activities.ui.providers.localfeed
+package com.vikendu.theservicesapp.kotlin.activities.ui.providers.data
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vikendu.theservicesapp.R
 import com.vikendu.theservicesapp.adapters.AdCardAdapter
-import com.vikendu.theservicesapp.databinding.FragmentLocalFeedBinding
+import com.vikendu.theservicesapp.databinding.FragmentApprovedBinding
 import com.vikendu.theservicesapp.models.Advert
 
-class LocalFeedFragment : Fragment(R.layout.fragment_local_feed) {
-    private var _binding: FragmentLocalFeedBinding? = null
+class ApprovedFragment : Fragment(R.layout.fragment_approved) {
+    private var _binding: FragmentApprovedBinding? = null
     private val binding get() = _binding!!
 
-    private val localFeedViewModel = LocalFeedViewModel()
+    private val providersAdViewmodel = ProviderAdViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLocalFeedBinding.inflate(inflater, container, false)
+        _binding = FragmentApprovedBinding.inflate(inflater, container, false)
         val rootView = binding.root
 
-        localFeedViewModel.getAds()?.observe(viewLifecycleOwner, {
-            updateFeed(it as ArrayList<Advert>)
+        providersAdViewmodel.getAllAds()?.observe(viewLifecycleOwner, {
+            updateFeed(sanitizeArray(it as ArrayList<Advert>))
         })
         return rootView
+    }
+
+    private fun sanitizeArray(arrayList: ArrayList<Advert>): ArrayList<Advert> {
+        var resultantArrayList = ArrayList<Advert>()
+        arrayList.forEach { i -> if (i.isApproved) { resultantArrayList.add(i) } }
+        return resultantArrayList
     }
 
     private fun updateFeed(advertList: ArrayList<Advert>) {
@@ -41,10 +47,5 @@ class LocalFeedFragment : Fragment(R.layout.fragment_local_feed) {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
-    }
-
-    override fun onDestroy() {
-        localFeedViewModel.removeListener()
-        super.onDestroy()
     }
 }
