@@ -32,7 +32,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             if (loginState.getBoolean("isReceiver", false)) {
                 intent = new Intent(this, com.vikendu.theservicesapp.kotlin.activities.BuyersHomeActivity.class);
             } else if (loginState.getBoolean("isProvider", false)) {
-                intent = new Intent(this, ProvidersHomeActivity.class);
+                intent = new Intent(this, com.vikendu.theservicesapp.kotlin.activities.ProvidersHomeActivity.class);
             } else if (loginState.getBoolean("isAdmin", false)) {
                 intent = new Intent(this, AdminFeedActivity.class);
             } else {

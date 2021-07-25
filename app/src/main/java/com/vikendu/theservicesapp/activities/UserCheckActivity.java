@@ -48,7 +48,7 @@ public class UserCheckActivity extends AppCompatActivity {
                 if(user != null) {
                     userType.edit().putBoolean("isProvider", true).apply();
 
-                    intent = new Intent(UserCheckActivity.this, ProvidersHomeActivity.class);
+                    intent = new Intent(UserCheckActivity.this, com.vikendu.theservicesapp.kotlin.activities.ProvidersHomeActivity.class);
                     startActivityWithIntent(intent);
                 } else {
                     isReceiver();
