@@ -6,17 +6,90 @@
     android:layout_height="match_parent"
     tools:context=".kotlin.activities.ui.providers.adcreation.AdCreationFragment">
 
-    <TextView
-        android:id="@+id/text_notifications"
+    <AutoCompleteTextView
+        android:id="@+id/idAdCreationTaglineInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:hint="@string/ad_creation_tagline_input"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <AutoCompleteTextView
+        android:id="@+id/idAdCreationDescInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:hint="@string/ad_creation_desc_input"
+        app:layout_constraintBottom_toTopOf="@+id/idAdCreationPriceInput"
+        app:layout_constraintTop_toBottomOf="@+id/idAdCreationTaglineInput"
+        tools:layout_editor_absoluteX="5dp" />
+
+    <AutoCompleteTextView
+        android:id="@+id/idAdCreationPriceInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:hint="@string/ad_creation_price_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idAdCreationDescInput" />
+
+    <Button
+        android:id="@+id/idAdCreationPreviewBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="77dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="22dp"
+        android:text="@string/ad_creation_preview_button"
+        app:layout_constraintEnd_toStartOf="@+id/idAdCreationSubmitBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idAdCreationPriceInput"
+        android:onClick="showAdPreview"/>
+
+    <Button
+        android:id="@+id/idAdCreationSubmitBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="77dp"
+        android:text="@string/ad_creation_submit_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/idAdCreationPreviewBtn"
+        app:layout_constraintTop_toBottomOf="@+id/idAdCreationPriceInput"
+        android:onClick="submitForApproval"/>
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/layout_ad_card_format"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="88dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/idAdCreationPreviewBtn"
+        app:layout_constraintVertical_bias="0.6" />
+
+    <TextView
+        android:id="@+id/idCreditsBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="170dp"
+        android:layout_marginTop="57dp"
+        android:layout_marginEnd="166dp"
+        android:layout_marginBottom="17dp"
+        android:text="@string/copyright_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include" />
 </androidx.constraintlayout.widget.ConstraintLayout>

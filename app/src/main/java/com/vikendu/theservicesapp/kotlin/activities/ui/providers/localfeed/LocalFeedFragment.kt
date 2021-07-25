@@ -1,32 +1,39 @@
 package com.vikendu.theservicesapp.kotlin.activities.ui.providers.localfeed
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.vikendu.theservicesapp.R
+import com.vikendu.theservicesapp.adapters.AdCardAdapter
+import com.vikendu.theservicesapp.models.Advert
+import kotlinx.android.synthetic.main.fragment_feed.*
 
-class LocalFeedFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = LocalFeedFragment()
-    }
-
-    private lateinit var viewModel: LocalFeedViewModel
+class LocalFeedFragment : Fragment(R.layout.fragment_local_feed) {
+    private val localFeedViewModel = LocalFeedViewModel()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_local_feed, container, false)
+        localFeedViewModel.getAds()?.observe(viewLifecycleOwner, {
+            updateFeed(it as ArrayList<Advert>)
+        })
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(LocalFeedViewModel::class.java)
-        // TODO: Use the ViewModel
+    private fun updateFeed(advertList: ArrayList<Advert>) {
+        val adCardAdapter = AdCardAdapter(context, advertList)
+        val linearLayoutManager = LinearLayoutManager(context)
+        idRVAdCreation?.layoutManager = linearLayoutManager
+        idRVAdCreation?.adapter = adCardAdapter
     }
 
+    override fun onDestroy() {
+        localFeedViewModel.removeListener()
+        super.onDestroy()
+    }
 }
