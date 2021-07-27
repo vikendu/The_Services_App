@@ -1,13 +1,11 @@
 package com.vikendu.theservicesapp.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 
-import com.vikendu.theservicesapp.R;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.vikendu.theservicesapp.admin.AdminFeedActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
@@ -15,16 +13,12 @@ public class SplashScreenActivity extends AppCompatActivity {
     private SharedPreferences loginState;
     private Intent intent;
 
-    private final int SPLASH_DISPLAY_LENGTH = 900;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
 
         loginState = getSharedPreferences("login", MODE_PRIVATE);
-
-        new Handler().postDelayed(() -> redirection(), SPLASH_DISPLAY_LENGTH);
+        redirection();
     }
 
     private void redirection() {

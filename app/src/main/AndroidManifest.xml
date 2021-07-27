@@ -11,10 +11,12 @@
         android:theme="@style/Theme.TheServicesApp.NoActionBar">
         <activity
             android:name=".kotlin.activities.ProvidersHomeActivity"
-            android:label="@string/title_activity_providers_home"></activity>
+            android:label="@string/title_activity_providers_home" />
         <activity android:name=".kotlin.activities.BuyersHomeActivity" />
         <activity android:name=".admin.AdminFeedActivity" />
-        <activity android:name=".activities.SplashScreenActivity">
+        <activity
+            android:name=".activities.SplashScreenActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
