@@ -16,4 +16,16 @@ class ProviderAdViewModel : ViewModel() {
         }
         return mutableLiveData
     }
+
+    fun getApprovedAds(arrayList: ArrayList<Advert>): ArrayList<Advert> {
+        var resultantArrayList = ArrayList<Advert>()
+        arrayList.forEach { i -> if (i.isApproved) { resultantArrayList.add(i) } }
+        return resultantArrayList
+    }
+
+    fun getUnapprovedAds(arrayList: ArrayList<Advert>): ArrayList<Advert> {
+        var resultantArrayList = ArrayList<Advert>()
+        arrayList.forEach { i -> if (!i.isApproved) { resultantArrayList.add(i) } }
+        return resultantArrayList
+    }
 }
