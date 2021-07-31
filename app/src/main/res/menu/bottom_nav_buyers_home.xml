@@ -9,7 +9,7 @@
         android:icon="@drawable/outline_question_answer_24"
         android:title="Messages" />
     <item
-        android:id="@+id/idSettingsFragment"
-        android:icon="@drawable/outline_settings_24"
-        android:title="Settings" />
+        android:id="@+id/idSearchFragment"
+        android:icon="@drawable/outline_search_24"
+        android:title="Search" />
 </menu>
