@@ -1,6 +1,8 @@
 <resources>
     <!-- Reusable -->
     <string name="copyright_text">©2021 Vikendu Singh, Jodhpur</string>
+    <string name="app_label">TheServicesApp</string>
+    <string name="search_hint">Search Listings</string>
 
     <!-- ad_card_format.xml -->
     <string name="ad_tagline">Loading Tagline…</string>

@@ -26,15 +26,9 @@ class ApprovedFragment : Fragment(R.layout.fragment_approved) {
         val rootView = binding.root
 
         providersAdViewmodel.getAllAds()?.observe(viewLifecycleOwner, {
-            updateFeed(sanitizeArray(it as ArrayList<Advert>))
+            updateFeed(providersAdViewmodel.getApprovedAds(it as ArrayList<Advert>))
         })
         return rootView
-    }
-
-    private fun sanitizeArray(arrayList: ArrayList<Advert>): ArrayList<Advert> {
-        var resultantArrayList = ArrayList<Advert>()
-        arrayList.forEach { i -> if (i.isApproved) { resultantArrayList.add(i) } }
-        return resultantArrayList
     }
 
     private fun updateFeed(advertList: ArrayList<Advert>) {

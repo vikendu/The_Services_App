@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/viken/AndroidStudioProjects/TheServicesApp/app/src/main/res/drawable-night/outline_search_24.xml" value="0.19907407407407407" />
+        <entry key="..\:/Users/viken/AndroidStudioProjects/TheServicesApp/app/src/main/res/drawable/outline_done_24.xml" value="0.1" />
+        <entry key="..\:/Users/viken/AndroidStudioProjects/TheServicesApp/app/src/main/res/drawable/outline_search_24.xml" value="0.1" />
+        <entry key="..\:/Users/viken/AndroidStudioProjects/TheServicesApp/app/src/main/res/layout/activity_buyers_home_kt.xml" value="0.4" />
+        <entry key="..\:/Users/viken/AndroidStudioProjects/TheServicesApp/app/src/main/res/layout/fragment_search.xml" value="0.264" />
+        <entry key="..\:/Users/viken/AndroidStudioProjects/TheServicesApp/app/src/main/res/layout/layout_ad_card_format.xml" value="0.34394904458598724" />
+        <entry key="..\:/Users/viken/AndroidStudioProjects/TheServicesApp/app/src/main/res/layout/layout_contact_id.xml" value="0.18333333333333332" />
+      </map>
+    </option>
+  </component>
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/Docs" />
   </component>

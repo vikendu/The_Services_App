@@ -17,7 +17,7 @@ import java.util.List;
 
 import static com.vikendu.theservicesapp.utils.ResourceUtil.getFirebaseDatabase;
 
-public class ProviderAdReo {
+public class ProviderAdRepo {
     private final DatabaseReference databaseReference;
     private ValueEventListener advertListener;
     private final ArrayList<Advert> advertArrayList;
@@ -25,7 +25,7 @@ public class ProviderAdReo {
 
     private final String uId;
 
-    public ProviderAdReo() {
+    public ProviderAdRepo() {
         advertArrayList = new ArrayList<>();
         databaseReference = getFirebaseDatabase().getReference("providers");
         mutableLiveData = new MutableLiveData<>();
