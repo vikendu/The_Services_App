@@ -1,4 +1,40 @@
 package com.vikendu.theservicesapp.kotlin.activities.ui.buyers.search
 
-class SearchViewModel {
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.vikendu.theservicesapp.kotlin.repos.FeedRepo
+import com.vikendu.theservicesapp.models.Advert
+
+class SearchViewModel : ViewModel() {
+    private val feedRepo = FeedRepo()
+    private var mutableLiveData: MutableLiveData<List<Advert>>? = null
+
+    fun getAllAds(): LiveData<List<Advert>>? {
+        if (mutableLiveData == null) {
+            mutableLiveData = feedRepo.requestFeedAdverts()
+            Log.d("Mutable FEED data", "Returned")
+        }
+        return mutableLiveData
+    }
+
+    fun search(query: String, arrayList: ArrayList<Advert>): LiveData<List<Advert>> {
+        var resultList = ArrayList<Advert>()
+        var mutableSearchData = MutableLiveData<List<Advert>>()
+        for(it in arrayList) {
+            if (it.tagLine.equals(query, true) ||
+                it.tagLine.contains(query, true)) {
+                resultList.add(it)
+                Log.d("ViewModel", it.tagLine)
+            }
+        }
+        Log.d("size of result", resultList.size.toString())
+        mutableSearchData.value = resultList
+        return mutableSearchData
+    }
+
+    fun removeListener() {
+        feedRepo.removeListener()
+    }
 }
