@@ -14,22 +14,19 @@ class SearchViewModel : ViewModel() {
     fun getAllAds(): LiveData<List<Advert>>? {
         if (mutableLiveData == null) {
             mutableLiveData = feedRepo.requestFeedAdverts()
-            Log.d("Mutable FEED data", "Returned")
         }
         return mutableLiveData
     }
 
     fun search(query: String, arrayList: ArrayList<Advert>): LiveData<List<Advert>> {
-        var resultList = ArrayList<Advert>()
-        var mutableSearchData = MutableLiveData<List<Advert>>()
+        val resultList = ArrayList<Advert>()
+        val mutableSearchData = MutableLiveData<List<Advert>>()
         for(it in arrayList) {
             if (it.tagLine.equals(query, true) ||
                 it.tagLine.contains(query, true)) {
                 resultList.add(it)
-                Log.d("ViewModel", it.tagLine)
             }
         }
-        Log.d("size of result", resultList.size.toString())
         mutableSearchData.value = resultList
         return mutableSearchData
     }

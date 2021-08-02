@@ -13,7 +13,8 @@
             android:name=".kotlin.activities.ProvidersHomeActivity"
             android:label="@string/title_activity_providers_home" />
         <activity
-            android:name=".kotlin.activities.BuyersHomeActivity">
+            android:name=".kotlin.activities.BuyersHomeActivity"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
