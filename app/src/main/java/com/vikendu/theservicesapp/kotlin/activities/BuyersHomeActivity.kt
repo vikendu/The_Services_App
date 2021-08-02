@@ -3,7 +3,6 @@ package com.vikendu.theservicesapp.kotlin.activities
 import android.app.SearchManager
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -14,8 +13,6 @@ import com.vikendu.theservicesapp.kotlin.activities.ui.buyers.feed.FeedFragment
 import com.vikendu.theservicesapp.kotlin.activities.ui.buyers.search.SearchFragment
 
 class BuyersHomeActivity : AppCompatActivity() {
-    private var queryText: String? = null
-    private var bundle = Bundle()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_buyers_home_kt)
@@ -26,10 +23,11 @@ class BuyersHomeActivity : AppCompatActivity() {
         val chatContactFragment = ReceiversChatContactFragment()
         val searchFragment = SearchFragment()
 
+
         setCurrentFragment(feedFragment)
-        checkSearchIntent()
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener{
+            bottomNavigationView.selectedItemId = R.id.idSearchFragment
             onSearchRequested()
         }
 
@@ -37,36 +35,39 @@ class BuyersHomeActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.idFeedFragment -> setCurrentFragment(feedFragment)
                 R.id.idMessagesFragment -> setCurrentFragment(chatContactFragment)
-                R.id.idSearchFragment -> addQueryData(searchFragment)
+                R.id.idSearchFragment -> setCurrentFragment(searchFragment)
             }
             true
         }
     }
 
-    private fun checkSearchIntent() {
-        if (Intent.ACTION_SEARCH == intent.action) {
-            intent.getStringExtra(SearchManager.QUERY)?.also { query ->
-                queryText = query
+    override fun onNewIntent(intent: Intent?) {
+        val newSearchFragment = SearchFragment()
+        if (intent != null) {
+            if (Intent.ACTION_SEARCH == intent.action) {
+                intent.getStringExtra(SearchManager.QUERY)?.also { query ->
+                    val bundle = Bundle()
+                    bundle.putString("query", query)
+                    newSearchFragment.arguments = bundle
+                }
             }
+            setCurrentFragment(newSearchFragment)
         }
+        super.onNewIntent(intent)
     }
 
-    private fun addQueryData(fragment: Fragment) {
-        checkSearchIntent()
-        if(queryText != null) {
-            bundle.putString("query", queryText)
-            fragment.arguments = bundle
-        } else {
-            bundle.putString("query", null)
-            fragment.arguments = bundle
-        }
-        queryText?.let { Log.d("QUERY!!!!", it) }
-        setCurrentFragment(fragment)
+    //TODO: move this function to a utility class
+    private fun getCurrentFragment(): Fragment? {
+        return this
+            .supportFragmentManager
+            .findFragmentById(R.id.flFragment)
     }
 
-    private fun setCurrentFragment(fragment : Fragment) =
+    private fun setCurrentFragment(fragment : Fragment) {
             supportFragmentManager.beginTransaction().apply {
                 replace(R.id.flFragment, fragment)
                 commit()
             }
+
+    }
 }

@@ -17,15 +17,23 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private val binding get() = _binding!!
 
     private val searchViewModel = SearchViewModel()
-    private var queryResults: ArrayList<Advert> = ArrayList()
     private var allResults = ArrayList<Advert>()
     private var query: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onStart() {
+        super.onStart()
         query = arguments?.getString("query")
-        query?.let { Log.d("QUERY!!!!", query!!) }
 
-        super.onCreate(savedInstanceState)
+        if (query != null) {
+            searchViewModel.getAllAds()?.observe(viewLifecycleOwner, { item ->
+                allResults = item as ArrayList<Advert>
+                searchViewModel
+                    .search(query!!, allResults)
+                    .observe(viewLifecycleOwner, {
+                    updateFeed(it as ArrayList<Advert>)
+                })
+            })
+        }
     }
 
     override fun onCreateView(
@@ -34,17 +42,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
-
-        searchViewModel.getAllAds()?.observe(viewLifecycleOwner, {
-            allResults = it as ArrayList<Advert>
-        })
-
-        query?.let { Log.d("Query before Observer", it) }
-        Log.d("size of result", allResults.size.toString())
-        searchViewModel.search(query!!, allResults).observe(viewLifecycleOwner, {
-                updateFeed(it as ArrayList<Advert>)
-        })
-
         return binding.root
     }
 
@@ -56,12 +53,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
 
     override fun onDestroyView() {
-        _binding = null
         super.onDestroyView()
+        _binding = null
     }
 
     override fun onDestroy() {
-        searchViewModel.removeListener()
         super.onDestroy()
+        Log.d("onDestroyCalled", "yes")
     }
 }
