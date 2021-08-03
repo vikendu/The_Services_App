@@ -11,7 +11,7 @@
       "type": "SINGLE",
       "filters": [],
       "versionCode": 1,
-      "versionName": "v0.1-rc0-ARM",
+      "versionName": "v0.2-rc1-Alpha",
       "outputFile": "app-release.apk"
     }
   ]
