@@ -30,7 +30,7 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
         _binding = FragmentFeedBinding.inflate(inflater, container, false)
         val rootView = binding.root
 
-        feedViewModel.feedAds.observe(viewLifecycleOwner, {
+        feedViewModel.getFeedAds()?.observe(viewLifecycleOwner, {
             advertArray = it as ArrayList<Advert>
             updateFeed(it)
         })
