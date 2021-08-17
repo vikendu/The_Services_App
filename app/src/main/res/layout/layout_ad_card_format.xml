@@ -8,7 +8,6 @@
     android:layout_marginBottom="5dp"
     android:foreground="?android:attr/selectableItemBackground"
     android:clickable="true"
-    app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="8dp"
     app:cardElevation="8dp"
     app:cardMaxElevation="10dp"
@@ -36,7 +35,6 @@
             android:layout_marginTop="13dp"
             android:layout_toEndOf="@id/idAdCategoryImage"
             android:text="@string/ad_tagline"
-            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -45,7 +43,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/idAdTagLine"
-            android:textColor="@color/black"
             android:layout_marginStart="10dp"
             android:layout_marginTop="4dp"
             android:layout_toEndOf="@id/idAdCategoryImage"
@@ -59,7 +56,6 @@
             android:layout_below="@id/idAdDesc"
             android:layout_marginStart="10dp"
             android:layout_marginTop="4dp"
-            android:textColor="@color/black"
             android:layout_toEndOf="@id/idAdCategoryImage"
             android:drawablePadding="2dp"
             android:text="@string/ad_price" />
@@ -68,12 +64,12 @@
             android:id="@+id/idStarRatingImage"
             android:layout_width="18dp"
             android:layout_height="18dp"
-            app:srcCompat="@drawable/outline_star_black_48"
             android:layout_below="@id/idAdPrice"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="4dp"
-            android:contentDescription="@string/star_image"
             android:layout_toEndOf="@id/idAdCategoryImage"
-            android:layout_marginStart="10dp" />
+            android:contentDescription="@string/star_image"
+            app:srcCompat="@drawable/outline_star_black_48" />
 
         <TextView
             android:id="@+id/idProviderRating"
@@ -84,8 +80,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
             android:layout_toEndOf="@id/idStarRatingImage"
-            android:text="@string/providers_rating"
-            android:textColor="@color/black" />
+            android:text="@string/providers_rating"/>
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
