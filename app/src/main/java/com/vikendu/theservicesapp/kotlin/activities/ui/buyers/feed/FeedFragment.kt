@@ -1,5 +1,7 @@
 package com.vikendu.theservicesapp.kotlin.activities.ui.buyers.feed
 
+import android.Manifest
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -7,10 +9,13 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,17 +33,33 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
     private var advertArray: ArrayList<Advert> = ArrayList()
 
     private val REQUEST_CODE = 100
-    private val MIN_TIME = 5000
-    private val MIN_DISTANCE = 1000
+    private val MIN_TIME: Float = 5000.0F
+    private val MIN_DISTANCE: Long = 1000
+
+    private var latitude: Double = 0.0
+    private var longitude: Double = 0.0
 
     lateinit var locationManager: LocationManager
 
+    private val requestMultiplePermissions =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            permissions.entries.forEach {
+                Log.d(TAG, "${it.key} = ${it.value}")
+            }
+            if (permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true &&
+                permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true) {
+                Log.d(TAG, "Permission granted")
+            } else {
+                Log.d(TAG, "Permission not granted")
+            }
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         if(ActivityCompat.checkSelfPermission(requireContext(),
-                android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireContext(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(requireActivity(),
-                        arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION),
+                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),
                         REQUEST_CODE)
         }
         super.onCreate(savedInstanceState)
@@ -82,30 +103,63 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
     }
 
     private fun updateFeed(advertList: ArrayList<Advert>) {
+        //TODO: temporarily updating location from here
+        getCurrentLocation()
+        Log.d("Latitude", latitude.toString())
+        Log.d("Longitude", longitude.toString())
+
         val adCardAdapter = AdCardAdapter(context, advertList)
         val linearLayoutManager = LinearLayoutManager(context)
         binding.idRVAdCreation.layoutManager = linearLayoutManager
         binding.idRVAdCreation.adapter = adCardAdapter
     }
 
-//    private fun getCurrentLocation(): Array<String> {
-//        locationManager = activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-//
-//
-//    }
+    private fun getCurrentLocation() {
+        locationManager = activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        var gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        //var networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
 
-    private val locationListener: LocationListener = object : LocationListener {
-        override fun onLocationChanged(location: Location) {
-//            thetext.text = ("" + location.longitude + ":" + location.latitude)
+        if (gpsEnabled) {
+            if (ActivityCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(requireActivity(),
+                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.ACCESS_COARSE_LOCATION),
+                        REQUEST_CODE)
+                //TODO: onRequestPermissionResult is deprecated;
+                // implementing registerForActivityResult [#58] [https://github.com/vikendu/The_Services_App/issues/58#issuecomment-908874144]
+                checkPermissions()
+                return
+            }
+            locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                MIN_DISTANCE,
+                MIN_TIME,
+                object : LocationListener {
+                    override fun onLocationChanged(p0: Location) {
+                        //TODO: ("Not yet implemented")
+                        longitude = p0.longitude
+                        latitude =  p0.latitude
+                    }
+                })
         }
-        override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {
+    }
 
-        }
-        override fun onProviderEnabled(provider: String) {
-
-        }
-        override fun onProviderDisabled(provider: String) {
-
+    private fun checkPermissions() {
+        if (requireContext().let {
+                ContextCompat.checkSelfPermission(it, Manifest.permission.ACCESS_FINE_LOCATION)
+            } != PackageManager.PERMISSION_GRANTED) {
+            //Log.d(TAG, "Request Permissions")
+            requestMultiplePermissions.launch(
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
+        } else {
+            //Log.d(TAG, "Permission Already Granted")
         }
     }
 
