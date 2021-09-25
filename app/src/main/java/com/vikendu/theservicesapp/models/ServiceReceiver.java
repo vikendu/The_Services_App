@@ -6,11 +6,13 @@ public class ServiceReceiver {
 
     private String firstName;
     private String lastName;
+    private String email;
     private ArrayList<String> contactList;
 
-    public ServiceReceiver(String firstName, String lastName, ArrayList<String> contactList) {
+    public ServiceReceiver(String firstName, String lastName, String email, ArrayList<String> contactList) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
         this.contactList = contactList;
     }
 
@@ -30,6 +32,14 @@ public class ServiceReceiver {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public ArrayList<String> getContactList() {
