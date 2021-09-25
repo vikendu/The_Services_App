@@ -211,23 +211,22 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private ServiceProvider createNewProvider() {
-        ServiceProvider provider = new ServiceProvider(0,
+        return new ServiceProvider(
+                0,
                 ResourceUtil.getString(mFirstName),
                 ResourceUtil.getString(mLastName),
                 "0.0",
                 ResourceUtil.getString(mEmailView),
                 null,
                 null);
-
-        return provider;
     }
 
     private ServiceReceiver createNewReceiver() {
-        ServiceReceiver receiver = new ServiceReceiver(
+        return new ServiceReceiver(
                 ResourceUtil.getString(mFirstName),
                 ResourceUtil.getString(mLastName),
+                ResourceUtil.getString(mEmailView),
                 null);
-        return receiver;
     }
 
     private void showRegistrationFailed() {
